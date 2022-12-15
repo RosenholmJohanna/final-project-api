@@ -7,8 +7,11 @@ import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.set('strictQuery', true); //due warning mongoose 7
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+  console.log('Connected to the Database successfully')
+});
 mongoose.Promise = Promise;
+
 
 const port = process.env.PORT || 8080;
 const app = express();
@@ -334,3 +337,5 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
