@@ -5,6 +5,10 @@ import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 
+const User = require('./models/userModel')
+const Admin = require('./models/adminModel')
+
+
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.set('strictQuery', true); //due warning mongoose 7
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -37,43 +41,9 @@ app.get("/endpoints", (req, res) => {
 // GET QUESTIONS BY USER_ID
 // GET QUESTIONS BY QUESTION_ID
 
-// USER SCHEMA
-const UserSchema = new mongoose.Schema({
-  // admin: {
-  //   type: Boolean,
-  //   default: false
-  // },
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date() 
-  },
-  roles: {
-    type: [{
-      type: String,
-      enum: ['user', 'admin']
-    }],
-    default: ['user'],
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex")
-  },
-  item: {
-    type: []
-  }
-});
 
-// USER MODEL
-const User = mongoose.model("User", UserSchema);
+// (USER SCHEMA)
+// (USER MODEL)
 
 //GET ALL USERS
 app.get("/users", async (req, res)=> {
@@ -184,41 +154,8 @@ const authenticateUser = async (req, res, next) => {
 }
 
 // ADMIN SCHEMA
-const AdminSchema = new mongoose.Schema({
-  adminname: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date() 
-  },
-  provider: {
-    type: String,
-    required: 'Provider is required'
-},
-providerData: {},
-additionalProvidersData: {},
-  roles: {
-    type: [{
-        type: String,
-        enum: ['user', 'admin']
-    }],
-    default: ['admin'],
-  },
-  accessToken: {
-    type: String,
-    default: () => crypto.randomBytes(128).toString("hex")
-  }
-});
-
 // ADMIN MODEL
-const Admin = mongoose.model("Admin", AdminSchema);
+
 
 //GET ALL ADMINS
 app.get("/admins", async (req, res)=> {
