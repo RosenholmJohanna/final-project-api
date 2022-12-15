@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
-mongoose.set('strictQuery', true);
+mongoose.set('strictQuery', true); //due warning mongoose 7
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = Promise;
 
@@ -21,6 +21,18 @@ app.use(express.json());
 app.get("/endpoints", (req, res) => {
   res.send(listEndpoints(app))
 });
+
+// ROUTES & ENDPOINTS
+// GET /users : all users
+// GET /user/:username : get profile by username
+// POST /register: new user
+// POST /login : already user
+// GET /questions : all questions
+// POST /questions : post a question
+
+// TO CREATE:
+// GET QUESTIONS BY USER_ID
+// GET QUESTIONS BY QUESTION_ID
 
 // USER SCHEMA
 const UserSchema = new mongoose.Schema({
@@ -51,6 +63,9 @@ const UserSchema = new mongoose.Schema({
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString("hex")
+  },
+  item: {
+    type: []
   }
 });
 
@@ -63,7 +78,22 @@ app.get("/users", async (req, res)=> {
   res.status(200).json({success: true, message: "all users", response: users});
 });
 
+// GET USER BY USERNAME
+app.get("/user/:username", async (req, res)=> {
+  const {username} = req.params
+  try {
+    const Profile = await User.findOne({username}).exec();
+    res.json({
+      success: true, username: Profile.username, roles: Profile.roles, id: Profile._id,
+    })
+} catch (error) {
+  res.status(400).json({success: false, message: 'Can not find user ', error});
+}
+});
+
+
 // USER REGISTRATION ENDPOINT
+// this sent to the browser what we get
 app.post("/register", async (req, res) => {
   const { username, password, roles } = req.body;
   try {
@@ -122,6 +152,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// 500 server error
+//403 forbidden auth
+// PATCH likes
+// DELETE
+//COLLECT
 
 //// AUTHORIZATION USER
 // next = callback function
@@ -240,6 +275,7 @@ const authenticateAdmin = async (req, res, next) => {
   }
 }
 
+
 // QUESTIONS SCHEMA
 const QuestionSchema = new mongoose.Schema({
   message: {
@@ -259,42 +295,36 @@ const QuestionSchema = new mongoose.Schema({
   },
   isCollected: {
     type: Boolean,
-    default: false
+    //default: false
   },
   answer: {
-    type: String
+    type: String,
   }
 }); 
 
 // QUESTIONS MODEL
  const Question = mongoose.model("Question", QuestionSchema);
 
-// // GET ALL QUESTIONS FROM ALL USERS
-// secure endpoint - must be logge in to see
-app.get("/questions", authenticateUser);
+
+  // GET ALL QUESTIONS FROM ALL USERS, secure endpoint - must be logge in to see
+app.get("/questions", authenticateUser, authenticateAdmin);
 app.get("/questions", async (req, res)=> {
   const questions = await Question.find({});
-  res.status(200).json({success: true, message: "all questions", response: questions});
+  res.status(200).json({success: true, response: questions}); //message: "all questions"
 });
 
-// GET QUESTIONS BY USER ID
 
 // // POST NEW QUESTION BY USER
-app.post("/questions", authenticateUser)
+app.post("/questions", authenticateUser,) //authenticateAdmin
 app.post("/questions", async (req, res) => {
-  const { message } = req.body;
+  const { message, answer } = req.body;
   try {
-    const newQuestion = await new Question({message}).save();
+    const newQuestion = await new Question({message, answer}).save();
     res.status(201).json({success: true, response: newQuestion});
   } catch (error) {
     res.status(400).json({success: false, response: error});
   }
 });
-
-
-/**************************************/ 
-
-
 
 app.get("/", (req, res) => {
   res.send("Final Project backend");
