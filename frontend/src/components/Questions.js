@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
 import { API_URL } from "../utils/utils";
-//import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components"
 
 // for questions- go to store and get the questions items
@@ -15,7 +15,8 @@ const Questions = () => {
         const options = {
             method: "GET",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                //"Authorization": accessToken
             }
         }
         fetch(API_URL("questions"), options) // "questions : the string we fetch from", opions : our specify

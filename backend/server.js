@@ -7,7 +7,7 @@ import listEndpoints from "express-list-endpoints";
 
 const User = require('./models/userModel')
 const Admin = require('./models/adminModel')
-
+const Question = require('./models/questionModel')
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 mongoose.set('strictQuery', true); //due warning mongoose 7
@@ -18,38 +18,28 @@ mongoose.Promise = Promise;
 
 
 const port = process.env.PORT || 8080;
+
 const app = express();
 
-// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
-//shows the available endpoints
+// To Do:
+// PATCH/PUT likes // DELETE question
+// COLLECTIONS Saved questions to collections
+// DELETE Question by user and admin
+
+
+
 app.get("/endpoints", (req, res) => {
-  res.send(listEndpoints(app))
-});
-
-// ROUTES & ENDPOINTS
-// GET /users : all users
-// GET /user/:username : get profile by username
-// POST /register: new user
-// POST /login : already user
-// GET /questions : all questions
-// POST /questions : post a question
-
-// TO CREATE:
-// GET QUESTIONS BY USER_ID
-// GET QUESTIONS BY QUESTION_ID
-
-
-// (USER SCHEMA)
-// (USER MODEL)
-
-//GET ALL USERS
-app.get("/users", async (req, res)=> {
-  const users = await User.find({});
-  res.status(200).json({success: true, message: "all users", response: users});
-});
+    res.send(listEndpoints(app))
+  });
+  
+  //GET ALL USERS
+  app.get("/users", async (req, res)=> {
+    const users = await User.find({});
+    res.status(200).json({success: true, message: "all users", response: users});
+  });
 
 // GET USER BY USERNAME
 app.get("/user/:username", async (req, res)=> {
@@ -57,7 +47,7 @@ app.get("/user/:username", async (req, res)=> {
   try {
     const Profile = await User.findOne({username}).exec();
     res.json({
-      success: true, username: Profile.username, roles: Profile.roles, id: Profile._id,
+      success: true, username: Profile.username, roles: Profile.roles, id: Profile._id, items: Profile.items
     })
 } catch (error) {
   res.status(400).json({success: false, message: 'Can not find user ', error});
@@ -65,8 +55,7 @@ app.get("/user/:username", async (req, res)=> {
 });
 
 
-// USER REGISTRATION ENDPOINT
-// this sent to the browser what we get
+// USER REGISTRATION ENDPOINT ( this sent to the browser what we get)
 app.post("/register", async (req, res) => {
   const { username, password, roles } = req.body;
   try {
@@ -125,12 +114,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// 500 server error
-//403 forbidden auth
-// PATCH likes
-// DELETE
-//COLLECT
-
 //// AUTHORIZATION USER
 // next = callback function
 const authenticateUser = async (req, res, next) => {
@@ -152,10 +135,6 @@ const authenticateUser = async (req, res, next) => {
     })
   }
 }
-
-// ADMIN SCHEMA
-// ADMIN MODEL
-
 
 //GET ALL ADMINS
 app.get("/admins", async (req, res)=> {
@@ -214,55 +193,31 @@ const authenticateAdmin = async (req, res, next) => {
     })
   }
 }
-
-
-// QUESTIONS SCHEMA
-const QuestionSchema = new mongoose.Schema({
-  message: {
-    type: String,
-  },
-  createdAt: {
-    type: Date,
-    default: () => new Date() 
-  },
-  likes: {
-    type: Number,
-    default: 0
-   },
-  user: {
-	type: mongoose.Schema.Types.ObjectId,
-	ref: 'User',
-  },
-  isCollected: {
-    type: Boolean,
-    //default: false
-  },
-  answer: {
-    type: String,
-  }
-}); 
-
-// QUESTIONS MODEL
- const Question = mongoose.model("Question", QuestionSchema);
-
-
-  // GET ALL QUESTIONS FROM ALL USERS, secure endpoint - must be logge in to see
-app.get("/questions", authenticateUser, authenticateAdmin);
+ 
+// GET ALL QUESTIONS FROM ALL USERS, secure endpoint - must be logge in to see
+//app.get("/questions", authenticateUser, authenticateAdmin); // withthis I can't see questions, even if loged in.. 
 app.get("/questions", async (req, res)=> {
   const questions = await Question.find({});
-  res.status(200).json({success: true, response: questions}); //message: "all questions"
+  res.status(200).json({
+    success: true, 
+    response: questions}); 
 });
 
 
+//POST ANSWER?  or PUT/PATCH to question??? 
+
 // // POST NEW QUESTION BY USER
-app.post("/questions", authenticateUser,) //authenticateAdmin
+//app.post("/questions", authenticateUser,) //authenticateAdmin
 app.post("/questions", async (req, res) => {
   const { message, answer } = req.body;
   try {
     const newQuestion = await new Question({message, answer}).save();
     res.status(201).json({success: true, response: newQuestion});
   } catch (error) {
-    res.status(400).json({success: false, response: error});
+    res.status(400).json({
+        success: false, 
+        response: error
+    });
   }
 });
 

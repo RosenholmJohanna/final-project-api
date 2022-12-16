@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+//import {user} from "./user";
 
 //from backend
 const questions = createSlice({
@@ -6,7 +7,8 @@ const questions = createSlice({
     initialState:{
         items: [],
         error: null,
-        collected: ''
+        //isCollected: Boolean
+        //user: null
     },
     reducers: {
         setItems: (store, action) => {
@@ -14,10 +16,13 @@ const questions = createSlice({
         },
         setError: (store, action) => {
             store.error = action.payload;
-        },
-        setCollected: (store, action) => {
-            store.collected = action.payload;
         }
+        // setIsCollected: (store, action) => {
+        //     store.collected = action.payload;
+        // }
+        // setUser: (store, action) => {
+        //     store.user = action.payload;
+        // }
     }
 });
 

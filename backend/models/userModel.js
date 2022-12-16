@@ -3,10 +3,6 @@ const Schema = mongoose.Schema;
 import crypto from "crypto"
 
 const UserSchema = new mongoose.Schema({
-    // admin: {
-    //   type: Boolean,
-    //   default: false
-    // },
     username: {
       type: String,
       required: true,
@@ -31,8 +27,8 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: () => crypto.randomBytes(128).toString("hex")
     },
-    item: {
-      type: []
+    collections: {
+      type: [String] //questions = string & imgages = BSON?
     }
   });
  
