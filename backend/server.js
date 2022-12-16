@@ -42,17 +42,56 @@ app.get("/endpoints", (req, res) => {
   });
 
 // GET USER BY USERNAME
-app.get("/user/:username", async (req, res)=> {
+app.get("/users/:username", async (req, res)=> {
   const {username} = req.params
   try {
     const Profile = await User.findOne({username}).exec();
     res.json({
-      success: true, username: Profile.username, roles: Profile.roles, id: Profile._id, items: Profile.items
+      success: true, 
+      username: Profile.username, 
+      roles: Profile.roles,
+      id: Profile._id,
+      collections: Profile.collections
     })
 } catch (error) {
   res.status(400).json({success: false, message: 'Can not find user ', error});
 }
 });
+
+// // DOES NOT WORK
+// // GET USER BY USER _ID
+// app.get("/users/:_id", async (req, res)=> {
+//     const { _id } = req.params
+//     try {
+//     if (_id) {
+//       const userProfile = await User.findById({_id}).exec();
+//       const collections = []
+//       for (const question of userProfile.collections) {
+//         const questionObject = await Question.findById(question)
+//         collections.push(questionObject)
+//       }
+//     }
+//       res.json({
+//         success: true, 
+//         username: userProfile.username, 
+//         roles: userProfile.roles,
+//         id: userProfile._id,
+//         collections: userProfile.collections
+//       })
+//   } catch (error) {
+//     res.status(404).json({
+//         success: false,
+//         message: 'Can not find ',
+//         error});
+//   }
+//   });
+
+// DELETE qQUESTION BY USER(ID) OR ADMIN
+// app.delete('/users/:_id', authenticateUser, authenticateAdmin)
+// app.delete('/users/:_id', async (req, res) => {
+//   const { _id } = req.params
+// })
+
 
 
 // USER REGISTRATION ENDPOINT ( this sent to the browser what we get)
@@ -195,7 +234,7 @@ const authenticateAdmin = async (req, res, next) => {
 }
  
 // GET ALL QUESTIONS FROM ALL USERS, secure endpoint - must be logge in to see
-//app.get("/questions", authenticateUser, authenticateAdmin); // withthis I can't see questions, even if loged in.. 
+app.get("/questions", authenticateUser); //(, authenticateAdmin) withthis I can't see questions, even if loged in.. 
 app.get("/questions", async (req, res)=> {
   const questions = await Question.find({});
   res.status(200).json({
@@ -207,7 +246,7 @@ app.get("/questions", async (req, res)=> {
 //POST ANSWER?  or PUT/PATCH to question??? 
 
 // // POST NEW QUESTION BY USER
-//app.post("/questions", authenticateUser,) //authenticateAdmin
+app.post("/questions", authenticateUser,) //authenticateAdmin
 app.post("/questions", async (req, res) => {
   const { message, answer } = req.body;
   try {

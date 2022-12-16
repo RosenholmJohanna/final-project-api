@@ -27,11 +27,18 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: () => crypto.randomBytes(128).toString("hex")
     },
-    collections: {
-      type: [String] //questions = string & imgages = BSON?
-    }
+    // collections: {
+    //   type: [String] //questions = string & imgages = BSON?
+    // }
+    collections: [{
+      type: mongoose.Schema.Types.ObjectId, 
+      default: [],
+      ref: 'Questions'
+    }]
   });
  
+
+  
   const User = mongoose.model("User", UserSchema);
 
 
