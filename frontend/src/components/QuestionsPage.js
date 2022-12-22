@@ -4,45 +4,62 @@ import questions from "../reducers/questions";
 import { API_URL } from "../utils/utils";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components"
+import NewQuestion from './NewQuestion';
+
 
 // for questions- go to store and get the questions items
 const Questions = () => {
-    const questionItems = useSelector((store) => store.questions.items) 
-    const dispatch = useDispatch();
-  
 
+    const questionItems = useSelector((store) => store.questions.items) 
+    const newQuestion = useSelector((store) => store.questions.items) 
+    const dispatch = useDispatch();
+    const accessToken = useSelector((store) => store.user.accessToken);
+    const navigate = useNavigate();
+    //const { _id } = useParams()
+
+    // useEffect( () => {
+    //     if (!accessToken) {
+    //         navigate("/login");
+    //     }
+    // }, []);
+    
     useEffect(()=> {
         const options = {
-            method: "GET",
+            method: "GET", 
             headers: {
                 "Content-Type": "application/json",
-                //"Authorization": accessToken
-            }
+                "Authorization": accessToken
+            },
         }
+
         fetch(API_URL("questions"), options) // "questions : the string we fetch from", opions : our specify
             .then(res => res.json())
             .then(data => {
                 if(data.success) {
                     dispatch(questions.actions.setItems(data.response)); // if data is success be get from the backend a big array of items.
                     dispatch(questions.actions.setError(null));
+                        //console.log("fetch OK", questions)
                 } else {
                     dispatch(questions.actions.setItems([]));
                     dispatch(questions.actions.setError(data.response));
+                        //console.log("fetch NOT OK", questions)
                 }
             })
     }, [])  
+    
     return(
         <>
           <h3>Questions Wall!</h3>
+          <NewQuestion/>
           {questionItems.map((item) => {
             return (
             <QuestionContainer>
-                <p key={item._id}>
-                <p div>Question: {item.message}</p>  
-                <p div>QuestionID:  {item._id}</p> 
-                <p div> Answer:  {item.answer}</p> 
-                <p div>👍 {item.likes}</p> 
-                </p>
+                <div key={item._id}>
+                <p>Question: {item.message}</p>  
+                <p>QuestionID:  {item._id}</p> 
+                <p> Answer:  {item.answer}</p> 
+                <p>👍 {item.likes}</p> 
+                </div>
             </QuestionContainer>
             )
            })}

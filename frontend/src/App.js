@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Login from './components/Login';
-import Questions from './components/Questions';
+import Questions from './components/QuestionsPage';
 import NotFound from './components/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
@@ -21,8 +21,9 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path={'/login'} element={<Login/>}></Route>
+          <Route path='/' element={<Main/>}></Route> 
+         
           <Route path={'/questions'} element={<Questions/>}></Route>
-          <Route path='/' element={<Main/>}></Route>
           <Route path='*' element={<NotFound/>}></Route> 
         </Routes>
       </BrowserRouter>

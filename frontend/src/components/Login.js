@@ -13,7 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     //const [adminname, setAdminname] = useState("");
     //const [password, setPassword] = useState("");
-    // const [mode, setMode] = useState("login");
+    const [mode, setMode] = useState("login");
      const dispatch = useDispatch();
      const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);// click loggin - reponse with token in network - tooken stored in slice - we go there to get it
@@ -31,10 +31,11 @@ const Login = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                //"Authorization": accessToken
             },
             body: JSON.stringify({username: username, password: password})
         }
-        fetch(API_URL("login"), options) //(mode)
+        fetch(API_URL(mode), options) //(mode)
           .then(response => response.json())
           .then(data => {
                 // console.log(data)
@@ -62,13 +63,13 @@ const Login = () => {
         <Loginpagetext>
           Register/Login Page
         </Loginpagetext>
-       
-        {/* <label htmlFor="register">New user? 
+{/*        
+        <label htmlFor="register">New user? 
         <input
             type="radio" label="register" id="register" 
             checked={mode === "register"} 
             onChange={()=>setMode("register")}/> 
-        </label>
+        </label> */}
         
         <label htmlFor="login">Already a user?
         <input
@@ -76,7 +77,7 @@ const Login = () => {
             checked={mode === "login"}
             onChange={()=>setMode("login")}/>
         </label>
-        */}
+       
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
         <input 

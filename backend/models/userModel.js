@@ -16,12 +16,16 @@ const UserSchema = new mongoose.Schema({
       type: Date,
       default: () => new Date() 
     },
+    // roles: {
+    //   type: [{
+    //     type: String,
+    //     enum: ['user', 'admin']
+    //   }],
+    //   default: ['user'],
+    // },
     roles: {
-      type: [{
-        type: String,
-        enum: ['user', 'admin']
-      }],
-      default: ['user'],
+      type: String,
+      default: 'user'
     },
     accessToken: {
       type: String,
@@ -33,7 +37,7 @@ const UserSchema = new mongoose.Schema({
     collections: [{
       type: mongoose.Schema.Types.ObjectId, 
       default: [],
-      ref: 'Questions'
+      ref: 'Question'
     }]
   });
  
