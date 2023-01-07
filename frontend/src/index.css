@@ -9,6 +9,7 @@ body {
   /* background-color: #011627ff; */
   background-color: #000112;
   color: white;
+  margin: 0;
 }
 
 code {
@@ -32,9 +33,10 @@ input {
 button {
   margin: 2%;
   padding: 10px;
-  color: white;
-  background-color: #eb9c46;
+  color: #003255;
+  background-color: #91BAD6;
   border-radius: 10px;
+  border: 1px solid white;
 }
 
 

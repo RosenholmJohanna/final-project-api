@@ -5,37 +5,40 @@ import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
 
-// import user from "./models/userModel"
-// import admin from "./models/adminModel"
-//import Question from "./models/questionModel"
+import { UserSchema } from "./models/userModel";
+const User = mongoose.model("User", UserSchema);
 
-const User = require('./models/userModel')
+import { QuestionSchema } from "./models/questionModel"
+const Question = mongoose.model("Questions", QuestionSchema);
+
+//const User = require('./models/userModel')
 const Admin = require('./models/adminModel')
-const Question = require('./models/questionModel')
+//const Question = require('./models/questionModel')
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
-mongoose.set('strictQuery', true); //due warning mongoose 7
+//mongoose.set('strictQuery', true); //due warning mongoose 7 
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   console.log('Connected to the Database successfully')
-});
-mongoose.Promise = Promise;
-
+}); mongoose.Promise = Promise;
 
 const port = process.env.PORT || 8080;
-
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+// List endpoints
 app.get("/endpoints", (req, res) => {
     res.send(listEndpoints(app))
   });
-  
+
   //GET ALL USERS
   app.get("/users", async (req, res)=> {
     const users = await User.find({});
-    res.status(200).json({success: true, message: "all users", response: users});
+    res.status(200).json({
+      success: true, 
+      message: "all users", 
+      response: users});
   });
 
 // GET USER BY USERNAME
@@ -46,45 +49,21 @@ app.get("/users/:username", async (req, res)=> {
     res.json({
       success: true, 
       username: Profile.username, 
-      roles: Profile.roles,
+      //roles: Profile.roles,
       id: Profile._id,
-      collections: Profile.collections
+      //collections: Profile.collections
     })
 } catch (error) {
   res.status(400).json({success: false, message: 'Can not find user ', error});
 }
 });
 
-// // USER BY ID: HERE I GET THE ITEMS... but not the rights user, but the first one in list
-// app.get("/users/id/:id", async (req, res) => {
-//   try {
-//     const userById=await User.findOne({user_ID: req.params.user_ID})
-//   if(userById) {
-//     res.status(200).json({
-//       data: userById,
-//       success: true,
-//     })
-//   } else {
-//     res.status(404).json({
-//       error: 'No user with that user ID was found.',
-//       success: false,
-//     })
-//   }
-//   } catch (err) {
-//     res.status(400).json({
-//       error: 'Invalid user ID',
-//       success: false,
-//     })
-//   }
-//   })
-
-//GET USER BY ID - get the right user but not the item
+//GET USER BY ID 
   app.get("/users/id/:_id", async (req, res) => {
     const { _id } = req.params
-    
     try {
     if(_id) {
-      const userById =await User.findById({_id});
+      const userById =await User.findById({_id}).exec();
       //const collections = []
       res.status(200).json({
         data: userById,
@@ -104,41 +83,28 @@ app.get("/users/:username", async (req, res)=> {
     }
     })
 
-
-// // DOES NOT WORK - (REGEX)
-// // GET USER BY USER _ID
-// app.get("/users/:_id", async (req, res)=> {
-//     const { _id } = req.params
-//     try {
-//     if (_id) {
-//       const userProfile = await User.findById({_id}).exec();
-//       const collection = []
-//       for (const question of userProfile.collections) {
-//         const questionObject = await Question.findById(question)
-//         collections.push(questionObject)
-//       }
-//     }
-//       res.json({
-//         success: true, 
-//         username: userProfile.username, 
-//         roles: userProfile.roles,
-//         id: userProfile._id,
-//         collections: userProfile.collections
-//       })
-//   } catch (error) {
-//     res.status(404).json({
-//         success: false,
-//         message: 'Can not find ',
-//         error});
-//   }
-//   });
-
-// DELETE QUESTION BY USER(ID) OR ADMIN
-// app.delete('/users/:_id', authenticateUser, authenticateAdmin)
-// app.delete('/users/:_id', async (req, res) => {
-//   const { _id } = req.params
-// })
-
+    // DELETE USER BY ID
+    app.delete('/users/:id', async (req, res) => {
+      const { id } = req.params
+      try {
+        const deletedUserById = await User.findByIdAndDelete(id)
+        if (deletedUserById) {
+          res.json({
+            success: true, deletedUserById,
+            message: 'user is deleted'
+          })
+        } else {
+          res.status(404).json({ 
+            success: false, 
+            message: 'User with this ID could not be deleted'
+          })
+        }
+      } catch (error) {
+        res.status(400).json({
+          success: false,
+          message: 'Invalid delete user request', error })
+      }
+    })
 
 
 // USER REGISTRATION ENDPOINT ( this sent to the browser what we get)
@@ -159,7 +125,7 @@ app.post("/register", async (req, res) => {
           username: newUser.username,
           accessToken: newUser.accessToken,
           id: newUser._id,
-          roles: newUser.roles
+          // roles: newUser.roles
         }
       });
     }
@@ -207,6 +173,7 @@ const authenticateUser = async (req, res, next) => {
   try {
     const user = await User.findOne({accessToken: accessToken});
     if (user) {
+      req.user = user 
       next();
     } else {
       res.status(401).json({
@@ -223,44 +190,242 @@ const authenticateUser = async (req, res, next) => {
 }
 
 //GET ALL ADMINS - works
-app.get("/admins", async (req, res)=> {
-  const admins = await Admin.find({});
+// ADMIN REGISTRATION ENDPOINT - works
+// //// AUTHORIZATION ADMIN
+
+// GET ALL QUESTIONS FROM ALL USERS, authenticateAdmin
+app.get("/questions", async (req, res)=> {
+  try {
+  const questions = await Question.find().limit(Number(20)); //.sort({createdAt: 'desc'}); // ({})
   res.status(200).json({
     success: true, 
-    message: "all admins", 
-    response: admins});
-});
+    response: questions
+  }); 
+} catch (err) {
+  res.status(400).json({
+    success: false,
+    message: 'Invalid request for questions'
+  })
+}
+})
 
-// ADMIN REGISTRATION ENDPOINT - works
-app.post("/registeradmin", async (req, res) => {
-  const { adminname, password } = req.body;
+// GET QUESTION by QUESTION ID
+app.get("/questions/id/:_id", async (req, res) => {
+  const { _id } = req.params
   try {
-    const salt = bcrypt.genSaltSync();
-    if (password.length < 3) {
-      res.status(400).json({
-        success: false,
-        response: "Password must be at least 3 characters long"
-      });
-    } else {
-      const newAdmin = await new Admin ({adminname: adminname, password: bcrypt.hashSync(password, salt)}).save();
+    // const questionById=await Question.findById({questionID: req.params._id})
+  if(_id) {
+    const questionById =await Question.findById({_id});
+    res.status(200).json({
+      data: questionById,
+      success: true,
+    })
+  } else {
+    res.status(404).json({
+      error: 'No question with that question ID was found.',
+      success: false,
+    })
+  }
+  } catch(error) {
+    res.status(400).json({
+      error: 'Invalid question ID',
+      success: false,
+    })
+  }
+  })
+
+// POST QUESTION BY AUTH USER - SECURE
+app.post("/questions",  async (req, res) => {
+  const { message } = req.body;
+ // const { _id } = req.user
+  try {
+    const newQuestion = await new Question({
+      message,
+      //user: _id,
+    }).save();
+    if (newQuestion) {
       res.status(201).json({
-        success: true,
+        success: true, 
+       // response: newQuestion,
+
+       //response: see in console
         response: {
-          adminname: newAdmin.adminname,
-          accessToken: newAdmin.accessToken,
-          id: newAdmin._id
-        }
+        _id: newQuestion._id,
+         message: newQuestion.message,
+         likes: newQuestion.likes,
+         disLikes: newQuestion.disLikes
+        // user: newQuestion.user,
+         //answer: newQuestion.answer
+       }
       });
     }
-  } catch(error) {
-      res.status(400).json({
-        success: false,
+  } catch (error) {
+    res.status(400).json({
+        success: false, 
         response: error
-      });
+    });
   }
 });
 
-// //// AUTHORIZATION ADMIN
+//PATCH ANSWER TO A QUESTION : WORKS IN POSTMAN; SET AUTH KEY VALUE AND BODY: "ANSWER".
+app.patch('/questions/:questionId/answer', async (req, res) => {
+  const { questionId } = req.params
+  const { answer } = req.body
+  //const { _id } = req.user
+
+  try {
+    const updatedQuestion = await Question.findByIdAndUpdate(questionId, {
+      $push: {
+        answers: {
+          answer,
+          //user:_id
+        }
+      }
+     }, {new: true} //new give the updated object
+    )
+    if (updatedQuestion) {
+      res.json({
+        success: true,
+        
+        question: {
+         // response: `Question ${updatedQuestion.answers} it is updated`,
+          _id: updatedQuestion._id,
+          message: updatedQuestion.message,
+          answer: updatedQuestion.answers,
+          createdAt: updatedQuestion.createdAt,
+          user: updatedQuestion.user,
+        }
+      })
+    } else {
+      res.status(404).json({ success: false, message: 'Could not answer post' })
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error })
+  }
+})
+//https://attacomsian.com/blog/mongoose-increment-decrement-number
+//PATCH LIKES TO QUESTION
+app.patch('/questions/:questionId/like', async (req, res) => {
+  const { questionId } = req.params
+  try {
+  const updatedQuestion = await Question.findByIdAndUpdate( //questionid 
+    {_id: questionId}, {$inc: {likes: 1}}, { new: true} // { new: true} // save last or it wont update
+   )
+    if (updatedQuestion) {
+      res.json({
+        success: true,
+        question: {
+          _id: updatedQuestion._id,
+          message: updatedQuestion.message,
+          likes: updatedQuestion.likes,
+          createdAt: updatedQuestion.createdAt
+        }
+      })
+    } else {
+      res.status(404).json({ success: false, message: 'Could not like question' })
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid like question request', error })
+  }
+})
+
+//PATCH DISLIKE TO QUESTION
+app.patch('/questions/:questionId/dislike', async (req, res) => {
+  const { questionId } = req.params
+  try {
+  const updatedQuestion = await Question.findByIdAndUpdate( 
+    { _id: questionId }, 
+    { $inc: {disLikes: 1}}, 
+    { new: true} 
+   )
+    if (updatedQuestion) {
+      res.json({
+        success: true,
+        question: {
+          _id: updatedQuestion._id,
+          message: updatedQuestion.message,
+          disLikes: updatedQuestion.disLikes,
+          createdAt: updatedQuestion.createdAt
+        }
+      })
+    } else {
+      res.status(404).json({ success: false, message: 'Could not dislike question' })
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid dislike question request', error })
+  }
+})
+
+//PATCH LIKES TO ANSWER
+
+
+// DELETE QUESTION BY ID
+app.delete('/questions/:id', async (req, res) => {
+  const { id } = req.params
+  try {
+    const deletedQuestionById = await Question.findByIdAndDelete(id)
+    if (deletedQuestionById) {
+      res.json({
+        success: true, deletedQuestionById,
+        message: 'Question is deleted'
+      })
+    } else {
+      res.status(404).json({ 
+        success: false, 
+        message: 'Question with this ID could not be deleted'
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Invalid delete question request', error })
+  }
+})
+
+    
+app.get("/", (req, res) => {
+  res.send("Final Project backend");
+});
+
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// req body: data sent from client to  my API
+// res body: data my API sends to client
+
+// To Do:
+// POST answer by admin
+// POST/GET COLLECTIONS Save() questions to collections
+// DELETE Question by user and admin
+
+// // USER BY ID: HERE I GET THE ITEMS... but not the rights user, but the first one in list
+// app.get("/users/id/:id", async (req, res) => {
+//   try {
+//     const userById=await User.findOne({user_ID: req.params.user_ID})
+//   if(userById) {
+//     res.status(200).json({
+//       data: userById,
+//       success: true,
+//     })
+//   } else {
+//     res.status(404).json({
+//       error: 'No user with that user ID was found.',
+//       success: false,
+//     })
+//   }
+//   } catch (err) {
+//     res.status(400).json({
+//       error: 'Invalid user ID',
+//       success: false,
+//     })
+//   }
+//   })
+
+//authorization admin
 // // next = callback function
 // const authenticateAdmin = async (req, res, next) => {
 //   const accessToken = req.header("Authorization");
@@ -282,73 +447,74 @@ app.post("/registeradmin", async (req, res) => {
 //   }
 // }
 
-// GET & POST question: doesnt work with both admin and user at same tine (), but with one each...
-// GET ALL QUESTIONS FROM ALL USERS, secure endpoint - must be logge in to see
-app.get("/questions",  authenticateUser); ////authenticateAdmin
-app.get("/questions", async (req, res)=> {
-  const questions = await Question.find({});
-  res.status(200).json({
-    success: true, 
-    response: questions}); 
-});
+// // DOES NOT WORK - (REGEX)
+// // GET USER BY USER _ID
+// app.get("/users/:_id", async (req, res)=> {
+//     const { _id } = req.params
+//     try {
+//     if (_id) {
+//       const userProfile = await User.findById({_id}).exec();
+//       const collection = []
+//       for (const question of userProfile.collections) {
+//         const questionObject = await Question.findById(question)
+//         collections.push(questionObject)
+//       }
+//     }
+//       res.json({
+//         success: true, 
+//         username: userProfile.username, 
+//         roles: userProfile.roles,
+//         id: userProfile._id,
+//         collections: userProfile.collections
+//       })
+//   } catch (error) {
+//     res.status(404).json({
+//         success: false,
+//         message: 'Can not find ',
+//         error});
+//   }
+//   });
 
-// GET QUESTION by QUESTION ID
-app.get("/questions/id/:questionID", async (req, res) => {
-  try {
-    const questionById=await Question.findOne({questionID: req.params.questionID})
-  if(questionById) {
-    res.status(200).json({
-      data: questionById,
-      success: true,
-    })
-  } else {
-    res.status(404).json({
-      error: 'No book with that question ID was found.',
-      success: false,
-    })
-  }
-  } catch (err) {
-    res.status(400).json({
-      error: 'Invalid question ID',
-      success: false,
-    })
-  }
-  })
-  
+// DELETE QUESTION BY USER(ID) OR ADMIN
+// app.delete('/users/:_id', authenticateUser, authenticateAdmin)
+// app.delete('/users/:_id', async (req, res) => {
+//   const { _id } = req.params
+// })
 
-// // POST NEW QUESTION BY USER
-app.post("/questions",  authenticateUser) //authenticateAdmin
-app.post("/questions", async (req, res) => {
-  const { message, answer } = req.body;
-  try {
-    const newQuestion = await new Question({message, answer}).save();
-    res.status(201).json({success: true, response: newQuestion});
-  } catch (error) {
-    res.status(400).json({
-        success: false, 
-        response: error
-    });
-  }
-});
+// //GET ALL ADMINS - works
+// app.get("/admins", async (req, res)=> {
+//   const admins = await Admin.find({});
+//   res.status(200).json({
+//     success: true, 
+//     message: "all admins", 
+//     response: admins});
+// });
 
-app.get("/", (req, res) => {
-  res.send("Final Project backend");
-});
-
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
-
-
-
-// req body: data sent from client to  my API
-// res body: data my API sends to client
-//POST ANSWER?  or PUT/PATCH to question??? 
-
-// To Do:
-// POST answer by admin
-// POST question by user
-// PATCH likes by ALL users, NOT admin
-// POST/GET COLLECTIONS Save() questions to collections
-// DELETE Question by user and admin
-
+// // ADMIN REGISTRATION ENDPOINT - works
+// app.post("/registeradmin", async (req, res) => {
+//   const { adminname, password } = req.body;
+//   try {
+//     const salt = bcrypt.genSaltSync();
+//     if (password.length < 3) {
+//       res.status(400).json({
+//         success: false,
+//         response: "Password must be at least 3 characters long"
+//       });
+//     } else {
+//       const newAdmin = await new Admin ({adminname: adminname, password: bcrypt.hashSync(password, salt)}).save();
+//       res.status(201).json({
+//         success: true,
+//         response: {
+//           adminname: newAdmin.adminname,
+//           accessToken: newAdmin.accessToken,
+//           id: newAdmin._id
+//         }
+//       });
+//     }
+//   } catch(error) {
+//       res.status(400).json({
+//         success: false,
+//         response: error
+//       });
+//   }
+// });

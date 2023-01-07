@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+//const Schema = mongoose.Schema;
 import crypto from "crypto"
 
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
     username: {
       type: String,
       required: true,
@@ -16,13 +16,6 @@ const UserSchema = new mongoose.Schema({
       type: Date,
       default: () => new Date() 
     },
-    // roles: {
-    //   type: [{
-    //     type: String,
-    //     enum: ['user', 'admin']
-    //   }],
-    //   default: ['user'],
-    // },
     roles: {
       type: String,
       default: 'user'
@@ -43,7 +36,7 @@ const UserSchema = new mongoose.Schema({
  
 
   
-  const User = mongoose.model("User", UserSchema);
+  //const User = mongoose.model("User", UserSchema);
 
 
-  module.exports = User
+  //module.exports = User

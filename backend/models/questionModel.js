@@ -1,5 +1,6 @@
+//import mongoose from 'mongoose';
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+//const Schema = mongoose.Schema;
 
 
 //boolean admin or not
@@ -7,14 +8,24 @@ const Schema = mongoose.Schema;
 // booleean for admin vs user
 // create creator for question - if creator id match the question object id then delete.
 // same for answer 
-const QuestionSchema = new mongoose.Schema({
+
+export const QuestionSchema = new mongoose.Schema({
     message: {
       type: String, 
-        roles: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'user'
-        }
+      //required: true
+        // roles: {
+        //   type: mongoose.Schema.Types.ObjectId,
+        //   ref: 'user'
+        // }
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    },
+    // username: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'user'
+    // },
     createdAt: {
       type: Date,
       default: () => new Date() 
@@ -23,19 +34,40 @@ const QuestionSchema = new mongoose.Schema({
       type: Number,
       default: 0
      },
+     disLikes: {
+      type: Number,
+      default: 0
+     },
     isCollected: {
       type: Boolean,
       default: false
     },
-    answer: {
-        type: String, 
-          roles: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'admin' 
-          }
+    answers: [{
+      answer: {
+        type: String
       },
+      // createdAt: {
+      //   type: Date,
+      //   default: () => new Date() 
+      // },
+      //admin
+      // user: {
+      //   type: mongoose.Schema.Types.ObjectId,
+      //   ref: 'user'
+      // },
+      question: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'question'
+      }
+    }]
+    // answer: {
+    //     type: String, 
+    //       roles: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'admin' 
+    //       }
+    //   },
 })
   
-const Question = mongoose.model("Questions", QuestionSchema);
- 
-module.exports = Question
+//const Question = mongoose.model("Questions", QuestionSchema);
+//module.exports = Question

@@ -12,18 +12,16 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     //const [adminname, setAdminname] = useState("");
-    //const [password, setPassword] = useState("");
-    const [mode, setMode] = useState("login");
+    const [mode, setMode] = useState("login"); //login=slug
      const dispatch = useDispatch();
      const navigate = useNavigate();
     const accessToken = useSelector((store) => store.user.accessToken);// click loggin - reponse with token in network - tooken stored in slice - we go there to get it
     
     useEffect(() => {
         if (accessToken) {
-            navigate("/");
+            navigate("/main");
         }
     }, [accessToken])
-
 
     const onFormSubmit =(event) => {
     event.preventDefault();
@@ -31,14 +29,13 @@ const Login = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                //"Authorization": accessToken
+                "Authorization": accessToken
             },
             body: JSON.stringify({username: username, password: password})
         }
-        fetch(API_URL(mode), options) //(mode)
+        fetch(API_URL(mode), options) 
           .then(response => response.json())
           .then(data => {
-                // console.log(data)
             if(data.success) { 
                  batch(()=> {
                     // this 4 happens if we have successfull respons
@@ -46,9 +43,9 @@ const Login = () => {
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
                     dispatch(user.actions.setError(null));
-                    });
+                    }); 
+                    console.log(data)
             } else {
-                // else if we dont have succesfull response
                 batch (() => {
                     dispatch(user.actions.setUsername(null)); 
                     dispatch(user.actions.setUserId(null))
@@ -61,7 +58,7 @@ const Login = () => {
     return (
         <StartPage>
         <Loginpagetext>
-          Register/Login Page
+          Login Page
         </Loginpagetext>
 {/*        
         <label htmlFor="register">New user? 
