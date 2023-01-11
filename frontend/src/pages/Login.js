@@ -69,7 +69,7 @@ const Login = () => {
         </label> */}
         
         <label htmlFor="login">Already a user?
-        <input
+        <input 
             type="radio" id="login" 
             checked={mode === "login"}
             onChange={()=>setMode("login")}/>
@@ -95,6 +95,7 @@ const Login = () => {
             onChange={e => setPassword(e.target.value)}/>
         <button type="submit">Submit</button>
         </form>
+        <h3>Give me some space 🚀</h3>
     </StartPage> 
     );
 }
@@ -112,6 +113,7 @@ text-align: center;
 color: white;
 display: flex;
 flex-direction: column; 
+color: white;
 `
 
 const Loginpagetext = styled.h1 `

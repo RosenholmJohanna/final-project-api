@@ -4,11 +4,10 @@ import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
 
 
-const Start = () => {
-  //const username = useSelector((store) => store.user.username);
-  const navigate = useNavigate();
-  
 
+const Start = () => {
+const navigate = useNavigate();
+  
   useEffect(() => {
   });
 
@@ -21,25 +20,40 @@ const Start = () => {
   }
 
   return(
-    <StartPage>
-    <StartContainer>
-    <h3>"Did you know there are more stars in space than there are grains of sand in the world?"</h3>
-    <h5>Want to learn more?</h5>
-      <button type="button" onClick={goLogin}> Login </button>
-      <button type="button" onClick={goRegister}> Register </button>
+
+    <Wrapper>
+      
+      <StartPage>
+        <StartContainer>
+          <>
+          "Did you know there are more stars in space than there
+           are grains of sand in the world?"
+           </>
+          <h2>Want to learn more?</h2>
+          <button type="button" onClick={goLogin}> Login </button>
+          <button type="button" onClick={goRegister}> Register </button>
       </StartContainer>
-     </StartPage>
+      </StartPage>
+    </Wrapper>
+      
    ) 
 }
 
-
 export default Start;
 
-const StartPage = styled.section`
-text-align: center;
-margin-top: 20%;
+
+
+
+const Wrapper = styled.main`
+margin: 2%;
+@media (min-width: 768px) {
+    margin: 10%;
+  }
 `
-
-const StartContainer = styled.p`
-
+const StartContainer = styled.div`
+`
+const StartPage = styled.div`
+/* background-image: url('https://images.pexels.com/photos/2387877/pexels-photo-2387877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+text-align: center;
+height: 100%; */
 `

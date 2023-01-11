@@ -22,10 +22,10 @@ export const QuestionSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user'
     },
-    // username: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'user'
-    // },
+    username: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'user'
+    },
     createdAt: {
       type: Date,
       default: () => new Date() 
@@ -46,15 +46,14 @@ export const QuestionSchema = new mongoose.Schema({
       answer: {
         type: String
       },
-      // createdAt: {
-      //   type: Date,
-      //   default: () => new Date() 
-      // },
-      //admin
-      // user: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: 'user'
-      // },
+      createdAt: {
+        type: Date,
+        default: () => new Date() 
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+      },
       question: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'question'

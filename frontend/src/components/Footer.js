@@ -6,7 +6,6 @@ export const Footer = () => {
     return (
     <FooterContainer>
     <p>Johanna Rosenholm, Final Project - Technigo 2023</p>
-    <p>REPORT ISSUE</p>
     </FooterContainer>
     ) 
 }
@@ -14,5 +13,7 @@ export const Footer = () => {
 const FooterContainer = styled.footer`
 text-align: center;
 border-top: 1px solid white;
+
+
 
 `

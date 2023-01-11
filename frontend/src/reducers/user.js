@@ -5,6 +5,7 @@ const user = createSlice({
     initialState:{
         error: null,
         username: null,
+        role: null,
         userId: null,
         accessToken: null,
         
@@ -12,6 +13,9 @@ const user = createSlice({
     reducers: {
         setUsername: (store, action) => {
             store.username = action.payload;
+        },
+        setRole: (store, action) => {
+            store.role = action.payload;
         },
         setError: (store, action) => {
             store.error = action.payload;

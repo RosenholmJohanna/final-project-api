@@ -2,10 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //from backend
 const questions = createSlice({
-    name:"questions", //api("questions") ???
+    name:"questions", 
     initialState:{
         items: [],
-        //questions: [],
         error: null,
         //isCollected: Boolean
         //user: null
@@ -21,9 +20,9 @@ const questions = createSlice({
         // setIsCollected: (store, action) => {
         //     store.collected = action.payload;
         // }
-    //     setUser: (store, action) => {
-    //       store.user = action.payload;
-    //     }
+        setUser: (store, action) => {
+          store.user = action.payload;
+        }
      }
 });
 

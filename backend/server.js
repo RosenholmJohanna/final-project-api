@@ -9,6 +9,7 @@ import { UserSchema } from "./models/userModel";
 const User = mongoose.model("User", UserSchema);
 
 import { QuestionSchema } from "./models/questionModel"
+import { exec } from "child_process";
 const Question = mongoose.model("Questions", QuestionSchema);
 
 //const User = require('./models/userModel')
@@ -49,7 +50,6 @@ app.get("/users/:username", async (req, res)=> {
     res.json({
       success: true, 
       username: Profile.username, 
-      //roles: Profile.roles,
       id: Profile._id,
       //collections: Profile.collections
     })
@@ -196,7 +196,7 @@ const authenticateUser = async (req, res, next) => {
 // GET ALL QUESTIONS FROM ALL USERS, authenticateAdmin
 app.get("/questions", async (req, res)=> {
   try {
-  const questions = await Question.find().limit(Number(20)); //.sort({createdAt: 'desc'}); // ({})
+  const questions = await Question.find().sort({createdAt: 'desc'}).limit(20).exec() //.sort({createdAt: 'desc'}); // ({})
   res.status(200).json({
     success: true, 
     response: questions
@@ -272,21 +272,17 @@ app.patch('/questions/:questionId/answer', async (req, res) => {
   const { questionId } = req.params
   const { answer } = req.body
   //const { _id } = req.user
-
   try {
     const updatedQuestion = await Question.findByIdAndUpdate(questionId, {
       $push: {
         answers: {
           answer,
           //user:_id
-        }
-      }
-     }, {new: true} //new give the updated object
+        }}}, {new: true} //new give the updated object
     )
     if (updatedQuestion) {
-      res.json({
+      res.status(201).json({
         success: true,
-        
         question: {
          // response: `Question ${updatedQuestion.answers} it is updated`,
           _id: updatedQuestion._id,
@@ -303,26 +299,31 @@ app.patch('/questions/:questionId/answer', async (req, res) => {
     res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
+
 //https://attacomsian.com/blog/mongoose-increment-decrement-number
 //PATCH LIKES TO QUESTION
 app.patch('/questions/:questionId/like', async (req, res) => {
   const { questionId } = req.params
   try {
-  const updatedQuestion = await Question.findByIdAndUpdate( //questionid 
-    {_id: questionId}, {$inc: {likes: 1}}, { new: true} // { new: true} // save last or it wont update
+  const updatedQuestion = await Question.findByIdAndUpdate(questionId, {$inc: {likes: 1}},  
+  // {_id: questionId},  
    )
     if (updatedQuestion) {
-      res.json({
+      res.json({ 
         success: true,
-        question: {
-          _id: updatedQuestion._id,
-          message: updatedQuestion.message,
-          likes: updatedQuestion.likes,
-          createdAt: updatedQuestion.createdAt
-        }
-      })
+         response: `Question ${updatedQuestion.id} has updated likes`,
+        _id: updatedQuestion._id,
+        // question: {
+        //   _id: updatedQuestion._id,
+        //   message: updatedQuestion.message,
+        //   likes: updatedQuestion.likes,
+        //   createdAt: updatedQuestion.createdAt
+        // }
+      });
     } else {
-      res.status(404).json({ success: false, message: 'Could not like question' })
+      res.status(404).json({
+         success: false, 
+         message: 'Could not like question' })
     }
   } catch (error) {
     res.status(400).json({ success: false, message: 'Invalid like question request', error })
@@ -349,19 +350,20 @@ app.patch('/questions/:questionId/dislike', async (req, res) => {
         }
       })
     } else {
-      res.status(404).json({ success: false, message: 'Could not dislike question' })
+      res.status(404).json({
+         success: false,
+          message: 'Could not dislike question' })
     }
   } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid dislike question request', error })
+    res.status(400).json({
+       success: false, 
+       message: 'Invalid dislike question request', error })
   }
 })
 
-//PATCH LIKES TO ANSWER
-
-
 // DELETE QUESTION BY ID
-app.delete('/questions/:id', async (req, res) => {
-  const { id } = req.params
+app.delete('/questions/:questionId/delete', async (req, res) => {
+  const { questionId } = req.params
   try {
     const deletedQuestionById = await Question.findByIdAndDelete(id)
     if (deletedQuestionById) {

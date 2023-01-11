@@ -8,6 +8,10 @@ export const UserSchema = new mongoose.Schema({
       required: true,
       unique: true
     },
+    // role: {
+    //   type: String,
+    //   default: user
+    // },
     password: {
       type: String,
       required: true
