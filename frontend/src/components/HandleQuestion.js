@@ -7,6 +7,8 @@ import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 
 
+
+
   const ForumWall = ({ item }) =>{
     const accessToken = useSelector((store) => store.user.accessToken);
     const username = useSelector((store) => store.user.username); 
@@ -73,6 +75,7 @@ import { useParams } from 'react-router-dom';
     <>
      <MessageText>{item.message}</MessageText>
      <CreatedText>{item.createdAt}</CreatedText>
+     
     </>
     <>
      {/* <button onClick={onReply}>Reply
@@ -97,12 +100,30 @@ const MessageText = styled.p`
   font-size: 12px;
 `
 const CreatedText = styled.p`
-  color: white;
-  font-style: italic; 
+  text-align: right;
+  font-style: italic;
+  color: grey;
+  font-size: 10px;
+  padding-right: 15px;
+
 `
 
 const LikeButton = styled.button`
-  background-color: transparent;
+background-color: transparent;
+font-size: 12px;
+margin: 3%;
+text-align: center;
+padding: 2%;
+width: 70px;
+height:30px;
+border-radius:5px;
+left:calc(30% - 75px);
+top:calc(30% - 25px);
+margin-bottom: 5%;
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
 `
 
 const DeleteButton = styled.button`

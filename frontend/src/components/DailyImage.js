@@ -17,10 +17,11 @@ const DailyImage = () => {
   <>
   <DailyImageContainer>
     <img src={image.url} alt={image.title} />  
-    <div>
-    {image.title}
-    {image.explanation}
-    </div>
+    <ImageTextBox>
+     <TitleText>{image.title}</TitleText> 
+     {/* <ExplanationText>{image.explanation}</ExplanationText> */}
+     <DateText>{image.date}</DateText>
+    </ImageTextBox>
   </DailyImageContainer>
   </>      
    ) 
@@ -31,23 +32,43 @@ export default DailyImage;
 
 
 const DailyImageContainer = styled.section`
-/* font-size: 14px;
-margin-left: 2%;
-margin-right: 2%; */
-
 border: 1px solid white;
- margin: 3%;
+ /* margin: 1%; */
  color:white;
  text-align: left;
  font-size: 12px;
  border-radius: 10px;
- box-shadow: -2px -10px 20px 0px #b3c1dd inset;
+ /* box-shadow: -2px -10px 10px 0px #b3c1dd inset; */
 
 img {
-  max-width: 100%;
-  max-height: 400px;
-  border-radius: 0% 0% 0% 0%;
-  
+  width: 98%;
+  max-height: 350px;
+  /* border-radius: 3% 3% 1% 1%; */
+  border-radius: 50%;
+  justify-content: center;
 }
+
+`
+const ImageTextBox = styled.div`
+border-radius: 100px, 0px, 0px, 0px;
+`
+const TitleText = styled.p`
+font-weight: 700;
+font-size: 16px;
+margin-bottom: 0;
+`
+
+// const ExplanationText = styled.p`
+// font-size: 14px;
+// padding: 4%;
+// margin-top: 0;
+// `
+
+const DateText = styled.p`
+text-align: left;
+  font-style: italic;
+  color: #D3D3D3;
+  font-size: 10px;
+  padding-right: 15px;
 
 `

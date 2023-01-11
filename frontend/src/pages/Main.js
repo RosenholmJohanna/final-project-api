@@ -33,12 +33,11 @@ const Main = () => {
   return(
     <>  
     <Wrapper>
-      <p>User: {username}</p>
-      {/* <DailyImage/> */}
-      {/* <Link to="/questions"> Post Question Wall </Link> */}
-      <button type="button" onClick={goQuestions}> Question wall </button>
-      <button type="button" onClick={goUsersCollection}> My collection </button>
-      <button type="button" onClick={goAllUsers}> All users </button>
+      <UsernameText>UserName: {username}</UsernameText>
+       {/* <DailyImage/>  */}
+      <ButtonNavigate type="button" onClick={goQuestions}> Question wall </ButtonNavigate>
+      <ButtonNavigate type="button" onClick={goUsersCollection}> My collection </ButtonNavigate>
+      <ButtonNavigate type="button" onClick={goAllUsers}> All users </ButtonNavigate>
     </Wrapper>
     </>
    ) 
@@ -53,4 +52,24 @@ margin: 2%;
     margin: 10%;
     
   }
+`
+
+const ButtonNavigate = styled.button`
+background-color: transparent;
+font-size: 12px;
+text-align: center;
+width: 80px;
+height:50px;
+border-radius:5px;
+left:calc(30% - 75px);
+top:calc(30% - 25px);
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+const UsernameText=styled.p`
+font-weight: 600;
+font-size: 12px;
+text-align: center;
 `

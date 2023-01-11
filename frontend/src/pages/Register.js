@@ -4,21 +4,18 @@ import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
-//import  {Button}  from './components/Style'
 
-// OBS below is out comented in server!!
-// //app.get("/questions", authenticateUser, authenticateAdmin);
 
-const Login = () => {
+const Register = () => {
+    
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    //const [adminname, setAdminname] = useState("");
-    const [mode, setMode] = useState("login");
+    const [mode, setMode] = useState("register"); 
      const dispatch = useDispatch();
      const navigate = useNavigate();
-    const accessToken = useSelector((store) => store.user.accessToken);// click loggin - reponse with token in network - tooken stored in slice - we go there to get it
+     const accessToken = useSelector((store) => store.user.accessToken);
     
-    useEffect(() => {
+     useEffect(() => {
         if (accessToken) {
             navigate("/main");
         }
@@ -30,7 +27,7 @@ const Login = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-               "Authorization": accessToken
+                 "Authorization": accessToken
             },
             body: JSON.stringify({username: username, password: password})
         }
@@ -58,16 +55,15 @@ const Login = () => {
     }
     return (
         <StartPage>
-        <Loginpagetext>
-          Login Here
-        </Loginpagetext>
+        <Loginpagetext>Registration</Loginpagetext>
        
-        <label htmlFor="login">Already a user?
-        <input 
-            type="radio" id="login" 
-            checked={mode === "login"}
-            onChange={()=>setMode("login")}/>
+        <label htmlFor="register">
+        <input
+            type="radio" label="register" id="register" 
+            checked={mode === "register"} 
+            onChange={()=>setMode("register")}/> 
         </label>
+        
        
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
@@ -89,15 +85,12 @@ const Login = () => {
             onChange={e => setPassword(e.target.value)}/>
         <button type="submit">Submit</button>
         </form>
-
-        <Link to="/register"> <RegisterLinkText>New user? Rigister here </RegisterLinkText>  </Link> 
-       
         <h3>Give me some space 🚀</h3>
     </StartPage> 
     );
 }
 
-export default Login;
+export default Register;
 
 
 
@@ -117,7 +110,4 @@ const Loginpagetext = styled.h1 `
 margin: 5%;
 color: white;
 `
-const RegisterLinkText = styled.h1 `
-font-size: 14px;
-color: white;
-`
+

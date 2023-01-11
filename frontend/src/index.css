@@ -1,7 +1,11 @@
 
+  @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap);
+  @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap);
+
+
 body {
   /* animation: 10000ms ease-in-out infinite color-change; */
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -9,13 +13,14 @@ body {
   /* background-color: #011627ff; */
   background-color: #000112;
   color: white;
-  margin: 0;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Roboto', "Courier New",
     monospace;
 }
+
+
 
 /* .main::-webkit-scrollbar {
   width: 0;

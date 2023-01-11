@@ -108,8 +108,8 @@ app.get("/users/:username", async (req, res)=> {
 
 
 // USER REGISTRATION ENDPOINT ( this sent to the browser what we get)
-app.post("/register", async (req, res) => {
-  const { username, password, roles } = req.body;
+app.post("/register",  async (req, res) => {
+  const { username, password } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
     if (password.length < 3) {
@@ -118,7 +118,7 @@ app.post("/register", async (req, res) => {
         response: "Password must be at least 3 characters long"
       });
     } else {
-      const newUser = await new User({username: username, password: bcrypt.hashSync(password, salt), roles: roles}).save();
+      const newUser = await new User({username: username, password: bcrypt.hashSync(password, salt)}).save();
       res.status(201).json({
         success: true,
         response: {
