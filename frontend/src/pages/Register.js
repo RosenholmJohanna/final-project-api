@@ -27,7 +27,7 @@ const Register = () => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                 "Authorization": accessToken
+                "Authorization": accessToken
             },
             body: JSON.stringify({username: username, password: password})
         }

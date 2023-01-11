@@ -5,9 +5,7 @@ import styled from 'styled-components'
 import AnswerList from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
-
-
-
+import formatDistance from 'date-fns/formatDistance'
 
   const ForumWall = ({ item }) =>{
     const accessToken = useSelector((store) => store.user.accessToken);
@@ -57,33 +55,19 @@ import { useParams } from 'react-router-dom';
       .then(() => fetchMessageList())
   }
 
-    // const onSave = (id, event) => {
-  //   const options = {
-  //     method: 'PATCH', //
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }}
-  //   fetch(QUESTION_LIKE(id), options)
-  //     .then(res => res.json())
-  //     .then(() => fetchMessageList())
-  // }
-
   return (
   <QuestionWrapper>
     <SaveButton>SAVE</SaveButton> 
     <DeleteButton>DELETE</DeleteButton> 
     <>
      <MessageText>{item.message}</MessageText>
-     <CreatedText>{item.createdAt}</CreatedText>
-     
+    <CreatedAtText>{formatDistance(new Date(item.createdAt), Date.now())}</CreatedAtText>
     </>
     <>
      {/* <button onClick={onReply}>Reply
       {accessToken && onLike(item._id)}</button> */}
-       <LikeButton onClick={() => onLike(item._id)} >LIKE </LikeButton>
-       <LikesText> {item.likes}</LikesText> 
-       <LikeButton onClick={() => onDisLike(item._id)}>DISLIKE</LikeButton>
-       <LikesText> {item.disLikes}</LikesText>
+        <LikesText><LikeButton onClick={() => onLike(item._id)} >🙂 {item.likes}</LikeButton></LikesText> 
+        <LikesText> <LikeButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</LikeButton></LikesText>
     </> <AnswerList item={item} /> 
   </QuestionWrapper>
 )}
@@ -97,18 +81,57 @@ const QuestionWrapper = styled.div`
 `
 
 const MessageText = styled.p`
-  font-size: 12px;
+  font-size: 14px;
+  margin-left: 2%;
+  margin-right: 2%;
 `
-const CreatedText = styled.p`
+const CreatedAtText = styled.p`
   text-align: right;
   font-style: italic;
   color: grey;
   font-size: 10px;
   padding-right: 15px;
-
 `
 
 const LikeButton = styled.button`
+/* position: absolute;
+right: 10; */
+background-color: transparent;
+font-size: 12px;
+margin-top: 0%;
+border-style: none;
+text-align: center;
+padding: 2%;
+width: 60px;
+height:30px;
+border-radius:30px;
+left:calc(30% - 75px);
+top:calc(30% - 25px);
+margin-bottom: 5%;
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+
+const DeleteButton = styled.button`
+background-color: transparent;
+font-size: 12px;
+margin: 3%;
+text-align: center;
+padding: 2%;
+width: 60px;
+height:30px;
+border-radius:5px;
+left:calc(30% - 75px);
+top:calc(30% - 25px);
+margin-bottom: 5%;
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+const SaveButton = styled.button`
 background-color: transparent;
 font-size: 12px;
 margin: 3%;
@@ -124,13 +147,6 @@ color: whitesmoke;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
 justify-content: center;
-`
-
-const DeleteButton = styled.button`
-  background-color: transparent;
-`
-const SaveButton = styled.button`
-  background-color: transparent;
 `
 
 const LikesText = styled.p`

@@ -58,17 +58,7 @@ const Login = () => {
     }
     return (
         <StartPage>
-        <Loginpagetext>
-          Login Here
-        </Loginpagetext>
-       
-        <label htmlFor="login">Already a user?
-        <input 
-            type="radio" id="login" 
-            checked={mode === "login"}
-            onChange={()=>setMode("login")}/>
-        </label>
-       
+        <Loginpagetext>Login</Loginpagetext>       
         <form onSubmit={onFormSubmit}>
             <label htmlFor="username">Username</label>
         <input 
@@ -79,7 +69,7 @@ const Login = () => {
             value={username} 
             onChange={e => setUsername(e.target.value)}/>
             <label htmlFor="Password">Password</label>
-        
+
         <input
             required 
             type="password" 
@@ -87,10 +77,19 @@ const Login = () => {
             placeholder="password"
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
+            <label htmlFor="login">
+
+        <input 
+            label="confirm" 
+            type="radio" id="login" 
+            checked={mode === "login"}
+            onChange={()=>setMode("login")}/>
+        </label>
+
         <button type="submit">Submit</button>
         </form>
-
-        <Link to="/register"> <RegisterLinkText>New user? Rigister here </RegisterLinkText>  </Link> 
+        
+        <Link to="/register"> <RegisterLinkText>New user? Rigister here </RegisterLinkText> </Link> 
        
         <h3>Give me some space 🚀</h3>
     </StartPage> 
@@ -98,8 +97,6 @@ const Login = () => {
 }
 
 export default Login;
-
-
 
 
 
@@ -115,6 +112,7 @@ color: white;
 
 const Loginpagetext = styled.h1 `
 margin: 5%;
+font-size: 22px;
 color: white;
 `
 const RegisterLinkText = styled.h1 `

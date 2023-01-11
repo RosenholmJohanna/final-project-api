@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
+import { useParams } from 'react-router-dom';
 
 
  // {props}

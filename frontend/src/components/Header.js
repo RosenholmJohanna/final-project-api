@@ -9,8 +9,8 @@ export const Header = () => {
       <Wrapper>
       <HeaderContainer>
         <HeaderText>Planet🌏Space</HeaderText>
-        <><Link><LinkText>CONTACT</LinkText></Link></>
-        <><Link><LinkText>ABOUT</LinkText></Link></>
+        <Text> <Link to="/about"> CONTACT  </Link> </Text>
+        <Text> <Link to="/contact">ABOUT</Link></Text>
     </HeaderContainer>
     </Wrapper>
     ) 
@@ -28,23 +28,25 @@ margin: 2%;
 const HeaderContainer = styled.div`
 text-align: center;
 border-bottom: 1px solid white;
-padding-top: 3%;
-padding-bottom: 3%;
-display: flex;
-justify-content: space-between;
+padding-bottom: 1%;
+  display: flex;  
+/* justify-content: space-between; */
 /* align-items: center; */
 a {
   text-decoration: none; 
+  color: white;
+  text-decoration: none; 
+  font-weight: 600;
+  font-size: 1.5vh;
+  /* justify-content: center; */
 }
 `
 const HeaderText = styled.h1`
-font-size: 20px;
+font-size: 22px;
+margin-top: 6px;
+padding-right: 15%;
 `
 
-const LinkText = styled.div`
-color: white;
-text-decoration: none; 
-margin: 3%;
-font-weight: bold;
-font-size: 2vh;
+const Text = styled.p`
+padding-left: 3%;
 `
