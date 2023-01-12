@@ -29,7 +29,7 @@ const MessageList = () => {
         <>
         {questionsList.map(item =>
         <ForumWall
-          key={item._id} //each child gives an unique key
+          key={item._id} //each child in the list gives an unique key -->  ERROR SOLVED
           item={item} />
         )}
         </>
@@ -40,4 +40,3 @@ const MessageList = () => {
 
 export default MessageList
 
-//error: each child their own key prop - solved

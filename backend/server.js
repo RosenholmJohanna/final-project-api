@@ -384,9 +384,32 @@ app.delete('/questions/:questionId/delete', async (req, res) => {
   }
 })
 
+// DELETE ANSWER BY ID
+app.delete('/questions/answers/answerId/delete', async (req, res) => {
+  const { answerId } = req.params
+  try {
+    const deletedAnswerById = await Question.findByIdAndDelete(answerId)
+    if (deletedAnswerById) {
+      res.json({
+        success: true, deletedAnswerById,
+        message: 'Question is deleted'
+      })
+    } else {
+      res.status(404).json({ 
+        success: false, 
+        message: 'Answer with this ID could not be deleted'
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'Invalid delete answer request', error })
+  }
+})
+
 app.post('/user/update-collection', async (req, res) => {
-  // const { questionId } = req.params
-  const { userId, collection, } = req.body;
+  const { questionId } = req.params
+  const { userId, collections, } = req.body;
   try {
     const savePost = await User.findById(userId, { new: true} )
     if (savePost) {
@@ -394,7 +417,7 @@ app.post('/user/update-collection', async (req, res) => {
         success: true, savePost,
         message: 'post saved'
       }), 
-       User.collection = collectedObject;
+       User.collections = collections;
        User.save
     } else {
       res.status(404).json({ 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
 import styled from 'styled-components'
-import AnswerList from './ListAnswer'
+import AnswerList, {onDeleteAnswer} from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 import formatDistance from 'date-fns/formatDistance'
@@ -11,13 +11,19 @@ import formatDistance from 'date-fns/formatDistance'
   const ForumWall = ({ item }) =>{
     //const accessToken = useSelector((store) => store.user.accessToken);
     //const LoggedInUserID = useSelector(store => store.user.loggedInUser.userID)
-    const accessToken = useSelector(store => store.user.loggedInUser.accessToken)
+    //const accessToken = useSelector(store => store.user.loggedInUser.accessToken)
     const username = useSelector((store) => store.user.username); 
     const dispatch = useDispatch()
     const [showReplies, setShowReplies] = useState(false);
-    const userId = LoggedInUserID._id;
+    //const userId = LoggedInUserID._id;
     
-//TO DO: set authorization, save to userprofile page
+//TO DO: storage - redux or locale storage? set authorization, save to userprofile page, delete answers, like/dislike answers, let user set topic, let user filter topics, 
+// TO DO:filter according to top/bottom votes/likes, math random "todays question"
+
+// QUESTION: To save wanted post to user profile: can i filter out wanted data in the POST request response date, or do I have to create anoter function and filter out in the return?
+
+//configure store, persisted JSON
+
 
     const onReply = () => {
       setShowReplies(true)
@@ -74,6 +80,21 @@ import formatDistance from 'date-fns/formatDistance'
       })
     }
 
+  //UNDEFINED ANSWERId  
+  const onDeleteAnswer = (id) => {
+    console.log(id)
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }}
+    fetch(`http://localhost:8080/questions/${id}/answers/${id}/delete`, options)
+      .then(res => res.json())
+      .then(() => { 
+        showUpdatedList()
+      })
+    }
+
     // does not work - cant find user
     const onCollect = () => {
       console.log(accessToken)
@@ -96,7 +117,7 @@ import formatDistance from 'date-fns/formatDistance'
           } showUpdatedList();
         }) 
     }
-     console.log(item._id === item._id) // true
+    //  console.log(item._id === item._id) // true 
 
   return (
   <QuestionWrapper>
@@ -111,7 +132,7 @@ import formatDistance from 'date-fns/formatDistance'
       {accessToken && onLike(item._id)}</button> */}
         <LikesText><LikeButton onClick={() => onLike(item._id)} >🙂 {item.likes}</LikeButton></LikesText> 
         <LikesText> <LikeButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</LikeButton></LikesText>
-    </> <AnswerList item={item} /> 
+    </> <AnswerList item={item}> </AnswerList>
   </QuestionWrapper>
 )}
 
