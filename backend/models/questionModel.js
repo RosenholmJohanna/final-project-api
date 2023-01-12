@@ -50,10 +50,6 @@ export const QuestionSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date() 
       },
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
-      },
       question: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'question'

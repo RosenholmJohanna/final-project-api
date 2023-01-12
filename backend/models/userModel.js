@@ -8,10 +8,6 @@ export const UserSchema = new mongoose.Schema({
       required: true,
       unique: true
     },
-    // role: {
-    //   type: String,
-    //   default: user
-    // },
     password: {
       type: String,
       required: true
@@ -34,7 +30,7 @@ export const UserSchema = new mongoose.Schema({
     collections: [{
       type: mongoose.Schema.Types.ObjectId, 
       default: [],
-      ref: 'Question'
+      ref: 'Question' //Questions?
     }]
   });
  

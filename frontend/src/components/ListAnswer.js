@@ -15,7 +15,6 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
   
   return (
     <>
-      <SingleAnswer item={item} />
         {answerList.map(answer =>
         <AnswerWrapper item={item} key={answer._id}>
         <AnswerText>{answer.answer}</AnswerText>
@@ -25,6 +24,7 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
         <Color/>
         </AnswerWrapper>
       ).reverse()}
+      <SingleAnswer item={item} />
     </>
   )
 }

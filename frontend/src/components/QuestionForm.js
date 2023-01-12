@@ -5,6 +5,7 @@ import user from "../reducers/user"
 import styled from 'styled-components';
 
 
+
   const NewQuestion = () => {
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
@@ -21,6 +22,7 @@ import styled from 'styled-components';
           }
         })
     }
+
      const onFormSubmit = (event) => {
       event.preventDefault()
       const options = {

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link, useHistory} from "react-router-dom";
 import styled from "styled-components"
-//import DailyImage from "../components/DailyImage";
+
 
 const Main = () => {
   const username = useSelector((store) => store.user.username);
+  //const LoggedInUserID = useSelector(store => store.user.loggedInUser.userID)
   const navigate = useNavigate();
-  // const accessToken = useSelector((store) => store.user.accessToken);
-  
+  //const accessToken = useSelector((store) => store.user.accessToken);
   // const navigate = useNavigate();
 
   // useEffect( () => {

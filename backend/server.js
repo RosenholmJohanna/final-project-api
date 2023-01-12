@@ -365,7 +365,7 @@ app.patch('/questions/:questionId/dislike', async (req, res) => {
 app.delete('/questions/:questionId/delete', async (req, res) => {
   const { questionId } = req.params
   try {
-    const deletedQuestionById = await Question.findByIdAndDelete(id)
+    const deletedQuestionById = await Question.findByIdAndDelete(questionId)
     if (deletedQuestionById) {
       res.json({
         success: true, deletedQuestionById,
@@ -383,6 +383,66 @@ app.delete('/questions/:questionId/delete', async (req, res) => {
       message: 'Invalid delete question request', error })
   }
 })
+
+app.post('/user/update-collection', async (req, res) => {
+  // const { questionId } = req.params
+  const { userId, collection, } = req.body;
+  try {
+    const savePost = await User.findById(userId, { new: true} )
+    if (savePost) {
+      res.json({
+        success: true, savePost,
+        message: 'post saved'
+      }), 
+       User.collection = collectedObject;
+       User.save
+    } else {
+      res.status(404).json({ 
+        success: false, 
+        message: 'could not save post'
+      })
+    }
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: 'invalid request', error })
+  }
+})
+
+  
+// app.post('/user/update-profile', (req, res) => {
+//   // Get the user ID and collected object from the request body
+//   const { userId, collectedObject } = req.body;
+  
+//   // Find the user in the database
+//   User.findById(userId, (err, user) => {
+//     if (err) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Error finding user'
+//        });
+//     }
+//     // Update user's profile with the collected object
+//     user.collectedObject = collectedObject;
+//     // Save the updated user
+//     user.save((err, updatedUser) => {
+//       if (err) {
+//         return res.status(400).json({
+//            success: false, message: 'Error saving user' 
+//           });
+//       }
+//       // Return the updated user
+//       return res.status(200).json({ 
+//         success: true,
+//          user: updatedUser
+//        });
+//       })
+//     })
+//   })
+
+
+
+
 
     
 app.get("/", (req, res) => {

@@ -6,21 +6,26 @@ import AnswerList from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 import formatDistance from 'date-fns/formatDistance'
+//import CollectPost from './CollectPost';
 
   const ForumWall = ({ item }) =>{
-    const accessToken = useSelector((store) => store.user.accessToken);
+    //const accessToken = useSelector((store) => store.user.accessToken);
+    //const LoggedInUserID = useSelector(store => store.user.loggedInUser.userID)
+    const accessToken = useSelector(store => store.user.loggedInUser.accessToken)
     const username = useSelector((store) => store.user.username); 
     const dispatch = useDispatch()
     const [showReplies, setShowReplies] = useState(false);
-    const answerList = [...item.answers]
+    const userId = LoggedInUserID._id;
     
+//TO DO: set authorization, save to userprofile page
+
     const onReply = () => {
       setShowReplies(true)
     }
 
 
-  // This updated list with likes, dislikes
-  const fetchMessageList = () => {
+  // This updated list with likes, dislikes, delete question
+  const showUpdatedList = () => {
     fetch("http://localhost:8080/questions")
       .then(res => res.json())
       .then(data => {
@@ -39,7 +44,7 @@ import formatDistance from 'date-fns/formatDistance'
       }}
     fetch(`http://localhost:8080/questions/${id}/dislike`, options)
       .then(res => res.json())
-      .then(() => fetchMessageList())
+      .then(() => showUpdatedList())
   }
 
   const onLike = (id) => {
@@ -52,13 +57,51 @@ import formatDistance from 'date-fns/formatDistance'
     
     fetch(`http://localhost:8080/questions/${id}/like`, options)
       .then(res => res.json())
-      .then(() => fetchMessageList())
+      .then(() => showUpdatedList())
   }
+
+  const onDelete = (id) => {
+    console.log(id)
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }}
+    fetch(`http://localhost:8080/questions/${id}/delete`, options)
+      .then(res => res.json())
+      .then(() => { 
+        showUpdatedList()
+      })
+    }
+
+    // does not work - cant find user
+    const onCollect = () => {
+      console.log(accessToken)
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': accessToken
+        }, body: 
+           JSON.stringify({
+              userId,
+              collections
+          })
+      }
+      fetch(`http://localhost:8080/user/update-collection`, options)
+        .then(res => res.json())
+        .then(data => {
+          if(data.success) {
+              questions.filter(item => item._id === item._id).map(item => item)
+          } showUpdatedList();
+        }) 
+    }
+     console.log(item._id === item._id) // true
 
   return (
   <QuestionWrapper>
-    <SaveButton>SAVE</SaveButton> 
-    <DeleteButton>DELETE</DeleteButton> 
+    <SaveButton onClick={() => onCollect(item._id)}>  SAVE</SaveButton> 
+     <DeleteButton onClick={() => onDelete(item._id)}>DELETE</DeleteButton> 
     <>
      <MessageText>{item.message}</MessageText>
     <CreatedAtText>{formatDistance(new Date(item.createdAt), Date.now())}</CreatedAtText>
