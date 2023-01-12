@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
@@ -121,8 +122,10 @@ import formatDistance from 'date-fns/formatDistance'
 
   return (
   <QuestionWrapper>
-    <SaveButton onClick={() => onCollect(item._id)}>  SAVE</SaveButton> 
-     <DeleteButton onClick={() => onDelete(item._id)}>DELETE</DeleteButton> 
+    <ButtonWrapper>
+      <SaveButton onClick={() => onCollect(item._id)}>  SAVE</SaveButton> 
+      <DeleteButton onClick={() => onDelete(item._id)}>DELETE</DeleteButton> 
+    </ButtonWrapper>
     <>
      <MessageText>{item.message}</MessageText>
     <CreatedAtText>{formatDistance(new Date(item.createdAt), Date.now())}</CreatedAtText>
@@ -130,8 +133,11 @@ import formatDistance from 'date-fns/formatDistance'
     <>
      {/* <button onClick={onReply}>Reply
       {accessToken && onLike(item._id)}</button> */}
+      <ButtonWrapper>
         <LikesText><LikeButton onClick={() => onLike(item._id)} >🙂 {item.likes}</LikeButton></LikesText> 
         <LikesText> <LikeButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</LikeButton></LikesText>
+      </ButtonWrapper>
+       
     </> <AnswerList item={item}> </AnswerList>
   </QuestionWrapper>
 )}
@@ -142,12 +148,18 @@ export default ForumWall
 
 const QuestionWrapper = styled.div`
   border: 1px solid white;
+  margin-top: 3%;
+  padding: 1%;
+  border-bottom: 5px solid whitesmoke;
+  border-radius:5% ;
+  /* border-color: #13576E; */
 `
 
 const MessageText = styled.p`
   font-size: 14px;
   margin-left: 2%;
   margin-right: 2%;
+  font-style: italic;
 `
 const CreatedAtText = styled.p`
   text-align: right;
@@ -157,7 +169,14 @@ const CreatedAtText = styled.p`
   padding-right: 15px;
 `
 
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+`
 const LikeButton = styled.button`
+margin: 5%;
 /* position: absolute;
 right: 10; */
 background-color: transparent;

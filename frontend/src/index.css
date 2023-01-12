@@ -21,13 +21,6 @@ code {
 }
 
 
-
-/* .main::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-  background: inherit;
-} */
-
 form {
   display: flex;
   flex-direction: column; 

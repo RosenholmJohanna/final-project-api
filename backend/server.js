@@ -384,15 +384,42 @@ app.delete('/questions/:questionId/delete', async (req, res) => {
   }
 })
 
-// DELETE ANSWER BY ID
-app.delete('/questions/answers/answerId/delete', async (req, res) => {
-  const { answerId } = req.params
+// // DELETE ANSWER BY ID
+// app.delete('/questions/answers/:answerId/:questionId', async (req, res) => {
+//   const { answerId, questionId } = req.params
+//   try {
+//     //or find oneand update // 1. find the question, 2. pull correct answer from answerslist
+//     const deletedAnswerById = await Question.findByIdAndUpdate(questionId, {$pull: {answers: {_id: answerId}}})
+//     console.log(deletedAnswerById, 'deletetd answer')
+//     if (deletedAnswerById) {
+//       res.json({
+//         success: true, deletedAnswerById,
+//         message: 'Question is deleted'
+//       })
+//     } else {
+//       res.status(404).json({ 
+//         success: false, 
+//         message: 'Answer with this ID could not be deleted'
+//       })
+//     }
+//   } catch (error) {
+//     res.status(400).json({
+//       success: false,
+//       message: 'Invalid delete answer request', error })
+//   }
+// })
+
+//THIS DELETE THE ENTIRE QUESTION........
+app.delete('/questions/answers/:answerId/:questionId', async (req, res) => {
+  const { answerId, questionId } = req.params
   try {
-    const deletedAnswerById = await Question.findByIdAndDelete(answerId)
+    const deletedAnswerById = await Question.deleteOne({
+      _id: answerId
+    })
     if (deletedAnswerById) {
       res.json({
-        success: true, deletedAnswerById,
-        message: 'Question is deleted'
+        success: true, 
+        message: 'Answer is deleted'
       })
     } else {
       res.status(404).json({ 
