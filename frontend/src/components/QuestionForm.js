@@ -74,7 +74,6 @@ margin: 3%;
 font-size: 14px;
 background-color: #011627ff;
 border-radius: 2% 2% 2% 2%;
-
 `
 
 const Button = styled.button`
