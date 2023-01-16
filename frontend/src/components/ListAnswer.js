@@ -50,46 +50,65 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
     <>
         {answerList.map(answer =>
         <AnswerWrapper item={item} key={answer._id}>
-        <AnswerText>{answer.answer}</AnswerText>
+        <AnswerText>{answer.answer}</AnswerText> 
+       
+        <ButtonWrapper>
         <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
-         <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton> 
+         {/* <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  */}
+       
         <LikeButton>🙂</LikeButton> 
         <DisLikeButton>🥴</DisLikeButton> 
-        <Color/>
+        </ButtonWrapper>
+       
         </AnswerWrapper>
         ).reverse()}
+      
       <SingleAnswer item={item} />
+      <Color/>
     </>
   )
 }
 
 export default AnswerList
 
+
+
+const Color = styled.div`
+border-bottom: 5% solid white;
+border-radius: 5%;
+`
+
 const AnswerWrapper = styled.div`
 text-align: left;
-margin-top: 7%;
+margin-top: 0;
+justify-items: end;
 `
 
 const AnswerText = styled.p`
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
-  margin-left: 2%;
-  margin-right: 2%;
-  padding: 1px 2px 3px 5px;
+  margin-left: 5%;
+  margin-right: 5%;
   color: white;
+  border-bottom: 0.5px solid grey;
+ 
+ 
 `
-
+const ButtonWrapper = styled.div`
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: right;
+`
 const LikeButton = styled.button`
 background-color: transparent;
 font-size: 14px;
 border-style: none;
 text-align: center;
 padding: 2%;
-width: 50px;
+width: 45px;
 height:30px;
 border-radius:30px;
-/* left:calc(30% - 75px);
-top:calc(30% - 25px); */
 margin-bottom: 5%;
 color: whitesmoke;
 cursor:pointer;
@@ -106,8 +125,6 @@ padding: 2%;
 width: 50px;
 height:30px;
 border-radius:30px;
-/* left:calc(30% - 75px);
-top:calc(30% - 25px); */
 margin-bottom: 5%;
 color: whitesmoke;
 cursor:pointer;
@@ -123,7 +140,7 @@ font-size: 14px;
 border-style: none;
 text-align: center;
 padding: 2%;
-width: 60px;
+width: 45px;
 height:30px;
 border-radius:30px;
 left:calc(30% - 75px);
@@ -135,12 +152,10 @@ box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);
 justify-content: center;
 `
 const CreatedAtText = styled.p`
-  text-align: right;
+  text-align: left;
   font-style: italic;
   color: grey;
   font-size: 10px;
+  margin-top:0;
   padding-right: 15px;
-`
-const Color = styled.div`
- 
 `

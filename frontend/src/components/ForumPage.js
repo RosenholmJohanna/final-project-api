@@ -11,9 +11,12 @@ export const ForumPage = () => {
   return (
     <>
     <LoggedInUser>Username: {username}</LoggedInUser>
-    <Text>Ask something about space, disscuss with other users or wait for me to find the answer. 
-      In short you will be able or filter through topics and questions based on votes, or save
-      your favourite questions to you userprofile.👩‍🚀</Text> 
+    <TextBox>
+      <Text>Ask something about space and wait for me or a friend to reply. 
+      In short you will be able or filter through topics, or save
+      your favourite questions to you profile 👩‍🚀</Text>
+    </TextBox>
+   
     <PageContainer>
         <NewQuestion />
         <MessageList />
@@ -22,9 +25,14 @@ export const ForumPage = () => {
   )}
 
 
-const PageContainer = styled.section`
+  const TextBox = styled.div`
 
 `
+
+const PageContainer = styled.section`
+/* background-color:#b4b1b8; */
+`
+
 
 const Text = styled.p`
   text-align: center;

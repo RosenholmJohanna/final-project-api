@@ -7,7 +7,7 @@ import AnswerList, {onDeleteAnswer} from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 import formatDistance from 'date-fns/formatDistance'
-//import CollectPost from './CollectPost';
+
 
   const ForumWall = ({ item }) =>{
     //const accessToken = useSelector((store) => store.user.accessToken);
@@ -17,21 +17,11 @@ import formatDistance from 'date-fns/formatDistance'
     const dispatch = useDispatch()
     const [showReplies, setShowReplies] = useState(false);
     //const userId = LoggedInUserID._id;
-    
-//TO DO: storage - redux or locale storage? set authorization, save to userprofile page, delete answers, like/dislike answers, let user set topic, let user filter topics, 
-// TO DO:filter according to top/bottom votes/likes, math random "todays question"
-
-// QUESTION: To save wanted post to user profile: can i filter out wanted data in the POST request response date, or do I have to create anoter function and filter out in the return?
-
-//configure store, persisted JSON
-
 
     const onReply = () => {
       setShowReplies(true)
     }
 
-
-  // This updated list with likes, dislikes, delete question
   const showUpdatedList = () => {
     fetch("http://localhost:8080/questions")
       .then(res => res.json())
@@ -122,10 +112,11 @@ import formatDistance from 'date-fns/formatDistance'
 
   return (
   <QuestionWrapper>
-    <ButtonWrapper>
+    <InerQuestionWrapper>
+    <ButtonWrapperTop>
       <SaveButton onClick={() => onCollect(item._id)}>  SAVE</SaveButton> 
       <DeleteButton onClick={() => onDelete(item._id)}>DELETE</DeleteButton> 
-    </ButtonWrapper>
+    </ButtonWrapperTop>
     <>
      <MessageText>{item.message}</MessageText>
     <CreatedAtText>{formatDistance(new Date(item.createdAt), Date.now())}</CreatedAtText>
@@ -139,6 +130,7 @@ import formatDistance from 'date-fns/formatDistance'
       </ButtonWrapper>
        
     </> <AnswerList item={item}> </AnswerList>
+    </InerQuestionWrapper>
   </QuestionWrapper>
 )}
 
@@ -147,17 +139,24 @@ export default ForumWall
 
 
 const QuestionWrapper = styled.div`
-  border: 1px solid white;
-  margin-top: 3%;
-  padding: 1%;
-  border-bottom: 5px solid whitesmoke;
-  border-radius:5% ;
-  /* border-color: #13576E; */
+background-color: #011627ff;
+  padding: 2%;
+  margin-top: 2%;
+  border-radius:2% ;
+  color: white;
+  box-shadow: -8px -8px 8px 0 white 70%
+  8px 8px 8px 9 white 20%;
+  
+`
+const InerQuestionWrapper = styled.div`
+background-color: #000112;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+border-radius: 4%;
 `
 
 const MessageText = styled.p`
   font-size: 14px;
-  margin-left: 2%;
+  margin-left: 1%;
   margin-right: 2%;
   font-style: italic;
 `
@@ -167,27 +166,34 @@ const CreatedAtText = styled.p`
   color: grey;
   font-size: 10px;
   padding-right: 15px;
+  margin: 0;
 `
 
 const ButtonWrapper = styled.div`
-  width: 100%;
+  width: 95%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: right;
+`
+
+const ButtonWrapperTop = styled.div`
+ /* width: 95%; */
   display: flex;
   justify-content: flex-end;
   align-items: right;
 `
 const LikeButton = styled.button`
 margin: 5%;
-/* position: absolute;
-right: 10; */
 background-color: transparent;
-font-size: 12px;
+font-size: 14px;
 margin-top: 0%;
+margin-left: 5%;
 border-style: none;
 text-align: center;
 padding: 2%;
-width: 60px;
+width: 50px;
 height:30px;
-border-radius:30px;
+border-radius:40px;
 left:calc(30% - 75px);
 top:calc(30% - 25px);
 margin-bottom: 5%;

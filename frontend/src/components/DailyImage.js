@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components"
+import { NASA_URL } from "../utils/utils";
 
 const DailyImage = () => {
   const [image, setImage] = useState([]);
 
   useEffect(() => {
-    fetch(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`)
-      .then((response) =>
-       response.json())
-      .then((json) =>
-      {setImage(json) // data data
+      fetch(NASA_URL)
+      .then((response) => response.json())
+        .then((json) => {setImage(json) 
       })
   }, []);
      
@@ -19,8 +18,8 @@ const DailyImage = () => {
     <img src={image.url} alt={image.title} />  
     <ImageTextBox>
      <TitleText>{image.title}</TitleText> 
-     {/* <ExplanationText>{image.explanation}</ExplanationText> */}
      <DateText>{image.date}</DateText>
+     <ExplanationText>{image.explanation}</ExplanationText> 
     </ImageTextBox>
   </DailyImageContainer>
   </>      
@@ -32,19 +31,18 @@ export default DailyImage;
 
 
 const DailyImageContainer = styled.section`
-border: 1px solid white;
- /* margin: 1%; */
  color:white;
  text-align: left;
  font-size: 12px;
  border-radius: 10px;
- /* box-shadow: -2px -10px 10px 0px #b3c1dd inset; */
 
 img {
-  width: 98%;
+  margin-top: 2%;
+  max-width: 98%;
   max-height: 350px;
   /* border-radius: 3% 3% 1% 1%; */
   border-radius: 50%;
+  border: 0.5px solid white;
   justify-content: center;
 }
 
@@ -58,11 +56,12 @@ font-size: 16px;
 margin-bottom: 0;
 `
 
-// const ExplanationText = styled.p`
-// font-size: 14px;
-// padding: 4%;
-// margin-top: 0;
-// `
+const ExplanationText = styled.p`
+font-size: 12px;
+padding-left: 1%;
+padding-left: 2%;
+margin: 0;
+`
 
 const DateText = styled.p`
 text-align: left;

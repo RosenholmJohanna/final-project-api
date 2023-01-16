@@ -13,7 +13,7 @@ export const Footer = () => {
 const FooterContainer = styled.footer`
 text-align: center;
 border-top: 1px solid white;
-
-
-
+font-size: 14px;
+max-height: 1%;
+margin: 0;
 `

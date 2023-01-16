@@ -43,23 +43,51 @@ import styled from 'styled-components';
     }
   
     return (
-       <NewQuestionContainer>
         <form onSubmit={onFormSubmit}>
-            <label>New question</label>
+          <NewQuestionContainer>
             <input
-              placeholder='...'
+              label="question"
+              placeholder='type question'
               id="newQuestion"
               type="text"
               value={message}
               onChange={event => setMessage(event.target.value)} />
-          <button
-            type="submit"> Send </button>
+          <Button type="submit"> Send </Button>
+          </NewQuestionContainer>
         </form>
-       </NewQuestionContainer>
     )
   }
 export default NewQuestion;
 
 
+
+
+
+
 const NewQuestionContainer = styled.div`
+display: flex;
+flex-direction:row;
+justify-content: space-between;
+box-sizing: border-box;
+width: 100%;
+margin: 3%;
+font-size: 14px;
+background-color: #011627ff;
+border-radius: 2% 2% 2% 2%;
+
+`
+
+const Button = styled.button`
+margin-right: 10%;
+font-size: 14px;
+border-style: none;
+text-align: center;
+width: 45px;
+height:30px;
+border-radius:30px;
+margin-bottom: 0;
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
 `

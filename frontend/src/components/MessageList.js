@@ -24,6 +24,7 @@ const MessageList = () => {
   }, [dispatch])
 
   return (
+    <BackgroundImage>
     <>
       {questionsList && 
         <>
@@ -33,10 +34,14 @@ const MessageList = () => {
           item={item} />
         )}
         </>
-      }
+      } 
     </>
+    </BackgroundImage>
   )
 }
 
 export default MessageList
 
+const BackgroundImage = styled.section`
+
+`
