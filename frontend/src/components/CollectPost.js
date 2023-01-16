@@ -11,7 +11,7 @@ const questionsList = [{questions}];
 //const collectedObject = questionsList.filter(item => item._id === item._id);
 
 const updatedCollectionList = () => {
-    fetch("http://localhost:8080/questions")
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -34,7 +34,7 @@ const updatedCollectionList = () => {
             collectedObject
         })
     }
-    fetch(`http://localhost:8080//user/update-collection`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/user/update-collection`, options)
       .then(res => res.json())
       .then(data => {
 

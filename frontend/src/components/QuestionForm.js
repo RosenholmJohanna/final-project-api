@@ -11,7 +11,10 @@ import styled from 'styled-components';
     const dispatch = useDispatch()
   
     const updateQuestionList = () => {
-      fetch("http://localhost:8080/questions")
+
+      // https://final-project-fullstack-lsdubteuzq-uc.a.run.app/
+
+      fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
         .then(res => res.json())
         .then(data => {
           if (data.success) {
@@ -31,7 +34,7 @@ import styled from 'styled-components';
           'Content-Type': 'application/json',
         }, body: JSON.stringify({ message: message })
       }
-      fetch("http://localhost:8080/questions", options)
+      fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
         .then(res => res.json())
         .then((data) => {  //the problem here - data not read?
           if(data.success) {

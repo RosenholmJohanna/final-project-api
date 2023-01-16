@@ -23,7 +23,7 @@ import formatDistance from 'date-fns/formatDistance'
     }
 
   const showUpdatedList = () => {
-    fetch("http://localhost:8080/questions")
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -79,7 +79,7 @@ import formatDistance from 'date-fns/formatDistance'
       headers: {
         'Content-Type': 'application/json'
       }}
-    fetch(`http://localhost:8080/questions/${id}/answers/${id}/delete`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/answers/${id}/delete`, options)
       .then(res => res.json())
       .then(() => { 
         showUpdatedList()
@@ -100,7 +100,7 @@ import formatDistance from 'date-fns/formatDistance'
               collections
           })
       }
-      fetch(`http://localhost:8080/user/update-collection`, options)
+      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/user/update-collection`, options)
         .then(res => res.json())
         .then(data => {
           if(data.success) {

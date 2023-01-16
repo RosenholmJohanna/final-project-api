@@ -19,7 +19,7 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
 
   // UPDATE BE WITH NEW ENDPOINT FOR LIKES AND DELETE!!
   const showUpdatedList = () => {
-    fetch("http://localhost:8080/questions")
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -39,7 +39,7 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
       headers: {
         'Content-Type': 'application/json'
       }}
-    fetch(`http://localhost:8080/questions/answers/${id}/delete`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/answers/${id}/delete`, options)
       .then(res => res.json())
       .then(() => { 
         showUpdatedList()

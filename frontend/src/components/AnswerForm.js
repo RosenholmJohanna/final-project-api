@@ -13,7 +13,7 @@ import styled, { keyframes } from 'styled-components';
     const dispatch = useDispatch()
 
   const updatedAnswerList = () => {
-    fetch("http://localhost:8080/questions")
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -35,7 +35,7 @@ import styled, { keyframes } from 'styled-components';
         'Content-Type': 'application/json',
       }, body: JSON.stringify({ answer: answer })
     }
-    fetch(`http://localhost:8080/questions/${id}/answer`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/answer`, options)
       .then(res => res.json())
       .then(() => updatedAnswerList()) 
       setAnswer('')

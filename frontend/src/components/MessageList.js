@@ -12,7 +12,7 @@ const MessageList = () => {
   
  
   useEffect(() => {
-    fetch("http://localhost:8080/questions")
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
       .then(data => {
         if (data.success) {
