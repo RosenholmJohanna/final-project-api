@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useDispatch, useSelector, batch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { API_URL } from "../utils/utils";
+import { API_URL, LOGIN_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
 //import  {Button}  from './components/Style'
@@ -34,7 +34,7 @@ const Login = () => {
             },
             body: JSON.stringify({username: username, password: password})
         }
-        fetch(API_URL(mode), options) 
+        fetch(LOGIN_URL(mode), options) 
           .then(response => response.json())
           .then(data => {
             if(data.success) { 
