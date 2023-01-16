@@ -39,7 +39,7 @@ import formatDistance from 'date-fns/formatDistance'
       headers: {
         'Content-Type': 'application/json'
       }}
-    fetch(`http://localhost:8080/questions/${id}/dislike`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/dislike`, options)
       .then(res => res.json())
       .then(() => showUpdatedList())
   }
@@ -52,7 +52,7 @@ import formatDistance from 'date-fns/formatDistance'
         'Content-Type': 'application/json'
       }}
     
-    fetch(`http://localhost:8080/questions/${id}/like`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/like`, options)
       .then(res => res.json())
       .then(() => showUpdatedList())
   }
@@ -64,7 +64,7 @@ import formatDistance from 'date-fns/formatDistance'
       headers: {
         'Content-Type': 'application/json'
       }}
-    fetch(`http://localhost:8080/questions/${id}/delete`, options)
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/delete`, options)
       .then(res => res.json())
       .then(() => { 
         showUpdatedList()
