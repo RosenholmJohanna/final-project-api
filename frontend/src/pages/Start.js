@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
 import Lottie from 'react-lottie';
-import animationData from '../lotties/lottiespace';
+import animationData from '../Lotties/lottiespace';
 
 
 const Start = () => {
@@ -20,14 +20,14 @@ const navigate = useNavigate();
     navigate("/Register")
   }
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  };
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice"
+  //   }
+  // };
 
   return(
     <Wrapper>
@@ -40,13 +40,13 @@ const navigate = useNavigate();
           <button type="button" onClick={goLogin}> Login </button>
           <button type="button" onClick={goRegister}> Register </button>
           <>
-     <div>
+     {/* <div>
       <Lottie 
 	    options={defaultOptions}
         height={200}
         width={200}
       />
-    </div>
+    </div> */}
     </>
           
       </StartContainer>
