@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Start from './pages/Start';
 import Login from './pages/Login';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import Register from './pages/Register';
 import Main from './pages/Main';
 import NotFound from './pages/NotFound';
@@ -33,6 +35,8 @@ export const App = () => {
 <Provider store={store}>
   <Routes>
     <Route path='/' element={<Start/>}></Route>
+    <Route path='/about' element={<About/>}></Route>
+    <Route path='/contact' element={<Contact/>}></Route>
     <Route path='/register' element={<Register/>}></Route>
     <Route path='/login' element={<Login/>}></Route> 
     <Route path={'/main'} element={<Main/>}></Route> 

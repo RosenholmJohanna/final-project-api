@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
+
+
+
 
 
 
@@ -9,8 +13,8 @@ export const Header = () => {
       <Wrapper>
       <HeaderContainer>
         <HeaderText>Planet🌏Space</HeaderText>
-        <Text> <Link to="/about"> CONTACT  </Link> </Text>
-        <Text> <Link to="/contact">ABOUT</Link></Text>
+        <Text> <Link to="/about"> about  </Link> </Text>
+        <Text> <Link to="/contact">contact</Link></Text>
     </HeaderContainer>
     </Wrapper>
     ) 
