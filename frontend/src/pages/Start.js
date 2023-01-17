@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 //import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
+import Lottie from 'react-lottie';
+import animationData from '../lotties/lottiespace';
+
 
 const Start = () => {
 const navigate = useNavigate();
@@ -17,6 +20,15 @@ const navigate = useNavigate();
     navigate("/Register")
   }
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
+
   return(
     <Wrapper>
         <StartContainer>
@@ -27,6 +39,16 @@ const navigate = useNavigate();
           <h3>Want more space?</h3>
           <button type="button" onClick={goLogin}> Login </button>
           <button type="button" onClick={goRegister}> Register </button>
+          <>
+     <div>
+      <Lottie 
+	    options={defaultOptions}
+        height={200}
+        width={200}
+      />
+    </div>
+    </>
+          
       </StartContainer>
     </Wrapper>
    ) 
