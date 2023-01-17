@@ -15,7 +15,8 @@ const DailyImage = () => {
   return(
   <>
   <DailyImageContainer>
-    <img src={image.url} alt={image.title} />  
+    <Imagebox><img src={image.url} alt={image.title} />  </Imagebox>
+    
     <ImageTextBox>
      <TitleText>{image.title}</TitleText> 
      <DateText>{image.date}</DateText>
@@ -29,7 +30,13 @@ const DailyImage = () => {
 export default DailyImage;
 
 
+const Imagebox=styled.div`
 
+display: block;
+ margin-left: auto;
+ margin-right: auto;
+ width: 50%;
+`
 const DailyImageContainer = styled.section`
  color:white;
  text-align: left;
@@ -38,9 +45,8 @@ const DailyImageContainer = styled.section`
 
 img {
   margin-top: 2%;
-  max-width: 98%;
-  max-height: 350px;
-  /* border-radius: 3% 3% 1% 1%; */
+  max-width: 100%;
+  max-height: 400px;
   border-radius: 50%;
   border: 0.5px solid white;
   justify-content: center;

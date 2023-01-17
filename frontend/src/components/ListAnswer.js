@@ -5,6 +5,7 @@ import SingleAnswer from './AnswerForm'
 import questions from "../reducers/questions";
 import { clamp } from 'date-fns'
 import formatDistance from 'date-fns/formatDistance'
+import  { LikeAnswerButton }  from '../GlobalStyles';
 
  // passing the object and use spread syntax to create a new object which is a copy of the array 'item.answers'. 
 // I spread syntax creates a shallow copy of the array, nested objects or arrays within the array will still refer to the same objects.
@@ -56,15 +57,15 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
         <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
          {/* <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  */}
        
-        <LikeButton>🙂</LikeButton> 
-        <DisLikeButton>🥴</DisLikeButton> 
+        <LikeAnswerButton>🙂</LikeAnswerButton> 
+        <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
         </ButtonWrapper>
        
         </AnswerWrapper>
         ).reverse()}
       
       <SingleAnswer item={item} />
-      <Color/>
+      {/* <Color/> */}
     </>
   )
 }
@@ -73,10 +74,6 @@ export default AnswerList
 
 
 
-const Color = styled.div`
-border-bottom: 5% solid white;
-border-radius: 5%;
-`
 
 const AnswerWrapper = styled.div`
 text-align: left;
@@ -92,28 +89,12 @@ const AnswerText = styled.p`
   color: white;
   border-bottom: 0.5px solid grey;
  
- 
 `
 const ButtonWrapper = styled.div`
-  width: 95%;
+  /* width: 95%; */
   display: flex;
   justify-content: flex-end;
   align-items: right;
-`
-const LikeButton = styled.button`
-background-color: transparent;
-font-size: 14px;
-border-style: none;
-text-align: center;
-padding: 2%;
-width: 45px;
-height:30px;
-border-radius:30px;
-margin-bottom: 5%;
-color: whitesmoke;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
 `
 
 const DeleteButton = styled.button`
@@ -132,24 +113,17 @@ box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);
 justify-content: center;
 `
 
-const DisLikeButton = styled.button`
-/* position: absolute;
-right: 100; */
-background-color: transparent;
-font-size: 14px;
+const DisLikeAnswerButton = styled.button`
+ margin: 5%;
+ background-color: transparent;
+font-size: 12px;
+margin-top: 0%;
+
 border-style: none;
 text-align: center;
-padding: 2%;
-width: 45px;
-height:30px;
-border-radius:30px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
-margin-bottom: 5%;
-color: whitesmoke;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
+
+font-size: 12px;
+font-style: italic;
 `
 const CreatedAtText = styled.p`
   text-align: left;
@@ -159,3 +133,7 @@ const CreatedAtText = styled.p`
   margin-top:0;
   padding-right: 15px;
 `
+// const Color = styled.div`
+// border-bottom: 5% solid white;
+// border-radius: 5%;
+// `

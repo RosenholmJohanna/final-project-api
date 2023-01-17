@@ -15,8 +15,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #000112;
    color: white; 
-   /* background-image: url("https://images.pexels.com/photos/41953/earth-blue-planet-globe-planet-41953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"); */
-   
+  
 }
 
 code {
@@ -47,12 +46,10 @@ input {
 button {
 border-style: none;
 text-align: center;
-width: 60px;
-height:30px;
-border-radius:30px;
+/* border-radius:30px; */
 background-color: #3d5a80;
-color: whitesmoke;
+color: white;
 cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+/* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 justify-content: center;
 }

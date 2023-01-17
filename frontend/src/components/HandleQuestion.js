@@ -7,6 +7,8 @@ import AnswerList, {onDeleteAnswer} from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 import formatDistance from 'date-fns/formatDistance'
+import  { LikeQuestionButton, DeleteQuestionButton, SaveButton }  from '../GlobalStyles';
+
 
 
   const ForumWall = ({ item }) =>{
@@ -115,7 +117,7 @@ import formatDistance from 'date-fns/formatDistance'
     <InerQuestionWrapper>
     <ButtonWrapperTop>
       <SaveButton onClick={() => onCollect(item._id)}>  SAVE</SaveButton> 
-      <DeleteButton onClick={() => onDelete(item._id)}>DELETE</DeleteButton> 
+      <DeleteQuestionButton onClick={() => onDelete(item._id)}>DELETE</DeleteQuestionButton> 
     </ButtonWrapperTop>
     <>
      <MessageText>{item.message}</MessageText>
@@ -125,8 +127,8 @@ import formatDistance from 'date-fns/formatDistance'
      {/* <button onClick={onReply}>Reply
       {accessToken && onLike(item._id)}</button> */}
       <ButtonWrapper>
-        <LikesText><LikeButton onClick={() => onLike(item._id)} >🙂 {item.likes}</LikeButton></LikesText> 
-        <LikesText> <LikeButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</LikeButton></LikesText>
+        <LikesText><LikeQuestionButton onClick={() => onLike(item._id)} >🙂 {item.likes}</LikeQuestionButton></LikesText> 
+        <LikesText> <LikeQuestionButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</LikeQuestionButton></LikesText>
       </ButtonWrapper>
        
     </> <AnswerList item={item}> </AnswerList>
@@ -144,8 +146,10 @@ background-color: #011627ff;
   margin-top: 2%;
   border-radius:2% ;
   color: white;
-  box-shadow: -8px -8px 8px 0 white 70%
-  8px 8px 8px 9 white 20%;
+  /* box-shadow: -8px -8px 8px 0 white 70%
+  8px 8px 8px 9 white 20%; */
+
+  box-shadow: #173F5F 0px 2px 2px, #173F5F 0px 2px 2px;
   
 `
 const InerQuestionWrapper = styled.div`
@@ -155,7 +159,7 @@ border-radius: 4%;
 `
 
 const MessageText = styled.p`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 1%;
   margin-right: 2%;
   font-style: italic;
@@ -182,64 +186,17 @@ const ButtonWrapperTop = styled.div`
   justify-content: flex-end;
   align-items: right;
 `
-const LikeButton = styled.button`
-margin: 5%;
-background-color: transparent;
-font-size: 14px;
-margin-top: 0%;
-margin-left: 5%;
-border-style: none;
-text-align: center;
-padding: 2%;
-width: 50px;
-height:30px;
-border-radius:40px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
-margin-bottom: 5%;
-color: whitesmoke;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
+// const LikeQuestionButton = styled.button`
+// `
 
-const DeleteButton = styled.button`
-background-color: transparent;
-font-size: 12px;
-margin: 3%;
-text-align: center;
-padding: 2%;
-width: 60px;
-height:30px;
-border-radius:5px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
-margin-bottom: 5%;
-color: whitesmoke;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
-const SaveButton = styled.button`
-background-color: transparent;
-font-size: 12px;
-margin: 3%;
-text-align: center;
-padding: 2%;
-width: 70px;
-height:30px;
-border-radius:5px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
-margin-bottom: 5%;
-color: whitesmoke;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
+
+// const SaveButton = styled.button`
+
+// `
 
 const LikesText = styled.p`
  color: white;
+ font-size: 18px;
 `
 
 

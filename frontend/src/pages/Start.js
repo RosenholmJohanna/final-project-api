@@ -37,20 +37,16 @@ export default Start;
 
 
 
+
 const Wrapper = styled.main`
 margin: 2%;
-/* height: 500px; */
 
-
-
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     margin: 10%;
-  }
+  } */
 `
 const StartContainer = styled.div`
 border: 2px solid white;
-/* opacity: 0.3; */
 text-align: center;
-`
-const StartPage = styled.div`
+text-align: center; 
 `
