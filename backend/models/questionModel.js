@@ -12,11 +12,6 @@ const mongoose = require('mongoose');
 export const QuestionSchema = new mongoose.Schema({
     message: {
       type: String, 
-      //required: true
-        // roles: {
-        //   type: mongoose.Schema.Types.ObjectId,
-        //   ref: 'user'
-        // }
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -50,18 +45,15 @@ export const QuestionSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date() 
       },
-      question: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'question'
+      // question: {
+      //   type: mongoose.Schema.Types.ObjectId,
+      //   ref: 'question'
+    //  },
+      likes: {
+        type: Number,
+        default: 0
       }
     }]
-    // answer: {
-    //     type: String, 
-    //       roles: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'admin' 
-    //       }
-    //   },
 })
   
 //const Question = mongoose.model("Questions", QuestionSchema);

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 //import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
-// import Lottie from 'react-lottie';
-// import animationData from '../Lotties/lottiespace';
+import Lottie from 'react-lottie';
+import animationData from '../Lotties/lottiespace';
 
 
 const Start = () => {
@@ -20,35 +20,29 @@ const navigate = useNavigate();
     navigate("/Register")
   }
 
-  // const defaultOptions = {
-  //   loop: true,
-  //   autoplay: true,
-  //   animationData: animationData,
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice"
-  //   }
-  // };
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   return(
     <Wrapper>
         <StartContainer>
           <>
-          "Did you know there are more stars in space than there
-           are grains of sand in the world?"
+          "Did you know there are more stars in space than there are grains of sand in the world?"
            </>
           <h3>Want more space?</h3>
           <button type="button" onClick={goLogin}> Login </button>
           <button type="button" onClick={goRegister}> Register </button>
           <>
-     {/* <div>
-      <Lottie 
-	    options={defaultOptions}
+      <Lottie options={defaultOptions}
         height={200}
-        width={200}
-      />
-    </div> */}
+        width={200} />
     </>
-          
       </StartContainer>
     </Wrapper>
    ) 

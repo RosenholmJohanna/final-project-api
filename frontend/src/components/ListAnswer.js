@@ -30,6 +30,19 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
         }
       })
     }
+  
+
+    const onLikeAnswer = (id) => {
+      const options = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        }}
+      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/answers/${id}/likes`, options)
+        .then(res => res.json())
+        .then(() => showUpdatedList())
+    }
+    
 
   //UNDEFINED ANSWERId  
   const onDeleteAnswer = (id) => {
@@ -57,7 +70,7 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
         <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
          {/* <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  */}
        
-        <LikeAnswerButton>🙂</LikeAnswerButton> 
+        <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
         <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
         </ButtonWrapper>
        

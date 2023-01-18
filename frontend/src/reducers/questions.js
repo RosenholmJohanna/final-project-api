@@ -6,12 +6,11 @@ const questions = createSlice({
     initialState:{
         items: [],
         error: null,
-        //isCollected: Boolean
-        //user: null
-    },
+    }, 
     reducers: {
         setItems: (store, action) => {
             store.items = action.payload;
+            // console.log(store.items, 'reducer')
         },
         setError: (store, action) => {
             store.error = action.payload;

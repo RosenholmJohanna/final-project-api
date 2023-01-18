@@ -196,7 +196,7 @@ const authenticateUser = async (req, res, next) => {
 // GET ALL QUESTIONS FROM ALL USERS, authenticateAdmin
 app.get("/questions", async (req, res)=> {
   try {
-  const questions = await Question.find().sort({createdAt: 'desc'}).limit(20).exec() //.sort({createdAt: 'desc'}); // ({})
+  const questions = await Question.find().sort({createdAt: 'desc'}).limit(20).exec() 
   res.status(200).json({
     success: true, 
     response: questions
@@ -207,6 +207,76 @@ app.get("/questions", async (req, res)=> {
     message: 'Invalid request for questions'
   })
 }
+})
+
+// app.get("/questions", async (req, res)=> {
+//   try {
+//   const questions = await Question.find().sort({createdAt: 'desc'}).limit(20).exec() 
+//   res.status(200).json({
+//     success: true, 
+//     response: questions
+//   }); 
+// } catch (err) {
+//   res.status(400).json({
+//     success: false,
+//     message: 'Invalid request for questions'
+//   })
+// }
+// })
+
+
+// GET ALL ANSWERS
+// QuestionSchema.aggregate([
+//   {$match: {}},
+//   {$project: {answers: 1, _id: 0}}
+// ])
+
+// GET ALL ANSWERS ONLY (if question have no answer then it return empty array on these) - WORKS
+app.get('/answers', (req, res) => {
+  Question.find({}, { answers: 1, _id: 0 })
+    .then(answer => res.status(200).send(answer))
+    .catch(err => res.status(500).send(err));
+});
+
+// ANSWER BY ID -response in console
+app.get('/question/:question_id/answer/:answer_id', function(req, res){
+  Question.findById(req.params.question_id, function(err, Questions) {
+    console.log(req.params.answer_id);
+    var doc = Questions.answers.id(req.params.answer_id);
+    console.log(doc);
+  });
+});
+
+// GET ANSWER BY ID - does not work
+// QuestionSchema.findOne({ 'answers._id': answerId }, { 'answers.$': 1 })
+// app.get("question/questionId/answer/:_id", async (req, res) => {
+//   const { _id } = req.params
+//   Question.findById({_id})
+//   .then(answer => res.status(200).send(answer))
+//   .catch(err => res.status(500).send(err));
+//   })
+
+// LIKE ANSWER BY ID - IT UPDATES QUESTION AS RESPONSE, BUT STILL NO
+app.patch('/question/:questionId/answer/:answerId/like', async (req, res) => {
+  const { questionId } = req.params
+  const { answerId } = req.params
+  try {
+  const updatedAnswer = await Question.findById(questionId, answerId, {$inc: {likes: 1}},   
+   )
+    if (answerId) {
+      res.json({ 
+        success: true,
+         response: `Question ${updatedAnswer.id} has updated likes`,
+         _id: updatedAnswer._id,
+      });
+    } else {
+      res.status(404).json({
+         success: false, 
+         message: 'Could not like answer' })
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid like question request', error })
+  }
 })
 
 // GET QUESTION by QUESTION ID
@@ -253,9 +323,8 @@ app.post("/questions",  async (req, res) => {
         _id: newQuestion._id,
          message: newQuestion.message,
          likes: newQuestion.likes,
-         disLikes: newQuestion.disLikes
-        // user: newQuestion.user,
-         //answer: newQuestion.answer
+         disLikes: newQuestion.disLikes,
+         answer: newQuestion.answers
        }
       });
     }
@@ -271,7 +340,6 @@ app.post("/questions",  async (req, res) => {
 app.patch('/questions/:questionId/answer', async (req, res) => {
   const { questionId } = req.params
   const { answer } = req.body
-  //const { _id } = req.user
   try {
     const updatedQuestion = await Question.findByIdAndUpdate(questionId, {
       $push: {
@@ -299,6 +367,25 @@ app.patch('/questions/:questionId/answer', async (req, res) => {
     res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
+
+// // LIKE ANSWER - NOT WORKING
+// app.patch('/answers/:answerId/likes', (req, res) => {
+//   const answerId = req.params.answerId;
+//   Question.findByIdAndUpdate({
+//     'answers._id': answerId
+//   }, {
+//     $inc: {
+//       'answers.$.likes': 1
+//     }
+//   }, (err, numAffected) => {
+//     if (err) {
+//       res.status(500).send(err);
+//     } else {
+//       res.status(200).send(`${numAffected} answers updated`);
+//     }
+//   });
+// });
+
 
 //https://attacomsian.com/blog/mongoose-increment-decrement-number
 //PATCH LIKES TO QUESTION
@@ -360,6 +447,8 @@ app.patch('/questions/:questionId/dislike', async (req, res) => {
        message: 'Invalid dislike question request', error })
   }
 })
+
+
 
 // DELETE QUESTION BY ID
 app.delete('/questions/:questionId/delete', async (req, res) => {

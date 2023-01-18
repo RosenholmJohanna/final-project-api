@@ -16,6 +16,8 @@ import {Header} from './components/Header'
 import {ForumPage} from './components/ForumPage'
 
 
+console.log(React.version)
+
 const reducer = combineReducers({
   user: user.reducer,
   questions: questions.reducer
@@ -41,6 +43,7 @@ export const App = () => {
     <Route path='/login' element={<Login/>}></Route> 
     <Route path={'/main'} element={<Main/>}></Route> 
     <Route path='/questions' element={<ForumPage/>}></Route>
+   
     <Route path='*' element={<NotFound/>}></Route> 
   </Routes>
   {/* <Footer/> */}
