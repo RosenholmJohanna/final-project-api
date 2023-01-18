@@ -6,6 +6,9 @@ import questions from "../reducers/questions";
 import { clamp } from 'date-fns'
 import formatDistance from 'date-fns/formatDistance'
 import  { LikeAnswerButton }  from '../GlobalStyles';
+import { useParams } from 'react-router-dom';
+
+
 
  // passing the object and use spread syntax to create a new object which is a copy of the array 'item.answers'. 
 // I spread syntax creates a shallow copy of the array, nested objects or arrays within the array will still refer to the same objects.
@@ -15,6 +18,8 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
   const questions = useSelector(store => store.questions.items)
   const answerList = [...item.answers]
   const dispatch = useDispatch()
+ 
+ 
   // console.log(Object)
 
 
@@ -31,14 +36,15 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
       })
     }
   
-
-    const onLikeAnswer = (id) => {
+    //'/question/:questionId/answer/:answerId/like'
+    const onLikeAnswer = (id, _id) => {
+      //console.log(answerId, 'answerid')
       const options = {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         }}
-      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/answers/${id}/likes`, options)
+      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/question/${id}/answer/${_id}/like`, options)
         .then(res => res.json())
         .then(() => showUpdatedList())
     }
@@ -63,7 +69,7 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
   return (
     <>
         {answerList.map(answer =>
-        <AnswerWrapper item={item} key={answer._id}>
+        <AnswerWrapper  key={answer._id}>
         <AnswerText>{answer.answer}</AnswerText> 
        
         <ButtonWrapper>

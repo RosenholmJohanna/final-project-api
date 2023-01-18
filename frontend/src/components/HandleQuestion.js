@@ -53,7 +53,6 @@ import  { LikeQuestionButton, DeleteQuestionButton, SaveButton }  from '../Globa
       headers: {
         'Content-Type': 'application/json'
       }}
-    
     fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${id}/like`, options)
       .then(res => res.json())
       .then(() => showUpdatedList())

@@ -209,21 +209,6 @@ app.get("/questions", async (req, res)=> {
 }
 })
 
-// app.get("/questions", async (req, res)=> {
-//   try {
-//   const questions = await Question.find().sort({createdAt: 'desc'}).limit(20).exec() 
-//   res.status(200).json({
-//     success: true, 
-//     response: questions
-//   }); 
-// } catch (err) {
-//   res.status(400).json({
-//     success: false,
-//     message: 'Invalid request for questions'
-//   })
-// }
-// })
-
 
 // GET ALL ANSWERS
 // QuestionSchema.aggregate([
@@ -247,37 +232,56 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
   });
 });
 
-// GET ANSWER BY ID - does not work
-// QuestionSchema.findOne({ 'answers._id': answerId }, { 'answers.$': 1 })
-// app.get("question/questionId/answer/:_id", async (req, res) => {
-//   const { _id } = req.params
-//   Question.findById({_id})
-//   .then(answer => res.status(200).send(answer))
-//   .catch(err => res.status(500).send(err));
-//   })
+// // GET ANSWER BY ID - does not work
+// // QuestionSchema.findOne({ 'answers._id': answerId }, { 'answers.$': 1 })
+// // app.get("question/questionId/answer/:_id", async (req, res) => {
+// //   const { _id } = req.params
+// //   Question.findById({_id})
+// //   .then(answer => res.status(200).send(answer))
+// //   .catch(err => res.status(500).send(err));
+// //   })
 
-// LIKE ANSWER BY ID - IT UPDATES QUESTION AS RESPONSE, BUT STILL NO
-app.patch('/question/:questionId/answer/:answerId/like', async (req, res) => {
-  const { questionId } = req.params
-  const { answerId } = req.params
-  try {
-  const updatedAnswer = await Question.findById(questionId, answerId, {$inc: {likes: 1}},   
-   )
-    if (answerId) {
-      res.json({ 
-        success: true,
-         response: `Question ${updatedAnswer.id} has updated likes`,
-         _id: updatedAnswer._id,
-      });
-    } else {
-      res.status(404).json({
-         success: false, 
-         message: 'Could not like answer' })
+
+// Question.updateOne({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
+//   .then(updatedAnswer => {
+//     if (updatedAnswer) {
+//       res.json({ 
+//         success: true,
+//         response: `Question ${updatedAnswer.id} has updated likes`,
+//         _id: updatedAnswer._id,
+//       });
+//     } else {
+//       res.status(404).json({
+//         success: false, 
+//         message: 'Could not like answer' })
+//     }
+//   })
+//   .catch(error => {
+//     res.status(400).json({ success: false, message: 'Invalid like question request', error })
+//   });
+
+// LIKE ANSWER - 
+  app.patch('/question/:questionId/answer/:answerId/like', async (req, res) => {
+    const { questionId } = req.params
+    const { answerId } = req.params
+    try {
+      const updatedAnswer = await Question.updateOne({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
+      if (updatedAnswer) {
+        res.json({ 
+          success: true,
+          response: `Answer ${answerId} has updated likes`,
+          _id: updatedAnswer._id,
+        });
+      } else {
+        res.status(404).json({
+          success: false, 
+          message: 'Could not like answer' })
+      }
+    } catch (error) {
+      res.status(400).json({ success: false, message: 'Invalid like question request', error })
     }
-  } catch (error) {
-    res.status(400).json({ success: false, message: 'Invalid like question request', error })
-  }
-})
+  });
+
 
 // GET QUESTION by QUESTION ID
 app.get("/questions/id/:_id", async (req, res) => {

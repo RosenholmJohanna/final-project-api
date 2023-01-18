@@ -45,10 +45,10 @@ export const QuestionSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date() 
       },
-      // question: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: 'question'
-    //  },
+      question: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'question'
+     },
       likes: {
         type: Number,
         default: 0
