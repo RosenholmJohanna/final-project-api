@@ -143,13 +143,11 @@ const QuestionWrapper = styled.div`
 background-color: #011627ff;
   padding: 2%;
   margin-top: 2%;
-  border-radius:2% ;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius:2%;
   color: white;
-  /* box-shadow: -8px -8px 8px 0 white 70%
-  8px 8px 8px 9 white 20%; */
-
   box-shadow: #173F5F 0px 2px 2px, #173F5F 0px 2px 2px;
-  
 `
 const InerQuestionWrapper = styled.div`
 background-color: #000112;

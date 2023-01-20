@@ -42,7 +42,7 @@ margin-right: 5%;
 font-size: 12px;
 border-style: none;
 text-align: center;
-width: 40px;
+width: 50px;
 height:25px;
 border-radius:30px;
 margin-top: 2%;

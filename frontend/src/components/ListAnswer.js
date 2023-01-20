@@ -21,8 +21,6 @@ const AnswerList = ({item}) => {   // item = object ref
   console.log(answerList)
   const dispatch = useDispatch()
 
- 
-  // console.log(Object)
 
   const showUpdatedList = () => {
     fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
@@ -36,7 +34,7 @@ const AnswerList = ({item}) => {   // item = object ref
       })
     }
     
-    const onLikeAnswer = (answerId, questionId) => {
+    const onLikeAnswer = ( answerId, questionId) => {
       console.log(answerId, 'like answer')
       console.log(questionId, 'the question')
       const options = {
@@ -67,11 +65,8 @@ const AnswerList = ({item}) => {   // item = object ref
       <AnswerWrapper item={item} key={answer._id}>
          <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  
       <AnswerText>{answer.answer}</AnswerText> 
-
       <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
         <ButtonWrapper>
-        
-           
             <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
             <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
         </ButtonWrapper>

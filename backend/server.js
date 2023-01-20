@@ -265,7 +265,7 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
     const { questionId } = req.params
     const { answerId } = req.params
     try {
-      const updatedAnswer = await Question.findOneAndUpdate({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
+      const updatedAnswer = await Question.findByIdAndUpdate({ _id: questionId, 'answer._id': answerId}, {$inc: {'answer.$.likes': 1}})
       if (answerId) {
         res.json({ 
           success: true,
