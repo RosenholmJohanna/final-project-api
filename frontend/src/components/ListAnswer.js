@@ -140,8 +140,5 @@ const CreatedAtText = styled.p`
   margin-top:0;
   padding-right: 15px;
 `
-// const Color = styled.div`
-// border-bottom: 5% solid white;
-// border-radius: 5%;
-// `
+
 

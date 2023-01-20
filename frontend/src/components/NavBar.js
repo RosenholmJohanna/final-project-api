@@ -39,12 +39,7 @@ export const Navbar = () => {
     ) 
 }
 
-
-
-c
-
 const Wrapper = styled.main`
-/* margin: 2%; */
 
 
 @media (min-width: 768px) {
