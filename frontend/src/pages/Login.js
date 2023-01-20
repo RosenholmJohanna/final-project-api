@@ -4,24 +4,20 @@ import { useNavigate, Link } from "react-router-dom";
 import { API_URL, LOGIN_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
-//import  {Button}  from './components/Style'
 
-// OBS below is out comented in server!!
-// //app.get("/questions", authenticateUser, authenticateAdmin);
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    //const [adminname, setAdminname] = useState("");
     const [mode, setMode] = useState("login");
      const dispatch = useDispatch();
      const navigate = useNavigate();
-    const accessToken = useSelector((store) => store.user.accessToken);// click loggin - reponse with token in network - tooken stored in slice - we go there to get it
+    const accessToken = useSelector((store) => store.user.accessToken);
     
     useEffect(() => {
         if (accessToken) {
             navigate("/main");
-        }
+        } 
     }, [accessToken])
 
     const onFormSubmit =(event) => {
@@ -39,8 +35,7 @@ const Login = () => {
           .then(data => {
             if(data.success) { 
                  batch(()=> {
-                    // this 4 happens if we have successfull respons
-                    dispatch(user.actions.setUsername(data.response.username)); //if success we go to redux/reducer batch - fire multiple dispatch, but only happen when rerender page
+                    dispatch(user.actions.setUsername(data.response.username)); 
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
                     dispatch(user.actions.setError(null));
@@ -57,9 +52,12 @@ const Login = () => {
         })
     }
     return (
-        <StartPage>
-        <Loginpagetext>Login</Loginpagetext>       
-        <form onSubmit={onFormSubmit}>
+    <>
+    <LoginContainer>
+        <LoginForm> 
+        <Logintext>Welcome to planet space</Logintext>  
+        <LogintextTwo>Login with username and password</LogintextTwo>  
+        <form onSubmit={onFormSubmit} onChange={()=>setMode("login")}>
             <label htmlFor="username">Username</label>
         <input 
             required
@@ -78,44 +76,71 @@ const Login = () => {
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
             <label htmlFor="login">
-
-        <input 
-            label="confirm" 
-            type="radio" id="login" 
-            checked={mode === "login"}
-            onChange={()=>setMode("login")}/>
         </label>
-
-        <button type="submit">Submit</button>
+        <LoginButton>Submit</LoginButton>
         </form>
-        
-        <Link to="/register"> <RegisterLinkText>New user? Rigister here </RegisterLinkText> </Link> 
-       
-        <h3>Give me some space 🚀</h3>
-    </StartPage> 
+        </LoginForm> 
+        <Link to="/register"> <RegisterLinkText>Don't have an account? Rigister here </RegisterLinkText> </Link> 
+        </LoginContainer>
+        </>
     );
 }
 
 export default Login;
 
+const LoginContainer=styled.div`
+margin-top: 20%;
+margin: 3%;
+a {
+  text-decoration: none; 
+  color: white;
+  text-decoration: none; 
+}
+`
 
-
-
-
-const StartPage = styled.div `
-text-align: center;
-color: white;
+export const LoginForm= styled.div`
+background-size: cover;
 display: flex;
-flex-direction: column; 
-color: white;
+justify-content: flex-start;
+margin-top: 50%;
+flex-direction: column;  
+min-height: 300px;
+padding: 3%;
+background-color: #011627;
+border-radius: 5%;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `
 
-const Loginpagetext = styled.h1 `
-margin: 5%;
-font-size: 22px;
+const LoginButton=styled.button`
+border-style: none;
+text-align: center;
+width: 60%;
+height:40px;
+border-radius:25px;
+margin-bottom: 0;
+margin-top: 10%;
+color: white;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+
+export const Logintext = styled.h2 `
+margin: 0;
+font-size: 18px;
 color: white;
 `
-const RegisterLinkText = styled.h1 `
+const LogintextTwo = styled.h3 `
+font-size: 14px;
+font-weight: lighter;
+color: white;
+margin-bottom: 10%; 
+`
+
+const RegisterLinkText = styled.p `
+margin-bottom: 40%;
 font-size: 14px;
 color: white;
+text-align: end;
+text-decoration: underline;
 `

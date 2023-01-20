@@ -7,7 +7,6 @@ import styled, { keyframes } from 'styled-components';
 
  // {props}
   const SingleAnswer = ({item}) => {
-    // console.log('single item (question with array of their answers)', item)
 
     const [answer, setAnswer] = useState('')
     const dispatch = useDispatch()
@@ -18,14 +17,12 @@ import styled, { keyframes } from 'styled-components';
       .then(data => {
         if (data.success) {
           dispatch(questions.actions.setItems(data.response))
-          // alert('success')
         } else {
           dispatch(questions.actions.setError(data))
         }
       })
   }
 
-  //id
   const onAnswerSubmit = (event, id) => {
     event.preventDefault()
     console.log(id, 'Answered questionID')

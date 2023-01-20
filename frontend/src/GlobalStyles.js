@@ -10,6 +10,21 @@ import styled, { createGlobalStyle } from 'styled-components';
 // }
 // } `;
 
+// export const OuterWrapper = styled.section`
+//  margin: 0;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-content: center;
+//   color: white;
+//   background-color: #000112;
+//    margin: 0;
+//    padding: 0;
+// @media (min-width: 768px) {
+//     max-width: 50%;
+//   }
+// `
+
 export const LikeAnswerButton = styled.button`
  margin: 5%;
  background-color: transparent;

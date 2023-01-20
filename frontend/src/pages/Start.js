@@ -17,34 +17,15 @@ const navigate = useNavigate();
     navigate("/Login")
   }
 
-  const goRegister = () => {
-    navigate("/Register")
-  }
-
-  // const defaultOptions = {
-  //   loop: true,
-  //   autoplay: true,
-  //   animationData: animationData,
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice"
-  //   }
-  // };
-
   return(
     <Wrapper>
         <StartContainer>
-          <>
-          "Did you know there are more stars in space than there are grains of sand in the world?"
-           </>
-          <h3>Want more space?</h3>
-          <button type="button" onClick={goLogin}> Login </button>
-          <button type="button" onClick={goRegister}> Register </button>
-          <>
-      {/* <Lottie options={defaultOptions}
-        height={200}
-        width={200} /> */}
-    </>
-      </StartContainer>
+          <TextWrapper>
+            <StartText> "Did you know there are more stars in space than there are grains of sand in the world?"</StartText>
+            <StartTextTwo>Want more space?</StartTextTwo>
+            <ButtonStart type="button" onClick={goLogin}> Give me some space 🚀</ButtonStart>
+        </TextWrapper> 
+        </StartContainer>
     </Wrapper>
    ) 
 }
@@ -56,14 +37,59 @@ export default Start;
 
 
 const Wrapper = styled.main`
-margin: 2%;
-
-/* @media (min-width: 768px) {
-    margin: 10%;
-  } */
+/* background: url("https://images.pexels.com/photos/1906658/pexels-photo-1906658.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+background-size: cover; */
 `
 const StartContainer = styled.div`
-border: 2px solid white;
 text-align: center;
-text-align: center; 
+margin-top: 50%;
+ min-height: 450px; 
+ display: flex;
+flex-direction: column; 
+
+@media (min-width: 768px) {
+    margin-top: 10%;
+  } 
 `
+const TextWrapper = styled.div`
+margin: 5%;
+`
+
+const StartText = styled.p`
+
+`
+
+const StartTextTwo = styled.p`
+`
+const ButtonStart = styled.button`
+border-style: none;
+text-align: center;
+width: 60%;
+height:40px;
+border-radius:25px;
+margin-bottom: 0;
+color: white;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+background-color: transparent;
+ 
+@media (min-width: 768px) {
+    width: 20%;
+  } 
+`
+
+
+
+
+
+
+
+  // const defaultOptions = {
+  //   loop: true,
+  //   autoplay: true,
+  //   animationData: animationData,
+  //   rendererSettings: {
+  //     preserveAspectRatio: "xMidYMid slice"
+  //   }
+  // };

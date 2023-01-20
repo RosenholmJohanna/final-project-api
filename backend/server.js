@@ -265,8 +265,8 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
     const { questionId } = req.params
     const { answerId } = req.params
     try {
-      const updatedAnswer = await Question.updateOne({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
-      if (updatedAnswer) {
+      const updatedAnswer = await Question.findOneAndUpdate({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
+      if (answerId) {
         res.json({ 
           success: true,
           response: `Answer ${answerId} has updated likes`,
@@ -281,6 +281,41 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
       res.status(400).json({ success: false, message: 'Invalid like question request', error })
     }
   });
+
+
+
+  // app.patch('/questions/:answerId/like', async (req, res) => {
+  //   const { answerId } = req.params
+  //   try {
+  //   const updatedAnswer = await Question.findByIdAndUpdate(answer, answerId, {$inc: {likes: 1}},   
+  //    )
+  //     if (answerId) {
+  //       res.json({ 
+  //         success: true,
+  //          response: `Question ${updatedAnswer.id} has updated likes`,
+  //         _id: updatedAnswer._id,
+  //       });
+  //     } else {
+  //       res.status(404).json({
+  //          success: false, 
+  //          message: 'Could not like question' })
+  //     }
+  //   } catch (error) {
+  //     res.status(400).json({ success: false, message: 'Invalid like question request', error })
+  //   }
+  // })
+
+
+
+
+  // ANSWER BY ID -response in console
+app.get('/question/:question_id/answer/:answer_id', function(req, res){
+  Question.findById(req.params.question_id, function(err, Questions) {
+    console.log(req.params.answer_id);
+    var doc = Questions.answers.id(req.params.answer_id);
+    console.log(doc);
+  });
+});
 
 
 // GET QUESTION by QUESTION ID
@@ -321,8 +356,6 @@ app.post("/questions",  async (req, res) => {
       res.status(201).json({
         success: true, 
        // response: newQuestion,
-
-       //response: see in console
         response: {
         _id: newQuestion._id,
          message: newQuestion.message,
@@ -372,23 +405,6 @@ app.patch('/questions/:questionId/answer', async (req, res) => {
   }
 })
 
-// // LIKE ANSWER - NOT WORKING
-// app.patch('/answers/:answerId/likes', (req, res) => {
-//   const answerId = req.params.answerId;
-//   Question.findByIdAndUpdate({
-//     'answers._id': answerId
-//   }, {
-//     $inc: {
-//       'answers.$.likes': 1
-//     }
-//   }, (err, numAffected) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     } else {
-//       res.status(200).send(`${numAffected} answers updated`);
-//     }
-//   });
-// });
 
 
 //https://attacomsian.com/blog/mongoose-increment-decrement-number
@@ -404,12 +420,6 @@ app.patch('/questions/:questionId/like', async (req, res) => {
         success: true,
          response: `Question ${updatedQuestion.id} has updated likes`,
         _id: updatedQuestion._id,
-        // question: {
-        //   _id: updatedQuestion._id,
-        //   message: updatedQuestion.message,
-        //   likes: updatedQuestion.likes,
-        //   createdAt: updatedQuestion.createdAt
-        // }
       });
     } else {
       res.status(404).json({

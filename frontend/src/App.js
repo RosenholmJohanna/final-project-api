@@ -14,6 +14,7 @@ import user from './reducers/user';
 import {Footer} from './components/Footer'
 import {Header} from './components/Header'
 import {ForumPage} from './components/ForumPage'
+import { OuterWrapper } from './GlobalStyles';
 
 
 console.log(React.version)
@@ -32,6 +33,7 @@ export const App = () => {
 
 
   return (
+  
 <BrowserRouter>
 <Header/>
 <Provider store={store}>
@@ -43,12 +45,12 @@ export const App = () => {
     <Route path='/login' element={<Login/>}></Route> 
     <Route path={'/main'} element={<Main/>}></Route> 
     <Route path='/questions' element={<ForumPage/>}></Route>
-   
     <Route path='*' element={<NotFound/>}></Route> 
   </Routes>
-  {/* <Footer/> */}
+   <Footer/> 
   </Provider>
 </BrowserRouter>
+
   )
 }
 

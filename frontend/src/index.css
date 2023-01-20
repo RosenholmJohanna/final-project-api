@@ -1,25 +1,43 @@
 
 
-  @import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap);
-  @import url(https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap);
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+ 
 /* 
 html {
   background-image: url("https://images.pexels.com/photos/41953/earth-blue-planet-globe-planet-41953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
 } */
 
-body {
+/* body {
   font-family: -apple-system, BlinkMacSystemFont, 'Roboto', "Segoe UI", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+} */
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  color: white;
   background-color: #000112;
-   color: white; 
+   margin: 0;
+   padding: 0;
+   font-weight: 400;
+   font-family:  'Montserrat', 'Roboto', "Courier New",
+   monospace;
+}
+
+h1 {
+  margin: 0;
   
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Roboto', "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Montserrat', 'Roboto', "Courier New",
     monospace;
 }
 
@@ -41,15 +59,18 @@ input {
   margin: 3%;
   color: white;
   padding: 1%;
+  border-style: none;
 }
 
 button {
 border-style: none;
 text-align: center;
-/* border-radius:30px; */
 background-color: #3d5a80;
 color: white;
 cursor:pointer;
 /* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 justify-content: center;
 }
+
+
+

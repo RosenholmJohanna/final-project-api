@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link, useHistory} from "react-router-dom";
 import styled from "styled-components"
 import DailyImage from '../components/DailyImage'
+import { OuterWrapper } from "../GlobalStyles";
 
 
 const Main = () => {
@@ -24,6 +25,7 @@ const Main = () => {
 
   return(
     <>  
+   
     {/* <Wrapper> */}
       <DailyImageContainer>
         <DailyImage/> 
@@ -34,6 +36,7 @@ const Main = () => {
       <ButtonNavigate type="button" onClick={goAllUsers}> Users </ButtonNavigate>
       </ButtonWrapper>
     {/* </Wrapper> */}
+  
     </>
    ) 
 }

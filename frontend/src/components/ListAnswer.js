@@ -13,17 +13,17 @@ import { useParams } from 'react-router-dom';
  // passing the object and use spread syntax to create a new object which is a copy of the array 'item.answers'. 
 // I spread syntax creates a shallow copy of the array, nested objects or arrays within the array will still refer to the same objects.
 
-const AnswerList = ({ item }) => {  //setanswers // item =  object ref
+const AnswerList = ({item}) => {   // item = object ref
+  console.log(item)
+
   //const answersList = useSelector(store => store.questions.items) // not a function......
-  const questions = useSelector(store => store.questions.items)
   const answerList = [...item.answers]
+  console.log(answerList)
   const dispatch = useDispatch()
- 
+
  
   // console.log(Object)
 
-
-  // UPDATE BE WITH NEW ENDPOINT FOR LIKES AND DELETE!!
   const showUpdatedList = () => {
     fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
       .then(res => res.json())
@@ -35,24 +35,22 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
         }
       })
     }
-  
-    //'/question/:questionId/answer/:answerId/like'
-    const onLikeAnswer = (id, _id) => {
-      //console.log(answerId, 'answerid')
+    
+    const onLikeAnswer = (answerId, questionId) => {
+      console.log(answerId, 'like answer')
+      console.log(questionId, 'the question')
       const options = {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
         }}
-      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/question/${id}/answer/${_id}/like`, options)
+      fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/question/${questionId}/answer/${answerId}/like`, options)
         .then(res => res.json())
-        .then(() => showUpdatedList())
-    }
+        .then(() => showUpdatedList())}
     
 
   //UNDEFINED ANSWERId  
   const onDeleteAnswer = (id) => {
-    //correct in console, and url - but still say CAN'T Found. Response is returning HTML instead of JSON
     console.log(id, 'answer id to delete') 
     const options = {
       method: 'DELETE',
@@ -61,30 +59,22 @@ const AnswerList = ({ item }) => {  //setanswers // item =  object ref
       }}
     fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/answers/${id}/delete`, options)
       .then(res => res.json())
-      .then(() => { 
-        showUpdatedList()
-      })
-    }
+      .then(() => showUpdatedList())}
    
   return (
     <>
-        {answerList.map(answer =>
-        <AnswerWrapper  key={answer._id}>
-        <AnswerText>{answer.answer}</AnswerText> 
-       
+      {answerList.map(answer =>
+      <AnswerWrapper item={item} key={answer._id}>
+      <AnswerText>{answer.answer}</AnswerText> 
         <ButtonWrapper>
-        <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
-         {/* <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  */}
-       
-        <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
-        <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
+          <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
+            <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  
+            <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
+            <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
         </ButtonWrapper>
-       
-        </AnswerWrapper>
-        ).reverse()}
-      
+      </AnswerWrapper>
+      ).reverse()}
       <SingleAnswer item={item} />
-      {/* <Color/> */}
     </>
   )
 }
@@ -126,7 +116,7 @@ width: 50px;
 height:30px;
 border-radius:30px;
 margin-bottom: 5%;
-color: whitesmoke;
+color: white;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
 justify-content: center;
@@ -134,13 +124,11 @@ justify-content: center;
 
 const DisLikeAnswerButton = styled.button`
  margin: 5%;
- background-color: transparent;
+ background-color: transparent 5;
 font-size: 12px;
 margin-top: 0%;
-
 border-style: none;
 text-align: center;
-
 font-size: 12px;
 font-style: italic;
 `
@@ -156,3 +144,4 @@ const CreatedAtText = styled.p`
 // border-bottom: 5% solid white;
 // border-radius: 5%;
 // `
+

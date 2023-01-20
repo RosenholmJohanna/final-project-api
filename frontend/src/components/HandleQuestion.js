@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
 import styled from 'styled-components'
-import AnswerList, {onDeleteAnswer} from './ListAnswer'
+import AnswerList from './ListAnswer'
 import SingleAnswer from './AnswerForm'
 import { useParams } from 'react-router-dom';
 import formatDistance from 'date-fns/formatDistance'
@@ -59,7 +59,7 @@ import  { LikeQuestionButton, DeleteQuestionButton, SaveButton }  from '../Globa
   }
 
   const onDelete = (id) => {
-    console.log(id)
+    // console.log(id)
     const options = {
       method: 'DELETE',
       headers: {
@@ -89,16 +89,16 @@ import  { LikeQuestionButton, DeleteQuestionButton, SaveButton }  from '../Globa
 
     // does not work - cant find user
     const onCollect = () => {
-      console.log(accessToken)
+      //console.log(accessToken)
       const options = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'authorization': accessToken
+         // 'authorization': accessToken
         }, body: 
            JSON.stringify({
-              userId,
-              collections
+              // userId,
+              // collections
           })
       }
       fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/user/update-collection`, options)
@@ -185,13 +185,7 @@ const ButtonWrapperTop = styled.div`
   justify-content: flex-end;
   align-items: right;
 `
-// const LikeQuestionButton = styled.button`
-// `
 
-
-// const SaveButton = styled.button`
-
-// `
 
 const LikesText = styled.p`
  color: white;
