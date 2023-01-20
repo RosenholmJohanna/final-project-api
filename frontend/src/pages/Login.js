@@ -55,15 +55,14 @@ const Login = () => {
     <>
     <LoginContainer>
         <LoginForm> 
-        <Logintext>Welcome to planet space</Logintext>  
-        <LogintextTwo>Login with username and password</LogintextTwo>  
+        <Logintext>Login</Logintext>  
+        <LogintextTwo>Welcome! Please login to visit Planet Space</LogintextTwo>  
         <form onSubmit={onFormSubmit} onChange={()=>setMode("login")}>
             <label htmlFor="username">Username</label>
         <input 
             required
             type="text" 
             id="username" 
-            placeholder="username"
             value={username} 
             onChange={e => setUsername(e.target.value)}/>
             <label htmlFor="Password">Password</label>
@@ -72,15 +71,15 @@ const Login = () => {
             required 
             type="password" 
             id="password" 
-            placeholder="password"
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
             <label htmlFor="login">
         </label>
+       
         <LoginButton>Submit</LoginButton>
         </form>
         </LoginForm> 
-        <Link to="/register"> <RegisterLinkText>Don't have an account? Rigister here </RegisterLinkText> </Link> 
+        <Link to="/register"> <RegisterLinkText>Register here if new to Planet Space </RegisterLinkText> </Link> 
         </LoginContainer>
         </>
     );
@@ -89,7 +88,7 @@ const Login = () => {
 export default Login;
 
 const LoginContainer=styled.div`
-margin-top: 20%;
+margin-top: 10%;
 margin: 3%;
 a {
   text-decoration: none; 
@@ -119,7 +118,6 @@ height:40px;
 border-radius:25px;
 margin-bottom: 0;
 margin-top: 10%;
-color: white;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
 justify-content: center;
@@ -127,20 +125,20 @@ justify-content: center;
 
 export const Logintext = styled.h2 `
 margin: 0;
+margin-left: 5%;
 font-size: 18px;
-color: white;
 `
 const LogintextTwo = styled.h3 `
 font-size: 14px;
 font-weight: lighter;
-color: white;
 margin-bottom: 10%; 
+margin-left: 5%;
 `
 
 const RegisterLinkText = styled.p `
 margin-bottom: 40%;
 font-size: 14px;
-color: white;
+color: #52A6FA;
 text-align: end;
 text-decoration: underline;
 `

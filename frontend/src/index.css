@@ -22,9 +22,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  color: white;
+  color: #F0F6FF;
   background-color: #000112;
-   margin: 0;
+   margin: 2%;
    padding: 0;
    font-weight: 400;
    font-family:  'Montserrat', 'Roboto', "Courier New",
@@ -53,19 +53,22 @@ input {
   border-right: none;
   border-bottom: none;
   font-size: 12px;
-  margin-left: 10px;
+  margin-left: 15px;
   background-color: #000112;
   width: 70%;
+  height: 20px;
   margin: 3%;
   color: white;
   padding: 1%;
   border-style: none;
+  text-align: center;
 }
 
 button {
 border-style: none;
 text-align: center;
-background-color: #3d5a80;
+/* background-color: #3d5a80; */
+background-color: transparent;
 color: white;
 cursor:pointer;
 /* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */

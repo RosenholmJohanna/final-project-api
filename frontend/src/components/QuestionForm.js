@@ -80,13 +80,14 @@ border-radius: 2% 2% 2% 2%;
 `
 
 const Button = styled.button`
-margin-right: 10%;
-font-size: 14px;
+margin-right: 5%;
+font-size: 12px;
 border-style: none;
 text-align: center;
-width: 45px;
-height:30px;
+width: 60px;
+height:25px;
 border-radius:30px;
+margin-top: 2%;
 margin-bottom: 0;
 color: whitesmoke;
 cursor:pointer;

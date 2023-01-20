@@ -55,26 +55,24 @@ const Register = () => {
     return (
         <LoginContainer>
         <LoginForm>
-        <Logintext>Register new user?</Logintext>  
-        <LogintextTwo>Before visit planet space, please create an account</LogintextTwo>  
+        <Logintext>Registration</Logintext>  
+        <LogintextTwo>Create account before visit Planet Space</LogintextTwo>  
         <form onSubmit={onFormSubmit}  onChange={()=>setMode("register")}>
         <label htmlFor="username">Username</label>
         <Input 
             required
             type="text" 
             id="username" 
-            placeholder="username"
             value={username} 
             onChange={e => setUsername(e.target.value)}/>
             <label htmlFor="Password">Password</label>
-        
         <Input
             required 
             type="password" 
             id="password" 
-            placeholder="password"
             value={password} 
             onChange={e => setPassword(e.target.value)}/>
+             <InfoText>Choose a minimum of 6 characters</InfoText>
         <LoginButton type="submit">Submit</LoginButton>
         </form>
         </LoginForm>
@@ -86,7 +84,7 @@ const Register = () => {
 export default Register;
 
 const LoginContainer=styled.div`
-margin-top: 20%;
+margin-top: 10%;
 margin: 3%;
 a {
   text-decoration: none; 
@@ -100,7 +98,6 @@ color: #000112;
 `
 
 export const LoginForm= styled.div`
-
 display: flex;
 justify-content: flex-start;
 border: 1px solid white;
@@ -108,7 +105,7 @@ margin-top: 50%;
 flex-direction: column;  
 min-height: 300px;
 padding: 3%;
-background-color: white;
+background-color: #F0F6FC;
 color: #000112;
 border-radius: 5%;
 
@@ -150,5 +147,10 @@ box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);
 justify-content: center;
 `
 
-
+const InfoText = styled.p`
+font-size: 10px;
+text-align: right;
+margin-bottom: 5%;
+margin-top: 0;
+`
 

@@ -5,7 +5,7 @@ import SingleAnswer from './AnswerForm'
 import questions from "../reducers/questions";
 import { clamp } from 'date-fns'
 import formatDistance from 'date-fns/formatDistance'
-import  { LikeAnswerButton }  from '../GlobalStyles';
+// import  { LikeAnswerButton }  from '../GlobalStyles';
 import { useParams } from 'react-router-dom';
 
 
@@ -65,10 +65,13 @@ const AnswerList = ({item}) => {   // item = object ref
     <>
       {answerList.map(answer =>
       <AnswerWrapper item={item} key={answer._id}>
+         <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  
       <AnswerText>{answer.answer}</AnswerText> 
+
+      <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
         <ButtonWrapper>
-          <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
-            <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  
+        
+           
             <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
             <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
         </ButtonWrapper>
@@ -95,45 +98,63 @@ const AnswerText = styled.p`
   margin: 0;
   margin-left: 5%;
   margin-right: 5%;
+  margin-bottom: 1%;
   color: white;
-  border-bottom: 0.5px solid grey;
  
 `
 const ButtonWrapper = styled.div`
-  /* width: 95%; */
   display: flex;
   justify-content: flex-end;
   align-items: right;
+  border-top: 0.5px solid grey;
+  margin-bottom: 7%;
 `
 
 const DeleteButton = styled.button`
-background-color: transparent;
-font-size: 14px;
+background-color: #530f1e;
+font-size: 10px;
+margin: 3%;
+padding: 2%;
+width: 52px;
+height: 25px;
+border-radius:5px;
+/* left:calc(30% - 75px);
+top:calc(30% - 25px); */
+margin-bottom: 4%; 
+
+`
+
+const DisLikeAnswerButton = styled.button`
+margin-right: 4%;
+font-size: 12px;
 border-style: none;
 text-align: center;
-padding: 2%;
-width: 50px;
-height:30px;
+width: 40px;
+height:25px;
 border-radius:30px;
-margin-bottom: 5%;
-color: white;
+margin-top: 2%;
+margin-bottom: 0;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
 justify-content: center;
 `
 
-const DisLikeAnswerButton = styled.button`
- margin: 5%;
- background-color: transparent 5;
+const LikeAnswerButton = styled.button`
+margin-right: 5%;
 font-size: 12px;
-margin-top: 0%;
 border-style: none;
 text-align: center;
-font-size: 12px;
-font-style: italic;
+width: 40px;
+height:25px;
+border-radius:30px;
+margin-top: 2%;
+margin-bottom: 0;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
 `
 const CreatedAtText = styled.p`
-  text-align: left;
+  text-align: right;
   font-style: italic;
   color: grey;
   font-size: 10px;

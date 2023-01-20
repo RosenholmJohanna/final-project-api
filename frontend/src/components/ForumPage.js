@@ -10,13 +10,12 @@ export const ForumPage = () => {
 
   return (
     <>
-    <LoggedInUser>Username: {username}</LoggedInUser>
+    <LoggedInUser>Welcome to the spaceforum {username}</LoggedInUser>
     <TextBox>
       <Text>Ask something about space and wait for me or a friend to reply. 
       In short you will be able or filter through topics, or save
       your favourite questions to you profile 👩‍🚀</Text>
     </TextBox>
-   
     <PageContainer>
         <NewQuestion />
         <MessageList />
@@ -25,23 +24,20 @@ export const ForumPage = () => {
   )}
 
 
-  const TextBox = styled.div`
-
+const TextBox = styled.div`
 `
 
 const PageContainer = styled.section`
-/* background-color:#b4b1b8; */
 `
-
 
 const Text = styled.p`
-  text-align: center;
+  text-align: left;
   font-size: 12px;
-  padding-bottom: 10px;
+  margin:0;
 `
 const LoggedInUser = styled.p`
-  text-align: right;
-  font-size: 12px;
-  padding-bottom: 10px;
+  text-align: left;
+  font-size: 10px;
+  margin-top: 5%;
   
 `

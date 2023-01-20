@@ -38,20 +38,22 @@ font-style: italic;
 `
 
 export const LikeQuestionButton = styled.button`
- margin: 5%;
- background-color: transparent;
+margin-right: 5%;
 font-size: 12px;
-margin-top: 0%;
- margin-left: 5%;
 border-style: none;
 text-align: center;
-width: 50px;
-font-size: 12px;
-font-style: italic;
+width: 40px;
+height:25px;
+border-radius:30px;
+margin-top: 2%;
+margin-bottom: 0;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
  `
 
 export const DeleteQuestionButton = styled.button`
-background-color: red;
+background-color: #530f1e;
 font-size: 10px;
 margin: 3%;
 padding: 2%;
@@ -65,7 +67,7 @@ margin-bottom: 5%;
 
 
 export const SaveButton = styled.button`
-background-color: green;
+background-color: #013026;
 font-size: 10px;
 margin: 3%;
 padding: 2%;

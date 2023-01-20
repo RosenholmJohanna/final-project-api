@@ -159,7 +159,7 @@ border-radius: 4%;
 
 const MessageText = styled.p`
   font-size: 12px;
-  margin-left: 1%;
+  margin-left: 2%;
   margin-right: 2%;
   font-style: italic;
 `
@@ -173,7 +173,7 @@ const CreatedAtText = styled.p`
 `
 
 const ButtonWrapper = styled.div`
-  width: 95%;
+  margin-left: 3%;
   display: flex;
   justify-content: flex-start;
   align-items: right;
