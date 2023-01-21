@@ -1,12 +1,40 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import questions from "../reducers/questions";
 import styled from 'styled-components'
-import { useSelector } from "react-redux";
 import NewQuestion from './QuestionForm'
 import MessageList from './MessageList'
 
 
 export const ForumPage = () => {
   const username = useSelector((store) => store.user.username);
+  const accessToken = useSelector((store) => store.user.accessToken);
+  const dispatch = useDispatch();
+    
+
+  useEffect(()=> {
+    const options = {
+      method: "GET", 
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": accessToken
+  },}
+    
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options) 
+      .then(res => res.json())
+      .then(data => {
+        if(data.success) {
+          dispatch(questions.actions.setItems(data.response)); 
+          dispatch(questions.actions.setError(null));
+        } else {
+            dispatch(questions.actions.setItems([]));
+            dispatch(questions.actions.setError(data.response));
+          }
+        })
+    }, [dispatch]) 
+
+
+
 
   return (
     <>

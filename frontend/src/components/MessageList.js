@@ -25,7 +25,6 @@ const MessageList = () => {
 
   return (
     <BackgroundImage>
-    <>
       {questionsList && 
         <>
         {questionsList.map(item =>
@@ -35,7 +34,6 @@ const MessageList = () => {
         )}
         </>
       } 
-    </>
     </BackgroundImage>
   )
 }

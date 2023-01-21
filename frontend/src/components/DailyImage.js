@@ -16,11 +16,10 @@ const DailyImage = () => {
   <>
   <DailyImageContainer>
     <Imagebox><img src={image.url} alt={image.title} />  </Imagebox>
-    
-    <ImageTextBox>
-     <TitleText>{image.title}</TitleText> 
-     <DateText>{image.date}</DateText>
-     <ExplanationText>{image.explanation}</ExplanationText> 
+      <ImageTextBox>
+        <TitleText>{image.title}</TitleText> 
+        <DateText>{image.date}</DateText>
+        <ExplanationText>{image.explanation}</ExplanationText> 
     </ImageTextBox>
   </DailyImageContainer>
   </>      
@@ -29,33 +28,42 @@ const DailyImage = () => {
 
 export default DailyImage;
 
-
-const Imagebox=styled.div`
-
-display: block;
- margin-left: auto;
- margin-right: auto;
- width: 50%;
-`
-const DailyImageContainer = styled.section`
- color:white;
- text-align: left;
+const DailyImageContainer = styled.div`
+ /* text-align: left; */
  font-size: 12px;
  border-radius: 10px;
+ 
 
 img {
-  margin-top: 2%;
-  max-width: 100%;
-  max-height: 400px;
+  /* max-width: 50%;
+  max-height: 400px; 
   border-radius: 50%;
-  border: 0.5px solid white;
-  justify-content: center;
+  
+   */
+  
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid white;
+   margin-top: 5%; 
+  
+  
 }
-
 `
+
+const Imagebox=styled.div`
+justify-items: center;
+ display: block;
+ margin-left: auto;
+ margin-right: auto;
+ width: 100%;
+ align-self: center; 
+`
+
 const ImageTextBox = styled.div`
 border-radius: 100px, 0px, 0px, 0px;
 `
+
 const TitleText = styled.p`
 font-weight: 700;
 font-size: 16px;

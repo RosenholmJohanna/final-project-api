@@ -5,29 +5,24 @@ import user from "../reducers/user"
 import styled from 'styled-components';
 
 
-
-  const NewQuestion = () => {
-    const [message, setMessage] = useState('')
-    const dispatch = useDispatch()
+const NewQuestion = () => {
+  const [message, setMessage] = useState('')
+  const dispatch = useDispatch()
   
-    const updateQuestionList = () => {
-
-      // https://final-project-fullstack-lsdubteuzq-uc.a.run.app/
-
-      fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            dispatch(questions.actions.setItems(data.response))
-              console.log(data)
-          } else {
-            dispatch(questions.actions.setError(data))
-          }
-        })
+  const updateQuestionList = () => {
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          dispatch(questions.actions.setItems(data.response))
+        } else {
+          dispatch(questions.actions.setError(data))
+        }
+      })
     }
 
-     const onFormSubmit = (event) => {
-      event.preventDefault()
+  const onFormSubmit = (event) => {
+    event.preventDefault()
       const options = {
         method: 'POST',
         headers: {
@@ -36,7 +31,7 @@ import styled from 'styled-components';
       }
       fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
         .then(res => res.json())
-        .then((data) => {  //the problem here - data not read?
+        .then((data) => {  
           if(data.success) {
              updateQuestionList()
             //dispatch(questions.actions.setItems(data.response))

@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { API_URL, LOGIN_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
+import { WelcomeText } from "../GlobalStyles";
 
 
 const Login = () => {
@@ -54,9 +55,10 @@ const Login = () => {
     return (
     <>
     <LoginContainer>
+        <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
         <LoginForm> 
         <Logintext>Login</Logintext>  
-        <LogintextTwo>Welcome! Please login to visit Planet Space</LogintextTwo>  
+        <LogintextTwo>Please login to visit Planet Space</LogintextTwo>  
         <form onSubmit={onFormSubmit} onChange={()=>setMode("login")}>
             <label htmlFor="username">Username</label>
         <input 
@@ -101,7 +103,7 @@ export const LoginForm= styled.div`
 background-size: cover;
 display: flex;
 justify-content: flex-start;
-margin-top: 50%;
+margin-top: 30%;
 flex-direction: column;  
 min-height: 300px;
 padding: 3%;
@@ -113,10 +115,10 @@ box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 const LoginButton=styled.button`
 border-style: none;
 text-align: center;
-width: 60%;
+width: 75%;
 height:40px;
 border-radius:25px;
-margin-bottom: 0;
+margin-bottom: 5%;
 margin-top: 10%;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
@@ -136,7 +138,7 @@ margin-left: 5%;
 `
 
 const RegisterLinkText = styled.p `
-margin-bottom: 40%;
+margin-bottom: 25%;
 font-size: 14px;
 color: #52A6FA;
 text-align: end;

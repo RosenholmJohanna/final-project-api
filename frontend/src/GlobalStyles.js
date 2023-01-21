@@ -1,5 +1,8 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
+export const WelcomeText = styled.h4`
+`
+
 // const GlobalStyles = createGlobalStyle`
 // *{
 //     margin:0;
@@ -77,5 +80,4 @@ border-radius:5px;
 left:calc(30% - 75px);
 top:calc(30% - 25px);
 margin-bottom: 3%;
-/* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 `

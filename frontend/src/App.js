@@ -35,16 +35,17 @@ export const App = () => {
   return (
   
 <BrowserRouter>
-<Header/>
+
 <Provider store={store}>
+  <Header/>
   <Routes>
     <Route path='/' element={<Start/>}></Route>
     <Route path='/about' element={<About/>}></Route>
     <Route path='/contact' element={<Contact/>}></Route>
     <Route path='/register' element={<Register/>}></Route>
     <Route path='/login' element={<Login/>}></Route> 
-    <Route path={'/main'} element={<Main/>}></Route> 
-    <Route path='/questions' element={<ForumPage/>}></Route>
+    <Route path='/main' element={<Main/>}></Route> 
+    <Route path={'/questions'} element={<ForumPage/>}></Route>
     <Route path='*' element={<NotFound/>}></Route> 
   </Routes>
   </Provider>

@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 //import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
+import { WelcomeText } from "../GlobalStyles";
 // import Lottie from 'react-lottie';
 // import animationData from '../lotties/lottiespace';
-
 
 
 const Start = () => {
@@ -16,9 +16,9 @@ const navigate = useNavigate();
   const goLogin = () => {
     navigate("/Login")
   }
-
   return(
     <Wrapper>
+      <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
         <StartContainer>
           <TextWrapper>
             <StartText> "Did you know there are more stars in space than there are grains of sand in the world?"</StartText>
@@ -37,9 +37,9 @@ export default Start;
 
 
 const Wrapper = styled.main`
-/* background: url("https://images.pexels.com/photos/1906658/pexels-photo-1906658.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
-background-size: cover; */
 `
+
+
 const StartContainer = styled.div`
 text-align: center;
 margin-top: 50%;
@@ -78,9 +78,6 @@ background-color: transparent;
     width: 20%;
   } 
 `
-
-
-
 
 
 

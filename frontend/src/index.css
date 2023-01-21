@@ -33,7 +33,10 @@ body {
 
 h1 {
   margin: 0;
-  
+}
+
+h4 {
+  margin-left: 2%
 }
 
 code {
@@ -69,7 +72,7 @@ border-style: none;
 text-align: center;
 /* background-color: #3d5a80; */
 background-color: transparent;
-color: white;
+color: #F0F6FC;
 cursor:pointer;
 /* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 justify-content: center;

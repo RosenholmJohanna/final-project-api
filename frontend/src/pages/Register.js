@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { API_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
+import { WelcomeText } from "../GlobalStyles";
 
 
 
@@ -54,6 +55,7 @@ const Register = () => {
     }
     return (
         <LoginContainer>
+        <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
         <LoginForm>
         <Logintext>Registration</Logintext>  
         <LogintextTwo>Create account before visit Planet Space</LogintextTwo>  
@@ -101,34 +103,31 @@ export const LoginForm= styled.div`
 display: flex;
 justify-content: flex-start;
 border: 1px solid white;
-margin-top: 50%;
+margin-top: 30%;
 flex-direction: column;  
 min-height: 300px;
 padding: 3%;
 background-color: #F0F6FC;
 color: #000112;
 border-radius: 5%;
-
 `
 
 export const Logintext = styled.h2 `
 margin: 0;
 font-size: 18px;
-/* color: white; */
 color: #000112;
 `
 const LogintextTwo = styled.h3 `
 font-size: 14px;
 font-weight: lighter;
-/* color: white; */
 color: #000112;
 margin-bottom: 10%; 
 `
 
 const RegisterLinkText = styled.p `
-margin-bottom: 40%;
+margin-bottom: 25%;
 font-size: 14px;
-color: white;
+color: #52A6FA;
 text-align: end;
 text-decoration: underline;
 `
@@ -136,14 +135,14 @@ text-decoration: underline;
 const LoginButton=styled.button`
 border-style: none;
 text-align: center;
-width: 60%;
+width: 75%;
 height:40px;
 border-radius:25px;
 margin-bottom: 0;
 margin-top: 10%;
-color: white;
+color: #000112;
 cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+box-shadow: 0 1px 1px rgba(0, 1, 18);   
 justify-content: center;
 `
 
