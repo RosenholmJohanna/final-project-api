@@ -9,6 +9,8 @@ node_modules
 notes-backend
 notes-frontend
 
+QuestionsPage.js
+
 build
 
 npm-debug.log*
