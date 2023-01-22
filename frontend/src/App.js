@@ -17,6 +17,9 @@ import {ForumPage} from './components/ForumPage'
 import { OuterWrapper } from './GlobalStyles';
 
 
+
+
+
 console.log(React.version)
 
 const reducer = combineReducers({

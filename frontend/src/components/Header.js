@@ -22,7 +22,7 @@ export const Header = () => {
 }, [accessToken])
 
     return (
-      accessToken &&
+      // accessToken &&
       <Wrapper>
       <HeaderContainer>
         <HeaderText>Planet Space 🌏</HeaderText>

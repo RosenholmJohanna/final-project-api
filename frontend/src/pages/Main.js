@@ -28,7 +28,7 @@ const Main = () => {
     <>  
       <MainWrapper>  
       {/* <DailyImageContainer> */}
-         <DailyImage />  
+         {/* <DailyImage />   */}
       {/* </DailyImageContainer> */}
       <ButtonWrapper>
         <ButtonNavigate type="button" onClick={goQuestions}> Questions </ButtonNavigate>
