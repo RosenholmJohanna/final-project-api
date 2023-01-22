@@ -18,8 +18,8 @@ const navigate = useNavigate();
   }
   return(
     <Wrapper>
-      <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
         <StartContainer>
+        <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
           <TextWrapper>
             <StartText> "Did you know there are more stars in space than there are grains of sand in the world?"</StartText>
             <StartTextTwo>Want more space?</StartTextTwo>
@@ -29,7 +29,6 @@ const navigate = useNavigate();
     </Wrapper>
    ) 
 }
-
 export default Start;
 
 
@@ -56,10 +55,14 @@ margin: 5%;
 `
 
 const StartText = styled.p`
+font-style: italic;
 
 `
 
 const StartTextTwo = styled.p`
+@media (min-width: 768px) {
+  margin-top: 7%;
+  } 
 `
 const ButtonStart = styled.button`
 border-style: none;
@@ -76,6 +79,7 @@ background-color: transparent;
  
 @media (min-width: 768px) {
     width: 20%;
+    margin-bottom: 10%;
   } 
 `
 

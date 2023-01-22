@@ -38,13 +38,14 @@ export const ForumPage = () => {
 
   return (
     <>
+    <PageContainer>
     <LoggedInUser>Welcome to the spaceforum {username}</LoggedInUser>
     <TextBox>
       <Text>Ask something about space and wait for me or a friend to reply. 
       In short you will be able or filter through topics, or save
       your favourite questions to you profile 👩‍🚀</Text>
     </TextBox>
-    <PageContainer>
+    
         <NewQuestion />
         <MessageList />
     </PageContainer>
@@ -56,7 +57,16 @@ const TextBox = styled.div`
 `
 
 const PageContainer = styled.section`
+
+@media (min-width: 768px) {
+  margin: 10%;
+} 
+
+@media (min-width: 1024px) {
+  margin: 20%;
+} 
 `
+
 
 const Text = styled.p`
   text-align: left;

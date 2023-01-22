@@ -1,6 +1,8 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const WelcomeText = styled.h4`
+text-align: center;
+margin: 0;
 `
 
 // const GlobalStyles = createGlobalStyle`

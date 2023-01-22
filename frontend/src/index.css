@@ -18,10 +18,10 @@ html {
 
 body {
   margin: 0;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-content: center; */
   color: #F0F6FF;
   background-color: #000112;
    margin: 2%;
@@ -70,11 +70,9 @@ input {
 button {
 border-style: none;
 text-align: center;
-/* background-color: #3d5a80; */
 background-color: transparent;
 color: #F0F6FC;
 cursor:pointer;
-/* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 justify-content: center;
 }
 

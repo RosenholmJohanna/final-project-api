@@ -42,4 +42,5 @@ export default MessageList
 
 const BackgroundImage = styled.section`
 
+/* width: 100%; */
 `

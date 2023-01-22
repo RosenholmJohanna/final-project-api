@@ -91,12 +91,23 @@ export default Login;
 
 const LoginContainer=styled.div`
 margin-top: 10%;
-margin: 3%;
+/* margin: 3%; */
+display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  
+
 a {
   text-decoration: none; 
   color: white;
   text-decoration: none; 
 }
+@media (min-width: 768px) {
+    width: 100%;
+    margin-left: 18%;
+  } 
+
 `
 
 export const LoginForm= styled.div`
@@ -110,6 +121,12 @@ padding: 3%;
 background-color: #011627;
 border-radius: 5%;
 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+@media (min-width: 768px) {
+    margin-top: 10%;
+    width: 60%;
+  } 
+
 `
 
 const LoginButton=styled.button`
@@ -143,4 +160,5 @@ font-size: 14px;
 color: #52A6FA;
 text-align: end;
 text-decoration: underline;
+text-align: center;
 `
