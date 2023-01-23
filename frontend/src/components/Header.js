@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import user from '../reducers/user'
 import { useDispatch, useSelector } from 'react-redux'
-import {Navbar}  from './NavBar'
+//import {Navbar}  from './NavBar'
 
 
 export const Header = () => {
@@ -23,7 +23,7 @@ export const Header = () => {
 
     return (
       // accessToken &&
-      <Wrapper>
+      <>
       <HeaderContainer>
         <HeaderText>Planet Space 🌏</HeaderText>
         <Text> <Link to="/main">Daily Image</Link></Text> 
@@ -31,13 +31,13 @@ export const Header = () => {
        <Text> <Link onClick={onLogOut} to="/">Log Out</Link></Text>
        {/* <Navbar/> */}
     </HeaderContainer>
-    </Wrapper>
+    </>
     ) 
 }
 
 
-const Wrapper = styled.header`
-`
+
+
 
 const HeaderContainer = styled.header`
 padding-top: 1%;
@@ -50,10 +50,26 @@ a {
   color: white;
   text-decoration: none; 
 }
+@media (min-width: 768px) {
+    margin-left: 10%;
+    margin-right: 10%;
+    } 
+
+    @media (min-width: 1024px) {
+    margin-left: 20%;
+    margin-right: 20%;
+    } 
 `
 const HeaderText = styled.h1`
 font-size: 20px;
 margin-right: 1%;
+@media (min-width: 768px) {
+    margin-right: 20%;
+    } 
+
+    @media (min-width: 1024px) {
+    margin-right: 40%;
+    } 
 `
 const Text = styled.p`
 margin: 0;

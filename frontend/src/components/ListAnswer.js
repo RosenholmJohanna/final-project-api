@@ -5,20 +5,15 @@ import SingleAnswer from './AnswerForm'
 import questions from "../reducers/questions";
 import { clamp } from 'date-fns'
 import formatDistance from 'date-fns/formatDistance'
-// import  { LikeAnswerButton }  from '../GlobalStyles';
-import { useParams } from 'react-router-dom';
-
-
+import  { LikeAnswerButton, DisLikeAnswerButton, DeleteButton, CreatedAtText }  from '../GlobalStyles';
+//import { useParams } from 'react-router-dom';
 
  // passing the object and use spread syntax to create a new object which is a copy of the array 'item.answers'. 
-// I spread syntax creates a shallow copy of the array, nested objects or arrays within the array will still refer to the same objects.
+// the spread syntax creates a shallow copy of the array, nested objects or arrays within the array will still refer to the same objects.
 
 const AnswerList = ({item}) => {   // item = object ref
-  console.log(item)
-
   //const answersList = useSelector(store => store.questions.items) // not a function......
-  const answerList = [...item.answers]
-  console.log(answerList)
+  const answers = [...item.answers]
   const dispatch = useDispatch()
 
 
@@ -47,28 +42,27 @@ const AnswerList = ({item}) => {   // item = object ref
         .then(() => showUpdatedList())}
     
 
-  //UNDEFINED ANSWERId  
-  const onDeleteAnswer = (id) => {
-    console.log(id, 'answer id to delete') 
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }}
-    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/answers/${id}/delete`, options)
-      .then(res => res.json())
-      .then(() => showUpdatedList())}
+  // //UNDEFINED ANSWERId --> KEE FOR LATER USE 
+  // const onDeleteAnswer = (id) => {
+  //   console.log(id, 'answer id to delete') 
+  //   const options = {
+  //     method: 'DELETE',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }}
+  //   fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/answers/${id}/delete`, options)
+  //     .then(res => res.json())
+  //     .then(() => showUpdatedList())}
    
   return (
     <>
-      {answerList.map(answer =>
+      {answers.map(answer =>
       <AnswerWrapper item={item} key={answer._id}>
          <DeleteButton onClick={() => onDeleteAnswer(answer._id)}>DELETE</DeleteButton>  
       <AnswerText>{answer.answer}</AnswerText> 
       <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
         <ButtonWrapper>
-            <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂 {answer.likes}</LikeAnswerButton> 
-            <DisLikeAnswerButton>🥴</DisLikeAnswerButton> 
+            <LikeAnswerButton onClick={() => onLikeAnswer(answer._id)} >🙂{answer.likes}</LikeAnswerButton>  
         </ButtonWrapper>
       </AnswerWrapper>
       ).reverse()}
@@ -86,16 +80,12 @@ const AnswerWrapper = styled.div`
 text-align: left;
 margin-top: 0;
 justify-items: end;
+margin-top: 3%;
 `
 
 const AnswerText = styled.p`
   font-size: 12px;
-  margin: 0;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 1%;
-  color: white;
- 
+  margin: 2px 2px 5px 20px;
 `
 const ButtonWrapper = styled.div`
   display: flex;
@@ -105,56 +95,7 @@ const ButtonWrapper = styled.div`
   margin-bottom: 7%;
 `
 
-const DeleteButton = styled.button`
-background-color: #530f1e;
-font-size: 10px;
-margin: 3%;
-padding: 2%;
-width: 52px;
-height: 25px;
-border-radius:5px;
-/* left:calc(30% - 75px);
-top:calc(30% - 25px); */
-margin-bottom: 4%; 
 
-`
 
-const DisLikeAnswerButton = styled.button`
-margin-right: 4%;
-font-size: 12px;
-border-style: none;
-text-align: center;
-width: 40px;
-height:25px;
-border-radius:30px;
-margin-top: 2%;
-margin-bottom: 0;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
-
-const LikeAnswerButton = styled.button`
-margin-right: 5%;
-font-size: 12px;
-border-style: none;
-text-align: center;
-width: 40px;
-height:25px;
-border-radius:30px;
-margin-top: 2%;
-margin-bottom: 0;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
-const CreatedAtText = styled.p`
-  text-align: right;
-  font-style: italic;
-  color: grey;
-  font-size: 10px;
-  margin-top:0;
-  padding-right: 15px;
-`
 
 

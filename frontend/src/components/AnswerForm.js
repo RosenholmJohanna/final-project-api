@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
 import { useParams } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import { SendButton, Input } from '../GlobalStyles';
 
 
  // {props}
@@ -42,14 +43,14 @@ import styled, { keyframes } from 'styled-components';
   return (
     <form onSubmit={(event) => onAnswerSubmit(event, item._id)}> 
     <AnswerWrapper>
-      <input 
+      <Input 
       type="text" 
       id="Answer" 
       label ='answer'
-      placeholder='type answer'
+      placeholder='Type Answer'
       value={answer}
       onChange={event => setAnswer(event.target.value)}/>
-      <Button type="submit">Send</Button>
+      <SendButton type="submit">Send</SendButton>
       </AnswerWrapper>
     </form>
   )
@@ -58,27 +59,14 @@ import styled, { keyframes } from 'styled-components';
 export default SingleAnswer;
 
 const AnswerWrapper = styled.div`
+text-align: right;
 display: flex;
-flex-direction:row;
-justify-content: space-between;
-box-sizing: border-box;
 width: 100%;
 border-radius: 1px solid white;
 font-size: 14px;
 background-color: #011627ff;
+
 `
 
-const Button = styled.button`
-margin-right: 5%;
-font-size: 12px;
-border-style: none;
-text-align: center;
-width: 60px;
-height:25px;
-border-radius:30px;
-margin-top: 2%;
-margin-bottom: 0;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
-`
+
+

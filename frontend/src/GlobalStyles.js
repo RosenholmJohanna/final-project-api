@@ -5,49 +5,47 @@ text-align: center;
 margin: 0;
 `
 
-// const GlobalStyles = createGlobalStyle`
-// *{
-//     margin:0;
-//     font-family: 'montserrat';
-// a {
-//     text-decoration: none;
-//     color: black;
-// }
-// } `;
-
-// export const OuterWrapper = styled.section`
-//  margin: 0;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-content: center;
-//   color: white;
-//   background-color: #000112;
-//    margin: 0;
-//    padding: 0;
-// @media (min-width: 768px) {
-//     max-width: 50%;
-//   }
-// `
-
-export const LikeAnswerButton = styled.button`
- margin: 5%;
- background-color: transparent;
-font-size: 12px;
-margin-top: 0%;
- margin-left: 0%;
-border-style: none;
-text-align: center;
-font-size: 12px;
-font-style: italic;
-`
 
 export const LikeQuestionButton = styled.button`
-margin-right: 5%;
-font-size: 12px;
+margin-left: 20%;
+font-size: 10px;
 border-style: none;
 text-align: center;
-width: 50px;
+width: 40px;
+height:25px;
+border-radius:30px;
+margin-bottom: 0;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+
+export const DisLikeQuestionButton = styled.button`
+margin-left: 40%;
+font-size: 10px;
+border-style: none;
+text-align: center;
+width: 40px;
+height:25px;
+border-radius:30px;
+margin-bottom: 0;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+
+    /* @media (min-width: 768px) {
+    width: 55px;
+    height:30px;
+    }  */
+`
+
+
+export const DisLikeAnswerButton = styled.button`
+margin-right: 2%;
+font-size: 10px;
+border-style: none;
+text-align: center;
+width: 40px;
 height:25px;
 border-radius:30px;
 margin-top: 2%;
@@ -55,31 +53,124 @@ margin-bottom: 0;
 cursor:pointer;
 box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
 justify-content: center;
- `
-
-export const DeleteQuestionButton = styled.button`
-background-color: #530f1e;
-font-size: 10px;
-margin: 3%;
-padding: 2%;
-width: 50px;
-height: 25px;
-border-radius:5px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
-margin-bottom: 5%;  
 `
 
+export const LikeAnswerButton = styled.button`
+margin-right: 2%;
+font-size: 10px;
+border-style: none;
+text-align: center;
+width: 40px;
+height:25px;
+border-radius:30px;
+margin-top: 2%;
+margin-bottom: 0;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+
+export const DeleteButton = styled.button`
+background-color: #530f1e;
+text-align: center;
+font-size: 10px;
+margin: 2%;
+margin-bottom: 1%;
+width: 50px;
+height: 20px;
+border-radius:5px;
+margin-bottom: 5%;  
+
+    @media (min-width: 768px) {
+    width: 60px;
+    height:33px;
+    } 
+
+    @media (min-width: 1024px) {
+    } 
+`
 
 export const SaveButton = styled.button`
 background-color: #013026;
 font-size: 10px;
-margin: 3%;
-padding: 2%;
+margin: 2%;
 width: 50px;
-height:25px;
+height:20px;
 border-radius:5px;
-left:calc(30% - 75px);
-top:calc(30% - 25px);
 margin-bottom: 3%;
+
+    @media (min-width: 768px) {
+    width: 60px;
+    height:33px;
+    } 
+
+    @media (min-width: 1024px) {
+    } 
+`
+export const SendButton = styled.button`
+margin-right: 7%;
+font-size: 12px;
+border-style: none;
+text-align: center;
+width: 60px;
+height:25px;
+border-radius:30px;
+margin-top: 3%;
+margin-bottom: 0;
+color: whitesmoke;
+cursor:pointer;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+
+@media (min-width: 768px) {
+    font-size: 14px;
+    width: 60px;
+    height:30px;
+    } 
+
+@media (min-width: 1024px) {
+} 
+`
+export const Input = styled.input`
+text-align: left;
+color: lightblue;
+margin-left: 3%;
+`
+export const CreatedAtText = styled.p`
+  text-align: right;
+  font-style: italic;
+  color: grey;
+  font-size: 10px;
+  margin-top:0;
+  padding-right: 15px;
+  margin: 1%;
+`
+export const QuestionText = styled.p`
+  font-size: 12px;
+  margin-left: 2%;
+  margin-right: 2%;
+  font-style: italic;
+`
+
+export const ButtonQuestionWrapper = styled.div`
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: left;
+`
+export const InerQuestionWrapper = styled.div`
+background-color: #000112;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+border-radius: 4%;
+`
+
+export const QuestionWrapper = styled.div`
+background-color: #011627ff;
+  padding: 2%;
+  margin-top: 2%;
+  margin-left: 1%;
+  margin-right: 1%;
+  border-radius:2%;
+  color: white;
+  box-shadow: #173F5F 0px 2px 2px, #173F5F 0px 2px 2px;
 `
