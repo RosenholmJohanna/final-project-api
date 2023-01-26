@@ -35,30 +35,38 @@ export default DailyImage;
 
 
 const DailyImageContainer = styled.div`
- font-size: 12px;
  border-radius: 10px;
- 
+ margin-top: 7%;
+ @media (min-width: 768px) {
+    margin-top: 5%;
+    margin-left:0%;
+    margin-right:0%;
+    margin-bottom: 30%;
+  } 
 
+@media (min-width: 1024px) {
+    margin-top: 0%;
+    margin-left:10%;
+    margin-right:10%;
+    margin-bottom: 7%;
+  } 
+ 
 img {
-  /* max-width: 50%;
-  max-height: 400px; 
-  border-radius: 50%;
-   */
   width: 300px;
   height: 300px;
   border-radius: 50%;
   border: 1px solid white;
-  margin-top: 5%; 
+  margin-top: 0%; 
 }
 `
 
 const Imagebox=styled.div`
 justify-items: center;
- display: block;
+ /* display: block; */
  margin-left: auto;
  margin-right: auto;
  margin-bottom: 5%;
- margin-top: 5%;
+ margin-top: 0%;
  width: 100%;
  align-self: center; 
 `
@@ -67,15 +75,13 @@ const ImageTextBox = styled.div`
 border-radius: 100px, 0px, 0px, 0px;
 `
 
-const TitleText = styled.p`
-font-weight: 700;
+const TitleText = styled.h5`
 font-size: 16px;
-margin-bottom: 5%;
+margin-bottom: 1%;
 `
 
 const ExplanationText = styled.p`
-font-size: 12px;
-margin: 4px 4px 60px 4px;
+margin: 12px 0px 10px 0px;
 `
 
 const DateText = styled.p`
@@ -83,5 +89,5 @@ text-align: left;
 font-style: italic;
 color: #D3D3D3;
 font-size: 10px;
-margin: 2%;
+
 `

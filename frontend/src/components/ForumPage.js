@@ -56,32 +56,33 @@ const TextBox = styled.div`
 `
 
 const PageContainer = styled.section`
+margin-bottom: 5%;
 
 @media (min-width: 768px) {
   margin-left: 10%;
-  margin-right:10%
+  margin-right:10%;
+  
 } 
 
 @media (min-width: 1024px) {
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 30%;
+  margin-right: 30%;
   margin-top: 10%;
 } 
 `
 
 const Text = styled.p`
   text-align: left;
-  font-size: 12px;
   margin:0;
   margin-top: 10%;
   text-align: center;
 
   @media (min-width: 768px) {
-  font-size: 14px;
+  
  } 
 
   @media (min-width: 1024px) {
- font-size: 16px;
+
 } 
 `
 

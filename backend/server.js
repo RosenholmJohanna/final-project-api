@@ -4,17 +4,14 @@ import crypto from "crypto"
 import bcrypt from "bcrypt"
 import mongoose from "mongoose";
 import listEndpoints from "express-list-endpoints";
-
+import { QuestionSchema } from "./models/questionModel"
 import { UserSchema } from "./models/userModel";
+import { exec } from "child_process";
+
+//const Admin = require('./models/adminModel')
+const Question = mongoose.model("Questions", QuestionSchema);
 const User = mongoose.model("User", UserSchema);
 
-import { QuestionSchema } from "./models/questionModel"
-import { exec } from "child_process";
-const Question = mongoose.model("Questions", QuestionSchema);
-
-//const User = require('./models/userModel')
-const Admin = require('./models/adminModel')
-//const Question = require('./models/questionModel')
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/final-project";
 //mongoose.set('strictQuery', true); //due warning mongoose 7 
@@ -28,7 +25,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// List endpoints
 app.get("/endpoints", (req, res) => {
     res.send(listEndpoints(app))
   });
@@ -107,7 +103,7 @@ app.get("/users/:username", async (req, res)=> {
     })
 
 
-// USER REGISTRATION ENDPOINT ( this sent to the browser what we get)
+// USER REGISTRATION 
 app.post("/register",  async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -137,7 +133,7 @@ app.post("/register",  async (req, res) => {
   }
 });
 
-// USER LOGIN ENDPOINT
+// USER LOGIN 
 app.post("/login", async (req, res) => {
   const { username, password} = req.body;
   try {
@@ -166,8 +162,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//// AUTHORIZATION USER
-// next = callback function
+// AUTHORIZATION USER
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization");
   try {
@@ -191,10 +186,9 @@ const authenticateUser = async (req, res, next) => {
 
 //GET ALL ADMINS - works
 // ADMIN REGISTRATION ENDPOINT - works
-// //// AUTHORIZATION ADMIN
-
+// AUTHORIZATION ADMIN - works
 // GET ALL QUESTIONS FROM ALL USERS, authenticateAdmin
-app.get("/questions", async (req, res)=> {
+app.get("/questions",  authenticateUser, async (req, res)=> {
   try {
   const questions = await Question.find().sort({createdAt: 'desc'}).limit(10).exec() 
   res.status(200).json({
@@ -208,7 +202,6 @@ app.get("/questions", async (req, res)=> {
   })
 }
 })
-
 
 // GET ALL ANSWERS
 // QuestionSchema.aggregate([
@@ -233,32 +226,6 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
 });
 
 // // GET ANSWER BY ID - does not work
-// // QuestionSchema.findOne({ 'answers._id': answerId }, { 'answers.$': 1 })
-// // app.get("question/questionId/answer/:_id", async (req, res) => {
-// //   const { _id } = req.params
-// //   Question.findById({_id})
-// //   .then(answer => res.status(200).send(answer))
-// //   .catch(err => res.status(500).send(err));
-// //   })
-
-
-// Question.updateOne({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
-//   .then(updatedAnswer => {
-//     if (updatedAnswer) {
-//       res.json({ 
-//         success: true,
-//         response: `Question ${updatedAnswer.id} has updated likes`,
-//         _id: updatedAnswer._id,
-//       });
-//     } else {
-//       res.status(404).json({
-//         success: false, 
-//         message: 'Could not like answer' })
-//     }
-//   })
-//   .catch(error => {
-//     res.status(400).json({ success: false, message: 'Invalid like question request', error })
-//   });
 
 // LIKE ANSWER - 
   app.patch('/question/:questionId/answer/:answerId/like', async (req, res) => {
@@ -281,31 +248,6 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
       res.status(400).json({ success: false, message: 'Invalid like question request', error })
     }
   });
-
-
-
-  // app.patch('/questions/:answerId/like', async (req, res) => {
-  //   const { answerId } = req.params
-  //   try {
-  //   const updatedAnswer = await Question.findByIdAndUpdate(answer, answerId, {$inc: {likes: 1}},   
-  //    )
-  //     if (answerId) {
-  //       res.json({ 
-  //         success: true,
-  //          response: `Question ${updatedAnswer.id} has updated likes`,
-  //         _id: updatedAnswer._id,
-  //       });
-  //     } else {
-  //       res.status(404).json({
-  //          success: false, 
-  //          message: 'Could not like question' })
-  //     }
-  //   } catch (error) {
-  //     res.status(400).json({ success: false, message: 'Invalid like question request', error })
-  //   }
-  // })
-
-
 
 
   // ANSWER BY ID -response in console
@@ -344,7 +286,7 @@ app.get("/questions/id/:_id", async (req, res) => {
   })
 
 // POST QUESTION BY AUTH USER - SECURE
-app.post("/questions",  async (req, res) => {
+app.post("/questions", authenticateUser, async (req, res) => {
   const { message } = req.body;
  // const { _id } = req.user
   try {
@@ -488,29 +430,6 @@ app.delete('/questions/:questionId/delete', async (req, res) => {
 })
 
 // // DELETE ANSWER BY ID
-// app.delete('/questions/answers/:answerId/:questionId', async (req, res) => {
-//   const { answerId, questionId } = req.params
-//   try {
-//     //or find oneand update // 1. find the question, 2. pull correct answer from answerslist
-//     const deletedAnswerById = await Question.findByIdAndUpdate(questionId, {$pull: {answers: {_id: answerId}}})
-//     console.log(deletedAnswerById, 'deletetd answer')
-//     if (deletedAnswerById) {
-//       res.json({
-//         success: true, deletedAnswerById,
-//         message: 'Question is deleted'
-//       })
-//     } else {
-//       res.status(404).json({ 
-//         success: false, 
-//         message: 'Answer with this ID could not be deleted'
-//       })
-//     }
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
-//       message: 'Invalid delete answer request', error })
-//   }
-// })
 
 //THIS DELETE THE ENTIRE QUESTION........
 app.delete('/questions/answers/:answerId/:questionId', async (req, res) => {
@@ -562,40 +481,6 @@ app.post('/user/update-collection', async (req, res) => {
   }
 })
 
-  
-// app.post('/user/update-profile', (req, res) => {
-//   // Get the user ID and collected object from the request body
-//   const { userId, collectedObject } = req.body;
-  
-//   // Find the user in the database
-//   User.findById(userId, (err, user) => {
-//     if (err) {
-//       return res.status(400).json({
-//         success: false,
-//         message: 'Error finding user'
-//        });
-//     }
-//     // Update user's profile with the collected object
-//     user.collectedObject = collectedObject;
-//     // Save the updated user
-//     user.save((err, updatedUser) => {
-//       if (err) {
-//         return res.status(400).json({
-//            success: false, message: 'Error saving user' 
-//           });
-//       }
-//       // Return the updated user
-//       return res.status(200).json({ 
-//         success: true,
-//          user: updatedUser
-//        });
-//       })
-//     })
-//   })
-
-
-
-
 
     
 app.get("/", (req, res) => {
@@ -612,10 +497,7 @@ app.listen(port, () => {
 // req body: data sent from client to  my API
 // res body: data my API sends to client
 
-// To Do:
-// POST answer by admin
-// POST/GET COLLECTIONS Save() questions to collections
-// DELETE Question by user and admin
+
 
 // // USER BY ID: HERE I GET THE ITEMS... but not the rights user, but the first one in list
 // app.get("/users/id/:id", async (req, res) => {
@@ -733,3 +615,107 @@ app.listen(port, () => {
 //       });
 //   }
 // });
+
+// // DELETE ANSWER BY ID
+// app.delete('/questions/answers/:answerId/:questionId', async (req, res) => {
+//   const { answerId, questionId } = req.params
+//   try {
+//     //or find oneand update // 1. find the question, 2. pull correct answer from answerslist
+//     const deletedAnswerById = await Question.findByIdAndUpdate(questionId, {$pull: {answers: {_id: answerId}}})
+//     console.log(deletedAnswerById, 'deletetd answer')
+//     if (deletedAnswerById) {
+//       res.json({
+//         success: true, deletedAnswerById,
+//         message: 'Question is deleted'
+//       })
+//     } else {
+//       res.status(404).json({ 
+//         success: false, 
+//         message: 'Answer with this ID could not be deleted'
+//       })
+//     }
+//   } catch (error) {
+//     res.status(400).json({
+//       success: false,
+//       message: 'Invalid delete answer request', error })
+//   }
+// })
+
+// app.patch('/questions/:answerId/like', async (req, res) => {
+  //   const { answerId } = req.params
+  //   try {
+  //   const updatedAnswer = await Question.findByIdAndUpdate(answer, answerId, {$inc: {likes: 1}},   
+  //    )
+  //     if (answerId) {
+  //       res.json({ 
+  //         success: true,
+  //          response: `Question ${updatedAnswer.id} has updated likes`,
+  //         _id: updatedAnswer._id,
+  //       });
+  //     } else {
+  //       res.status(404).json({
+  //          success: false, 
+  //          message: 'Could not like question' })
+  //     }
+  //   } catch (error) {
+  //     res.status(400).json({ success: false, message: 'Invalid like question request', error })
+  //   }
+  // })
+
+  // // GET ANSWER BY ID - does not work
+// // QuestionSchema.findOne({ 'answers._id': answerId }, { 'answers.$': 1 })
+// // app.get("question/questionId/answer/:_id", async (req, res) => {
+// //   const { _id } = req.params
+// //   Question.findById({_id})
+// //   .then(answer => res.status(200).send(answer))
+// //   .catch(err => res.status(500).send(err));
+// //   })
+
+
+// Question.updateOne({ _id: questionId, 'answers._id': answerId}, {$inc: {'answers.$.likes': 1}})
+//   .then(updatedAnswer => {
+//     if (updatedAnswer) {
+//       res.json({ 
+//         success: true,
+//         response: `Question ${updatedAnswer.id} has updated likes`,
+//         _id: updatedAnswer._id,
+//       });
+//     } else {
+//       res.status(404).json({
+//         success: false, 
+//         message: 'Could not like answer' })
+//     }
+//   })
+//   .catch(error => {
+//     res.status(400).json({ success: false, message: 'Invalid like question request', error })
+//   });
+
+// app.post('/user/update-profile', (req, res) => {
+//   // Get the user ID and collected object from the request body
+//   const { userId, collectedObject } = req.body;
+  
+//   // Find the user in the database
+//   User.findById(userId, (err, user) => {
+//     if (err) {
+//       return res.status(400).json({
+//         success: false,
+//         message: 'Error finding user'
+//        });
+//     }
+//     // Update user's profile with the collected object
+//     user.collectedObject = collectedObject;
+//     // Save the updated user
+//     user.save((err, updatedUser) => {
+//       if (err) {
+//         return res.status(400).json({
+//            success: false, message: 'Error saving user' 
+//           });
+//       }
+//       // Return the updated user
+//       return res.status(200).json({ 
+//         success: true,
+//          user: updatedUser
+//        });
+//       })
+//     })
+//   })

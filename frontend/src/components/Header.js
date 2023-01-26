@@ -40,6 +40,7 @@ export const Header = () => {
 
 
 const HeaderContainer = styled.header`
+/* position: fixed; */
 padding-top: 1%;
 text-align: center;
 display: flex;  
@@ -61,8 +62,8 @@ a {
     } 
 `
 const HeaderText = styled.h1`
-font-size: 20px;
-margin-right: 1%;
+/* font-size: 20px;
+margin-right: 1%; */
 @media (min-width: 768px) {
     margin-right: 20%;
     } 

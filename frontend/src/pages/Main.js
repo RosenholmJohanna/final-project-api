@@ -12,10 +12,7 @@ const Main = () => {
   return(
     <>  
       <MainWrapper>  
-      {/* <DailyImageContainer> */}
         <DailyImage />   
-      {/* </DailyImageContainer> */}
-     
      </MainWrapper>   
     </>
    ) 
@@ -32,8 +29,13 @@ display: flex;
   justify-content: center;
   align-content: center;
   margin: 2%;
+  margin-bottom: 15%;
     @media (min-width: 768px) {
-        margin: 10%;
+        margin: 15%;
+      } 
+    
+      @media (min-width: 1024px) {
+        margin: 5%;
       } 
     `
 

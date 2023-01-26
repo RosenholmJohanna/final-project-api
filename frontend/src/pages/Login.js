@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { API_URL, LOGIN_URL } from "../utils/utils";
 import user from "../reducers/user";
 import styled from "styled-components";
-import { WelcomeText } from "../GlobalStyles";
+import { LoginButton, RegisterLinkText } from "../GlobalStyles";
 
 
 const Login = () => {
@@ -55,10 +55,9 @@ const Login = () => {
     return (
     <>
     <LoginContainer>
-        <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
         <LoginForm> 
         <Logintext>Login</Logintext>  
-        <LogintextTwo>Please login to visit Planet Space</LogintextTwo>  
+         <LogintextTwo>Please login with your username and password to visit Planet Space</LogintextTwo>   
         <form onSubmit={onFormSubmit} onChange={()=>setMode("login")}>
             <label htmlFor="username">Username</label>
         <input 
@@ -89,76 +88,62 @@ const Login = () => {
 
 export default Login;
 
-const LoginContainer=styled.div`
+const LoginContainer = styled.div`
 margin-top: 10%;
-/* margin: 3%; */
+margin-bottom: 10%;
 display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
+flex-direction: column;
+justify-content: center;
+ align-content: center; 
+align-items: center;
+text-align: center;
+
+  @media (min-width: 768px) {
+    margin-bottom: 20%;
+  } 
   
+  @media (min-width: 1024px) {
+    margin-top: 3%;
+    margin-bottom: 10%;
+  } 
 
 a {
   text-decoration: none; 
   color: white;
   text-decoration: none; 
 }
-@media (min-width: 768px) {
-    width: 100%;
-    margin-left: 18%;
-  } 
-
 `
 
-export const LoginForm= styled.div`
-background-size: cover;
-display: flex;
-justify-content: flex-start;
+export const LoginForm = styled.div`
+/* display: flex;  */
+justify-content: center; 
 margin-top: 30%;
 flex-direction: column;  
-min-height: 300px;
-padding: 3%;
+width: 80%;
+padding: 2%;
 background-color: #011627;
 border-radius: 5%;
 box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-@media (min-width: 768px) {
+@media (min-width: 768) {
     margin-top: 10%;
-    width: 60%;
+    width: 15%;
+    flex-direction: flex-wrap;
   } 
 
+@media (min-width: 1024px) {
+    margin-top: 5%;
+    width: 40%;
+    flex-direction: flex-wrap;
+  } 
 `
 
-const LoginButton=styled.button`
-border-style: none;
-text-align: center;
-width: 75%;
-height:40px;
-border-radius:25px;
-margin-bottom: 5%;
-margin-top: 10%;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
-justify-content: center;
+const Logintext = styled.h3 `
+margin: 2%;
 `
-
-export const Logintext = styled.h2 `
-margin: 0;
-margin-left: 5%;
-font-size: 18px;
-`
-const LogintextTwo = styled.h3 `
-font-size: 14px;
+const LogintextTwo = styled.p `
 font-weight: lighter;
-margin-bottom: 10%; 
-margin-left: 5%;
+margin-bottom: 5%; 
 `
 
-const RegisterLinkText = styled.p `
-margin-bottom: 25%;
-font-size: 14px;
-color: #52A6FA;
-text-align: end;
-text-decoration: underline;
-text-align: center;
-`
+

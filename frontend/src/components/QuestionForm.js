@@ -7,6 +7,7 @@ import { SendButton, Input } from '../GlobalStyles';
 
 
 const NewQuestion = () => {
+  const accessToken = useSelector((store) => store.user.accessToken);
   const [message, setMessage] = useState('')
   const dispatch = useDispatch()
   
@@ -28,6 +29,7 @@ const NewQuestion = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "Authorization": accessToken
         }, body: JSON.stringify({ message: message })
       }
       fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
@@ -69,9 +71,8 @@ flex-direction:row;
 justify-content: space-between;
 box-sizing: border-box;
 width: 100%;
-margin: 3%;
-font-size: 14px;
+margin-top: 3%;
 background-color: #011627ff;
-border-radius: 2% 2% 2% 2%;
+border-radius: 1% 1% 1% 1%;
 `
 

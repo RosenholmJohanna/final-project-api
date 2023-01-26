@@ -24,7 +24,7 @@ import  {
     //const accessToken = useSelector(store => store.user.loggedInUser.accessToken)
     const username = useSelector((store) => store.user.username); 
     const dispatch = useDispatch()
-    const [showReplies, setShowReplies] = useState(false);
+    //const [showReplies, setShowReplies] = useState(false);
     
     // save For later use
     // const onReply = () => {
@@ -132,7 +132,6 @@ import  {
         <LikesText> <DisLikeQuestionButton onClick={() => onDisLike(item._id)}> 🥴 {item.disLikes}</DisLikeQuestionButton></LikesText>
       </ButtonQuestionWrapper>
     </> <AnswerList item={item}> </AnswerList>
-    
     </InerQuestionWrapper>
   </QuestionWrapper>
 )}

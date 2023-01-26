@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
-import { useParams } from 'react-router-dom';
+//import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { SendButton, Input } from '../GlobalStyles';
 
@@ -59,11 +59,8 @@ import { SendButton, Input } from '../GlobalStyles';
 export default SingleAnswer;
 
 const AnswerWrapper = styled.div`
-text-align: right;
 display: flex;
 width: 100%;
-border-radius: 1px solid white;
-font-size: 14px;
 background-color: #011627ff;
 
 `

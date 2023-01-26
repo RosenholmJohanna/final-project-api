@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-//import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import { useNavigate, Link} from "react-router-dom";
 import styled from "styled-components"
-import { WelcomeText } from "../GlobalStyles";
+//import { WelcomeText } from "../GlobalStyles";
 // import Lottie from 'react-lottie';
 // import animationData from '../lotties/lottiespace';
 
@@ -17,16 +16,14 @@ const navigate = useNavigate();
     navigate("/Login")
   }
   return(
-    <Wrapper>
         <StartContainer>
-        <WelcomeText>Welcome to Planet Space 🌏</WelcomeText>
+        <WelcomeText>Welcome to Planet Space</WelcomeText>
           <TextWrapper>
             <StartText> "Did you know there are more stars in space than there are grains of sand in the world?"</StartText>
             <StartTextTwo>Want more space?</StartTextTwo>
             <ButtonStart type="button" onClick={goLogin}> Give me some space 🚀</ButtonStart>
         </TextWrapper> 
         </StartContainer>
-    </Wrapper>
    ) 
 }
 export default Start;
@@ -35,53 +32,66 @@ export default Start;
 
 
 
-const Wrapper = styled.main`
-`
+
 
 
 const StartContainer = styled.div`
 text-align: center;
-margin-top: 50%;
- min-height: 450px; 
+margin: 35% 2% 50% 2%;
+ /* min-height: 450px;  */
  display: flex;
 flex-direction: column; 
 
 @media (min-width: 768px) {
-    margin-top: 10%;
+margin: 20% 2% 40% 2%;
+  } 
+
+  @media (min-width: 1024px) {
+    margin: 10% 2% 7% 2%;
   } 
 `
 const TextWrapper = styled.div`
-margin: 5%;
+margin: 0%;
+`
+
+const WelcomeText = styled.h2`
+text-align: center;
+margin-bottom: 5%;
 `
 
 const StartText = styled.p`
 font-style: italic;
+margin-bottom: 30%;
+margin-right: 7%;
+margin-left: 7%;
 
+
+
+@media (min-width: 768px) {
+    margin-bottom: 30%; 
+  } 
+
+  @media (min-width: 1024px) {
+    margin-bottom: 0%;  
+  } 
 `
 
 const StartTextTwo = styled.p`
 @media (min-width: 768px) {
-  margin-top: 7%;
   } 
 `
 const ButtonStart = styled.button`
-border-style: none;
-text-align: center;
-width: 60%;
+margin-top: 5%;
+margin-bottom: 15%;
+width: 15rem;
 height:40px;
 border-radius:25px;
-margin-bottom: 0;
-color: white;
-cursor:pointer;
-box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+/* box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);    */
 justify-content: center;
-background-color: transparent;
- 
-@media (min-width: 768px) {
-    width: 20%;
-    margin-bottom: 10%;
-  } 
+background-color: #063455;
+
 `
+
 
 
 

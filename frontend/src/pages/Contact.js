@@ -8,7 +8,7 @@ const Contact = () => {
 
   return(
     <>
-    <h1>Contact</h1>
+    <TextBox>Contact</TextBox>
     </>
           
    
@@ -16,3 +16,7 @@ const Contact = () => {
 }
 
 export default Contact;
+
+
+const TextBox = styled.h6`
+`
