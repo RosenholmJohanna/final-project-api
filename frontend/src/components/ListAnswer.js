@@ -5,7 +5,7 @@ import SingleAnswer from './AnswerForm'
 import questions from "../reducers/questions";
 import { clamp } from 'date-fns'
 import formatDistance from 'date-fns/formatDistance'
-import  { LikeAnswerButton, DisLikeAnswerButton, DeleteButton, CreatedAtText }  from '../GlobalStyles';
+import  { LikeAnswerButton, DeleteButton, CreatedAtText }  from '../GlobalStyles';
 //import { useParams } from 'react-router-dom';
 
  // passing the object and use spread syntax to create a new object which is a copy of the array 'item.answers'. 

@@ -188,7 +188,7 @@ const authenticateUser = async (req, res, next) => {
 // ADMIN REGISTRATION ENDPOINT - works
 // AUTHORIZATION ADMIN - works
 // GET ALL QUESTIONS FROM ALL USERS, authenticateAdmin
-app.get("/questions",  authenticateUser, async (req, res)=> {
+app.get("/questions", authenticateUser, async (req, res)=> {
   try {
   const questions = await Question.find().sort({createdAt: 'desc'}).limit(10).exec() 
   res.status(200).json({

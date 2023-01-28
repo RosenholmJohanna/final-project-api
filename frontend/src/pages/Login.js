@@ -56,8 +56,8 @@ const Login = () => {
     <>
     <LoginContainer>
         <LoginForm> 
-        <Logintext>Login</Logintext>  
-         <LogintextTwo>Please login with your username and password to visit Planet Space</LogintextTwo>   
+        <Logintext>Log In</Logintext>  
+         <LogintextTwo>Please log in with your username and password to visit Planet Space</LogintextTwo>   
         <form onSubmit={onFormSubmit} onChange={()=>setMode("login")}>
             <label htmlFor="username">Username</label>
         <input 

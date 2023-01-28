@@ -12,7 +12,15 @@ const NewQuestion = () => {
   const dispatch = useDispatch()
   
   const updateQuestionList = () => {
-    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": accessToken
+      },
+    }
+ 
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

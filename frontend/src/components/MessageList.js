@@ -5,12 +5,21 @@ import ForumWall from './HandleQuestion'
 
 
 const MessageList = () => {
+  const accessToken = useSelector((store) => store.user.accessToken);
   const questionsList = useSelector(store => store.questions.items)
   const dispatch = useDispatch()
+
   
  
   useEffect(() => {
-    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
+       const options = {
+      method: "GET", 
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": accessToken
+  },}
+
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {
@@ -25,7 +34,7 @@ const MessageList = () => {
     <>
         {questionsList.map(item =>
         <ForumWall
-          key={item._id} //each child in the list gives an unique key -->  ERROR SOLVED
+          key={item._id} 
           item={item} />
         )}
     </>

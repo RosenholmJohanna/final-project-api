@@ -13,21 +13,24 @@ export const Header = () => {
 
   const onLogOut = () => {
     dispatch(user.actions.setAccessToken(null))
+    dispatch(user.actions.setUsername(null)); 
+
   }
 
-  useEffect(() => {
-    if (accessToken) {
-        navigate("/questions");
-    } 
-}, [accessToken])
+//   useEffect(() => {
+//     if (accessToken) {
+//         navigate("/questions");
+//     } 
+// }, [accessToken])
 
     return (
       // accessToken &&
       <>
       <HeaderContainer>
-        <HeaderText>Planet Space 🌏</HeaderText>
+        <HeaderText>Planet Space🌏</HeaderText>
         <Text> <Link to="/main">Daily Image</Link></Text> 
         <Text> <Link to= "/questions">Forum</Link> </Text>
+        <Text> <Link to= "/login">Log In</Link> </Text>
        <Text> <Link onClick={onLogOut} to="/">Log Out</Link></Text>
        {/* <Navbar/> */}
     </HeaderContainer>

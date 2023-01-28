@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import questions from "../reducers/questions";
+import user from '../reducers/user';
 import styled from 'styled-components';
 import AnswerList from './ListAnswer';
 import formatDistance from 'date-fns/formatDistance';
@@ -20,7 +21,7 @@ import  {
 
 
   const ForumWall = ({ item }) =>{
-    //const accessToken = useSelector((store) => store.user.accessToken);
+    const accessToken = useSelector((store) => store.user.accessToken);
     //const accessToken = useSelector(store => store.user.loggedInUser.accessToken)
     const username = useSelector((store) => store.user.username); 
     const dispatch = useDispatch()
@@ -32,7 +33,15 @@ import  {
     // }
 
   const showUpdatedList = () => {
-    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
+    const options = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": accessToken
+      },
+    }
+
+    fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions", options)
       .then(res => res.json())
       .then(data => {
         if (data.success) {

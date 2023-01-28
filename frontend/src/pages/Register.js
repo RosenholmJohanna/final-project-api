@@ -38,7 +38,7 @@ const Register = () => {
           .then(data => {
             if(data.success) { 
                  batch(()=> {
-                    dispatch(user.actions.setUsername(data.response.username)); //if success we go to redux/reducer batch - fire multiple dispatch, but only happen when rerender page
+                    dispatch(user.actions.setUsername(data.response.username)); 
                     dispatch(user.actions.setUserId(data.response.id))
                     dispatch(user.actions.setAccessToken(data.response.accessToken));
                     dispatch(user.actions.setError(null));
@@ -77,7 +77,7 @@ const Register = () => {
         <LoginButton type="submit">Submit</LoginButton>
         </form>
         </LoginForm>
-        <Link to="/login"> <RegisterLinkText>I already have an account </RegisterLinkText> </Link> 
+        <Link to="/login"> <RegisterLinkText>Already a user? Log in here </RegisterLinkText> </Link> 
     </LoginContainer> 
     );
 }

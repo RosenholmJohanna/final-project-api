@@ -15,12 +15,9 @@ const questions = createSlice({
             store.error = action.payload;
         },
         
-        // setIsCollected: (store, action) => {
-        //     store.collected = action.payload;
+        // setUser: (store, action) => {
+        //   store.user = action.payload;
         // }
-        setUser: (store, action) => {
-          store.user = action.payload;
-        }
      }
 });
 
