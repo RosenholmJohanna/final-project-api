@@ -3,15 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const user = createSlice({
     name:"user",
     initialState:{
-        loggedInUser: localStorage.getItem('loggedInUser') 
-        ? JSON.parse(localStorage.getItem('loggedInUser'))
-        : null,
         error: null,
         username: null,
-        role: null,
         userId: null,
         accessToken: null,
-        collections: [],
     },
     reducers: {
         setloggedInUser: (store, action) => {
@@ -20,9 +15,6 @@ const user = createSlice({
         },
         setUsername: (store, action) => {
             store.username = action.payload;
-        },
-        setRole: (store, action) => {
-            store.role = action.payload;
         },
         setError: (store, action) => {
             store.error = action.payload;

@@ -1,13 +1,4 @@
-//import mongoose from 'mongoose';
 const mongoose = require('mongoose');
-//const Schema = mongoose.Schema;
-
-
-//boolean admin or not
-// new property for owner id - require
-// booleean for admin vs user
-// create creator for question - if creator id match the question object id then delete.
-// same for answer 
 
 export const QuestionSchema = new mongoose.Schema({
     message: {
@@ -33,10 +24,6 @@ export const QuestionSchema = new mongoose.Schema({
       type: Number,
       default: 0
      },
-    isCollected: {
-      type: Boolean,
-      default: false
-    },
     answers: [{
       answer: {
         type: String
@@ -56,5 +43,3 @@ export const QuestionSchema = new mongoose.Schema({
     }]
 })
   
-//const Question = mongoose.model("Questions", QuestionSchema);
-//module.exports = Question
