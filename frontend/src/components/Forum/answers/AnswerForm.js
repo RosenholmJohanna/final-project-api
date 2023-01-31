@@ -32,7 +32,6 @@ import { AnswerFormWrapper } from './answersStyle';
 
   const onAnswerSubmit = (event, id) => {
     event.preventDefault()
-    console.log(id, 'Answered questionID')
     const options = {
       method: 'PATCH',
       headers: {

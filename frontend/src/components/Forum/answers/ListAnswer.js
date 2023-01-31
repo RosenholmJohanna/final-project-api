@@ -10,29 +10,6 @@ import { AnswerWrapper, AnswerText } from './answersStyle';
 const AnswerList = ({item}) => {   
   const answers = [...item.answers]
   const dispatch = useDispatch()
-
-  // const showUpdatedList = () => {
-  //   fetch("https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions")
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       if (data.success) {
-  //         dispatch(questions.actions.setItems(data.response))
-  //       } else {
-  //         dispatch(questions.actions.setError(data))
-  //       }
-  //     })
-  //   }
-    
-    // const onLikeAnswer = ( answerId, questionId) => {
-    //   const options = {
-    //     method: 'PATCH',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     }}
-    //   fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/question/${questionId}/answer/${answerId}/like`, options)
-    //     .then(res => res.json())
-    //     .then(() => showUpdatedList())}
-    
    
   return (
     <>
@@ -48,10 +25,3 @@ const AnswerList = ({item}) => {
 }
 
 export default AnswerList
-
-
-
-
-
-
-

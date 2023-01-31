@@ -29,11 +29,11 @@ color: #F0F6FC;
 background-color: #530f1e;
 font-size: 10px;
 margin: 2%;
-margin-bottom: 1%;
+margin-bottom: 3%;
 width: 55px;
 height: 25px;
 border-radius:5px;
-margin-bottom: 5%;  
+ 
 
   @media (min-width: 768px) {
   width: 60px;
@@ -57,9 +57,6 @@ box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);
   font-size: 14px;
   width: 60px;
   height:30px;
-  } 
-
-@media (min-width: 1024px) {
 } 
 `
 /**/
@@ -71,12 +68,10 @@ color: lightblue;
 margin-left: 3%;
 `
 
-
 export const ButtonQuestionWrapper = styled.div`
-margin-bottom: 2%;
+margin-bottom: 6%;
 display: flex;
 justify-content: flex-start;
-align-items: left;
 `
 export const InerQuestionWrapper = styled.div`
 background-color: #000112;
@@ -113,6 +108,11 @@ export const RegisterLinkText = styled.p `
 margin-top: 3%;
 color: #F0F6FC;
 text-decoration: underline;
+a {
+  text-decoration: none; 
+  color: white;
+  text-decoration: none; 
+}
 `
 export const QuestionText = styled.p`
 margin-left: 2%;
@@ -150,10 +150,5 @@ export const OuterWrapper = styled.section`
 margin-bottom: 5%;
 margin-top: 10%;
 margin-left: 2%;
-margin-right: 2%;
-@media (min-width: 768px) {
-} 
-
-@media (min-width: 1024px) {
-} 
+margin-right: 2%; 
 `

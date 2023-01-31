@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import { API_URL } from '../../utils/utils';
+import { REGISTER_URL } from '../../utils/utils';
 import user from '../../reducers/user';
 import { LoginButton, RegisterLinkText } from '../../GlobalStyles';
 import { 
@@ -37,7 +37,7 @@ const Register = () => {
         "Authorization": accessToken
       }, body: JSON.stringify({username: username, password: password})
     }
-    fetch(API_URL(mode), options) 
+    fetch(REGISTER_URL(mode), options) 
       .then(response => response.json())
       .then(data => {
         if(data.success) { 

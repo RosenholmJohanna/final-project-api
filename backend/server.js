@@ -21,7 +21,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/endpoints", (req, res) => {
+app.get("/", (req, res) => {
     res.send(listEndpoints(app))
   });
 
@@ -91,7 +91,6 @@ app.post("/register",  async (req, res) => {
           username: newUser.username,
           accessToken: newUser.accessToken,
           id: newUser._id,
-          // roles: newUser.roles
         }
       });
     }
@@ -114,7 +113,6 @@ app.post("/login", async (req, res) => {
         response: {
           username: user.username,
           id: user._id,
-          roles: user.roles,
           accessToken: user.accessToken
         }
       });
@@ -184,16 +182,6 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
     console.log(doc);
   });
 });
-
-  // ANSWER BY ID -response in console
-app.get('/question/:question_id/answer/:answer_id', function(req, res){
-  Question.findById(req.params.question_id, function(err, Questions) {
-    console.log(req.params.answer_id);
-    var doc = Questions.answers.id(req.params.answer_id);
-    console.log(doc);
-  });
-});
-
 
 // GET QUESTION by QUESTION ID
 app.get("/questions/id/:_id", async (req, res) => {

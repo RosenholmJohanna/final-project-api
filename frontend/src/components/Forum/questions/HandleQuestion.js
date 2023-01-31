@@ -52,7 +52,6 @@ import  {
   }
 
   const onLike = (id) => {
-    console.log(onLike)
     const options = {
       method: 'PATCH',
       headers: {

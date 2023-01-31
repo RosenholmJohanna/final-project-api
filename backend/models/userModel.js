@@ -9,7 +9,9 @@ export const UserSchema = new mongoose.Schema({
     },
     password: {
       type: String,
-      required: true
+      required: true,
+      trim: true,
+      minlenght: 6
     },
     createdAt: {
       type: Date,

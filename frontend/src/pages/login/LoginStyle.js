@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LoginContainer = styled.div`
 margin-top: 10%;
-margin-bottom: 10%;
+margin-bottom: 50%;
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -11,12 +11,12 @@ align-items: center;
 text-align: center;
 
   @media (min-width: 768px) {
-  margin-bottom: 20%;
+  margin-bottom: 30%;
   } 
   
   @media (min-width: 1024px) {
   margin-top: 3%;
-  margin-bottom: 10%;
+  margin-bottom: 15%;
   } 
 
 a {

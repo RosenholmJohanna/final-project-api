@@ -4,8 +4,8 @@ const BASE_URL = "https://final-project-fullstack-lsdubteuzq-uc.a.run.app";
 
 
 export const API_URL = (slug) => `${BASE_URL}/${slug}`;
-
 export const LOGIN_URL = (slug) => `${BASE_URL}/${slug}`;
+export const REGISTER_URL = (slug) => `${BASE_URL}/${slug}`;
 export const NASA_URL  = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`;
 
 
