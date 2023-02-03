@@ -183,6 +183,76 @@ app.get('/question/:question_id/answer/:answer_id', function(req, res){
   });
 });
 
+
+// PATCH LIKES TO ANSWER
+// app.patch('/answers/:answerId/like', async (req, res) => {
+
+//   const { answerId } = req.params
+//   try {
+//   const updatedAnswer = await Question.findByIdAndUpdate(answerId, {$inc: {likes: 1}},  
+//    )
+//     if (updatedAnswer) {
+//       res.json({ 
+//         success: true,
+//          response: `Answer ${updatedAnswer.id} has updated likes`,
+//         _id: updatedAnswer._id,
+//       });
+//     } else {
+//       res.status(404).json({
+//          success: false, 
+//          message: 'Could not like question' })
+//     }
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: 'Invalid like request', error })
+//   }
+// })
+
+// PATCH LIKES TO ANSWER
+  // app.patch('/question/:questionId/answers/:answerId/like', async (req, res) => {
+  //   const { questionId } = req.params
+  //   const { answerId } = req.params
+  //   try {
+  //     const updatedQuestion = await Question.findByIdAndUpdate({ _id: questionId, 'answer._id': answerId}, {$inc: {'answer.$.like': 1}}) 
+  //     // console.log(updatedQuestion)
+  //     if (updatedQuestion) {
+  //       res.json({ 
+  //         success: true,
+  //         response: `Answer ${answerId} has updated likes`,
+  //         questionId: answerId._id,
+  //         like: updatedQuestion.likes,
+  //         reference: updatedQuestion.answers
+  //       });
+  //     } else {
+  //       res.status(404).json({
+  //         success: false, 
+  //         message: 'Could not like answer' })
+  //     }
+  //   } catch (error) {
+  //     res.status(400).json({ success: false, message: 'Invalid like question request', error })
+  //   }
+  // });
+
+  app.patch('/questions/:questionId/answers/:answerId/like', (req, res) => {
+    Question.findOneAndUpdate(
+      { _id: req.params.questionId, "answers._id": req.params.answerId },
+      { $inc: { "answers.$.like": 1 } },
+      { new: true }
+    )
+      .then((question) => {
+        res.json({
+          success: true,
+          response: question
+        });
+      })
+      .catch((err) => {
+        res.json({
+          success: false,
+          response: err
+        });
+      });
+  });
+
+
 // GET QUESTION by QUESTION ID
 app.get("/questions/id/:_id", async (req, res) => {
   const { _id } = req.params

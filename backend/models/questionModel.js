@@ -32,11 +32,11 @@ export const QuestionSchema = new mongoose.Schema({
         type: Date,
         default: () => new Date() 
       },
-      question: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'question'
-     },
-      likes: {
+    //   question: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'question'
+    //  },
+      like: {
         type: Number,
         default: 0
       }
