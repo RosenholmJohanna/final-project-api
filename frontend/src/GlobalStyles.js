@@ -59,6 +59,18 @@ box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);
   height:30px;
 } 
 `
+
+export const LikeAnswerButton = styled.button`
+margin-left: 3%;
+font-size: 10px;
+width: 50px;
+height:30px;
+border-radius:30px;
+margin-bottom: 0;
+box-shadow: 0 1px 1px rgba(216, 204, 204, 0.867);   
+justify-content: center;
+`
+
 /**/
 
 

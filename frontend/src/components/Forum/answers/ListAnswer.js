@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SingleAnswer from './AnswerForm'
 import questions from "../../../reducers/questions";
 import formatDistance from 'date-fns/formatDistance'
-import  { CreatedAtText }  from '../../../GlobalStyles';
+import  { CreatedAtText, DeleteButton, LikeAnswerButton }  from '../../../GlobalStyles';
 import { AnswerWrapper, AnswerText } from './answersStyle';
 
 
@@ -43,16 +43,27 @@ const AnswerList = ({item}) => {
       .then(() => showUpdatedList())
   }
 
-
+   //DELETE ANSWER
+  const onDeleteAnswer = (questionId, answerId) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      }}
+    fetch(`https://final-project-fullstack-lsdubteuzq-uc.a.run.app/questions/${questionId}/answers/${answerId}`, options)
+      .then(res => res.json())
+      .then(() => showUpdatedList()
+    )}
 
 
   return (
     <>
       {answers.map(answer =>
       <AnswerWrapper item={item} key={answer._id}>
+      <DeleteButton onClick={() => onDeleteAnswer(item._id, answer._id)}>DELETE</DeleteButton>
       <AnswerText>{answer.answer}</AnswerText> 
       <CreatedAtText>{formatDistance(new Date(answer.createdAt), Date.now())}</CreatedAtText>
-      <button onClick={() => onLikeAnswer(item._id, answer._id)} >🙂{answer.like}</button>  
+     <LikeAnswerButton onClick={() => onLikeAnswer(item._id, answer._id)} >🙂{answer.like}</LikeAnswerButton> 
       </AnswerWrapper>
       )}
       <SingleAnswer item={item}  />
